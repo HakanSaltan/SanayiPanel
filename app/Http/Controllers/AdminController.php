@@ -106,11 +106,12 @@ class AdminController extends Controller
             return $this->sonuc(false);
 
         
-        $plaka=plakaSifrele($req['plaka']);
+        $plaka= $this->plakaSifrele($req['plaka']);
         $telefon =  trim($req['telefon']);
         $isimSoyisim =  trim($req['isimSoyisim']);
         $tc =  trim($req['tc']);
         $adres =  trim($req['adres']);
+        $qrCode = "https://chart.googleapis.com/chart?cht=qr&chs=512x512&chl=" . $plaka;
 
         if($telefon && $isimSoyisim){
                 
@@ -127,6 +128,7 @@ class AdminController extends Controller
                 $araba = new Arac();
                 $araba->plaka = $plaka;
                 $araba->musteri_id = $musteriSonId;
+                $araba->qrCode = $qrCode;
                 $araba->save();
                 
 /*              
@@ -154,11 +156,11 @@ class AdminController extends Controller
         ]);
     }
 
-    function plakaSifrele($plaka) {
+    public function plakaSifrele($plaka) {
         return str_replace(" ", "_", preg_replace('!\s+!', ' ', trim($plaka)));
       }
       
-    function plakaCoz($plaka) {
+    public function plakaCoz($plaka) {
     return str_replace("_", " ", $plaka);
     }
     

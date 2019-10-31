@@ -44,15 +44,18 @@
 
         </div>
     </div>
-    <div id="modal2{{$kullanici->id}}" class="modal bottom-sheet">
+    <div id="modal2{{$kullanici->id}}" class="modal modal-fixed-footer">
         <div class="modal-content">
 
             <form role="form" method="post" action="{{asset('/aracGuncelle'.'/'.$arac->id.'/'.$kullanici->id)}}">
                 {{ csrf_field() }}
                 <ul>
                     <li>
-                        <div class="step-title waves-effect">Araç Bilgileri  = <button class="waves-effect waves-light btn gradient-45deg-light-blue-cyan border-round mt-7 z-depth-4 animated rubberBand faster modal-trigger" type="submit">QrCode
-                                    Oluştur</button>
+                    <div>
+
+                    </div>
+                    
+                        <div class="step-title waves-effect">Araç Bilgileri  = <img src="{{$arac->qrCode}}" alt="">
 
                         </div>
                         <div class="step-content">
