@@ -1,0 +1,285 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:300,700');
+
+* {
+	padding: 0;
+	margin: 0;
+	position: relative;
+}
+
+body {
+	background: #25A3FF;
+}
+
+.a_r {
+	height: 0;
+	padding-top: calc((375 / 667) * 100%);
+	position: relative;
+}
+
+.app {
+	/* z-index: 1000000; */
+	position: absolute;
+	top: 0;
+	left: 5px;
+	width: 100%;
+	height: 100%;
+	max-height: calc(100% - 25px);
+	max-width: calc(100% - 25px);
+	min-height: 50%;
+	min-width: 50%;
+	/* top: 0;
+	bottom: 0;
+	left: 0; */
+	/* width: 375px; */
+	/* height: 667px; */
+	background: #fff;
+	box-shadow: 0px 0px 100px rgba(0,0,0,0.5);
+	overflow: hidden;
+	border-radius: 5px;
+	/* height: 95%;
+	margin: 2%; */
+	/* width: 33vw;
+	height: 100vh */
+}
+
+/*
+	.top-panel
+*/
+
+.app .top-panel {
+	width: 100%;
+	font-family: "Lato", sans-serif;
+	display: flex;
+	flex-direction: row;
+	height: 25px;
+}
+
+
+.app .top-panel .left,
+.app .top-panel .center,
+.app .top-panel .right {
+	width: 100%;
+	font-size: 10px;
+	padding: 5px 0px;
+	font-weight: bold;
+}
+
+/*
+	.top-panel .left
+*/
+
+.app .top-panel .left {
+	text-align: left;
+	padding-left: 10px;
+}
+
+.app .top-panel .left .circles,
+.app .top-panel .left .operator {
+	display: inline-block;
+}
+
+.app .top-panel .left .circles span {
+	display: inline-block;
+	width: 5px;
+	height: 5px;
+	border-radius: 50%;
+	border: 1px solid #000;
+	margin-right: -1px;
+}
+
+.app .top-panel .left .circles span.full {
+	background: #000;
+}
+
+.app .top-panel .left .operator p {
+	margin-left: 3px;
+}
+
+/*
+	.top-panel .center
+*/
+
+.app .top-panel .center {
+	text-align: center;
+}
+
+/*
+	.top-panel .right
+*/
+
+.app .top-panel .right {
+	text-align: right;
+	padding-right: 10px;
+}
+
+.app .top-panel .right .percentage,
+.app .top-panel .right .battery {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.app .top-panel .right .percentage {
+	margin-right: 3px;
+}
+
+.app .top-panel .right .battery .icon {
+	display: block;
+	width: 15px;
+	height: 9px;
+	background: #000;
+	margin-right: 2px;
+}
+
+.app .top-panel .right .battery .icon:before {
+	content: "";
+	position: absolute;
+	height: 7px;
+	width: 4px;
+	background: #fff;
+	right: 1px;
+	top: 1px;
+}
+
+.app .top-panel .right .battery .icon:after {
+	content: "";
+	position: absolute;
+	height: 4px;
+	width: 2px;
+	background: #000;
+	right: -2px;
+	top: calc(50% - 2px);
+}
+
+/*
+	.screen
+*/
+
+.screen {
+	position: absolute;
+	width: 100%;
+	height: calc(100% - 25px);
+	background: #fff;
+	font-family: "Lato", sans-serif;
+}
+
+/*
+	!!! REMOVE EVERYTHING DOWN FROM HERE !!!
+*/
+iframe {
+	border: 0px;
+}
+
+  
+  h1 {
+	position: relative;
+	color: #fff;
+	opacity: 0;
+	transition: .8s ease-in-out;
+  }
+
+  h2 {
+	position: relative;
+	color: #fff;
+	opacity: 0;
+	transition: .8s ease-in-out;
+  }
+  
+  #progress {
+	position: absolute;
+	background: #0069ec;
+	height: 100vh;
+	width: 0;
+	transition: width 0.2s ease-in-out;
+	top: 0;
+	left: 0;
+  }
+  
+  .center {
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+  }
+  
+  /******
+	Form
+   ******/
+  
+  #register {
+	background: #fff;
+	position: relative;
+	width: 410px;
+	padding: 2px 15px 20px 15px;
+	box-shadow: 0 16px 24px 2px rgba(0,0,0,0.14), 0 6px 30px 5px rgba(0,0,0,0.12), 0 8px 10px -5px rgba(0,0,0,0.3);
+	transition: transform .1s ease-in-out;
+  }
+  
+  #register.close {
+	width: 0;
+	padding: 0;
+	overflow: hidden;
+	transition: .8s ease-in-out;
+	box-shadow: 0 16px 24px 2px rgba(0,0,0,0);
+  }
+  
+  .next {
+	position: absolute;
+	right: 20px;
+	bottom: 10px;
+	font-size: 40px;
+	color: #25a3ff;
+	float: right;
+	cursor: pointer;
+  }
+  .next:hover {color: #333}
+  .wrong .next {color: #ff2d26}
+  .close .next {color: #fff}
+  
+  #inputContainer {
+	position: relative;
+	opacity: 0;
+	width: 350px;
+	margin-top: 25px;
+	transition: opacity .3s ease-in-out;
+  }
+  
+  #inputContainer input {
+	width: 100%;
+	padding: 0 5px;
+	border: none;
+	font-size: 20px;
+	font-weight: bold;
+	outline: 0;
+	background: transparent;
+	box-shadow:none;
+  }
+  
+  #inputLabel {
+	position: absolute;
+	pointer-events: none;
+	top: 0;
+	left: 0;
+	font-size: 20px;
+	font-weight: bold;
+	padding: 0 5px;
+	transition: .2s ease-in-out;
+  }
+  
+  #inputContainer input:valid + #inputLabel {
+	top: -15px;
+	font-size: 11px;
+	font-weight: normal;
+	color: #9e9e9e;
+  }
+  
+  #inputProgress {
+	position: absolute;
+	border-bottom: 2px solid #25a3ff;
+	padding: 3px 0;
+	width: 0;
+	transition: width .6s ease-in-out;
+  }
+  
+  .wrong #inputProgress {
+	border-color: #ff2d26;
+  }
