@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="apple-touch-icon" sizes="57x57" href="/icon/apple-icon-57x57.png">
+    <!-- <link rel="apple-touch-icon" sizes="57x57" href="/icon/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="/icon/apple-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="/icon/apple-icon-72x72.png">
     <link rel="apple-touch-icon" sizes="76x76" href="/icon/apple-icon-76x76.png">
@@ -18,7 +18,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/icon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="/icon/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/icon/favicon-16x16.png">
-    <link rel="manifest" href="/manifest.json">
+    <link rel="manifest" href="/manifest.json"> -->
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/icon/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
@@ -51,6 +51,12 @@
         .top-right {
             position: absolute;
             right: 10px;
+            top: 18px;
+        }
+
+        .top-left {
+            position: absolute;
+            left: 10px;
             top: 18px;
         }
 
@@ -107,6 +113,10 @@
         {{ session('status') }}
     </div> -->
     @endif
+
+    <div class="top-left links login">
+        <a id="geri-buton" href="javascript:_geri()"><- GERİ</a>
+    </div>
 
     @if (Route::has('login'))
     <div class="top-right links login">
@@ -251,6 +261,8 @@
 
 
     ;
+
+    var _geri;
     (function () {
 
         var tTime = 100
@@ -261,6 +273,9 @@
         // --------------
         var position = 0
 
+        var geriEl = document.getElementById("geri-buton");
+        geriEl.style.display = "none";
+
         putQuestion()
 
         progressButton.addEventListener('click', validate)
@@ -269,7 +284,7 @@
             transform(0, 0) // ie hack to redraw
             if (e.keyCode == 13) validate();
 
-            if(e.keyCode == 37) geri();
+            // if(e.keyCode == 37) geri();
         })
 
 
@@ -435,8 +450,17 @@
 
         }
 
-        function geri() {
+        _geri = function geri() {            
             ok(() => {
+
+                if(position == 1) {
+                    geriEl.style.display = "none";
+                }
+
+                if(position < 1) {
+                    return;
+                }
+
                 --position;
 
                 // set the progress of the background
@@ -472,6 +496,9 @@
         }
 
         function ok(callback) {
+            if(position == 0 && geriEl.style.display == "none")
+                geriEl.style.display = "block";
+
             register.className = ''
             setTimeout(transform, tTime * 0, 0, 10)
             setTimeout(transform, tTime * 1, 0, 0)

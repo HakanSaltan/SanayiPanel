@@ -25,6 +25,8 @@
     <!-- BEGIN: Custom CSS-->
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/custom/custom.css') }}">
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.2/dist/Chart.js"></script>
+
     
     @yield('css')
 </head>

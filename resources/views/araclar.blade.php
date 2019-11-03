@@ -44,68 +44,52 @@
 
         </div>
     </div>
-    <div id="modal2{{$kullanici->id}}" class="modal modal-fixed-footer">
-        <div class="modal-content">
-
-            <form role="form" method="post" action="{{asset('/aracGuncelle'.'/'.$arac->id.'/'.$kullanici->id)}}">
+    <div id="modal2{{$kullanici->id}}" class="modal">
+        <form role="form" method="post" action="{{asset('/aracGuncelle'.'/'.$arac->id.'/'.$kullanici->id)}}">
+            <div class="modal-content">
                 {{ csrf_field() }}
-                <ul>
-                    <li>
-                    <div>
-
+                <div class="step-title waves-effect">Araç Bilgileri  = <img class="qr-code" src="{{$arac->qrCode}}" alt="qr-code"></div>
+                <div class="step-content">
+                    <div class="row">
+                        <div class="input-field col m12 s12">
+                            <label for="plaka">Plaka: <span class="red-text">*</span></label>
+                            <input type="text" class="validate" value="{{$arac->plaka}}" id="plaka" name="plaka"
+                                required>
+                        </div>
+                        <div class="input-field col m12 s12">
+                            <label for="km">Km: <span class="red-text">*</span></label>
+                            <input type="text" class="validate" value="{{$arac->km}}" id="km" name="km"
+                                required>
+                        </div>
                     </div>
-                    
-                        <div class="step-title waves-effect">Araç Bilgileri  = <img src="{{$arac->qrCode}}" alt="">
-
+                    <div class="row">
+                        <div class="input-field col m12 s12">
+                            <select name="marka" id="marka">
+                                <option value="{{$arac->model}}" disabled selected>{{$arac->model}}
+                                </option>
+                                @foreach ($markalar as $marka)
+                                <option value="{{$marka->marka}}">{{$marka->marka}}</option>
+                                @endforeach
+                            </select>
                         </div>
-                        <div class="step-content">
-                            <div class="row">
-                                <div class="input-field col m12 s12">
-                                    <label for="plaka">Plaka: <span class="red-text">*</span></label>
-                                    <input type="text" class="validate" value="{{$arac->plaka}}" id="plaka" name="plaka"
-                                        required>
-                                </div>
-                                <div class="input-field col m12 s12">
-                                    <label for="km">Km: <span class="red-text">*</span></label>
-                                    <input type="text" class="validate" value="{{$arac->km}}" id="km" name="km"
-                                        required>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="input-field col m12 s12">
-                                    <select name="marka" id="marka">
-                                        <option value="{{$arac->model}}" disabled selected>{{$arac->model}}
-                                        </option>
-                                        @foreach ($markalar as $marka)
-                                        <option value="{{$marka->marka}}">{{$marka->marka}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="input-field col m12 s12">
-                                    <select name="aracModel" id="aracModel">
-                                        <option value="{{$arac->marka}}" disabled selected>Model</option>
-                                        @foreach ($marka->AracModel as $model)
-                                        <option value="{{$model->model}}">{{$model->model}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-
-
-                            <div class="row">
-                               
-                                <div class="col m4 s12 mb-1">
-                                    <button class="waves-effect waves-light btn gradient-45deg-green-teal border-round mt-7 z-depth-4 animated rubberBand faster modal-trigger"
-                                        type="submit">Güncelle</button>
-                                </div>
-                            </div>
+                        <div class="input-field col m12 s12">
+                            <select name="aracModel" id="aracModel">
+                                <option value="{{$arac->marka}}" disabled selected>Model</option>
+                                @foreach ($marka->AracModel as $model)
+                                <option value="{{$model->model}}">{{$model->model}}</option>
+                                @endforeach
+                            </select>
                         </div>
-
-                    </li>
-
-                </ul>
-            </form>
-        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col m4 s12 mb-1">
+                            <button class="waves-effect waves-light btn gradient-45deg-green-teal border-round mt-7 z-depth-4 animated rubberBand faster modal-trigger"
+                                type="submit">Güncelle</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
 
     @endforeach
@@ -127,6 +111,11 @@
         left: 15%;
         top: 50%;
         font-size: 3.5vw;
+    }
+
+    .qr-code {
+        width: 200px;
+        height: 200px;
     }
 
 </style>
