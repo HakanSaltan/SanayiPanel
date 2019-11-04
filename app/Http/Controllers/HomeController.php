@@ -32,6 +32,8 @@ class HomeController extends Controller
      */
     public function index()
     {
+        //auth()->user()->assignRole('admin');
+        //auth()->user()->assignRole('musteri');
         $kullanici = User::where('id', '=',Auth::user()->id)->get();
         return view('home')->with('kullanici', $kullanici);
     }

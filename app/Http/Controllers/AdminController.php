@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use App\User;
 use App\Musteri;
 use App\Arac;
@@ -11,13 +12,16 @@ use App\Marka;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
+use \Illuminate\Support\Collection;
+use \Spatie\Permission\Models\Role;
+use \Spatie\Permission\Models\Permission;
 class AdminController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
     }
-
+   
     
     public function aracGuncelle($id,$mid,Request $request)
 	{
@@ -72,7 +76,7 @@ class AdminController extends Controller
         $tc =  trim($req['tc']);
         $adres =  trim($req['adres']);
 
-        if($telefon && $isimSoyisim){
+        if($telefon){
                 
                 $musteri = Musteri::find($id);
                 $musteri->user_id = Auth::user()->id;
@@ -93,6 +97,7 @@ class AdminController extends Controller
     public function musteriSil($id)
     {
         Musteri::find($id)->delete();
+
         return Redirect::back()->with('success', ['Müşteri Başarıyla Silinmiştir']);;
     }
 
@@ -121,8 +126,8 @@ class AdminController extends Controller
                 $musteri->tc = $tc;
                 $musteri->isimSoyisim = $isimSoyisim;
                 $musteri->adres = $adres;
-
                 $musteri->save();
+
                 $musteriSonId = $musteri->id;
 
                 $araba = new Arac();
@@ -130,8 +135,9 @@ class AdminController extends Controller
                 $araba->musteri_id = $musteriSonId;
                 $araba->qrCode = $qrCode;
                 $araba->save();
-                
-/*              
+
+
+/*              Musteri::find($musteriSonId)->first()->assignRole('musteri');
                 $kullanici = Auth::user();
                 DB::insert('insert into musteri_user (user_id, musteri_id) values (?, ?)', [
                     $kullanici->id,

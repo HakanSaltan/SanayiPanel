@@ -39,9 +39,7 @@
     </div>
     <div id="modal2{{$kullanici->id}}" class="modal bottom-sheet">
         <div class="modal-content">
-
-            <form role="form" method="post" action="{{asset('/musteriGuncelle'.'/'.$kullanici->id)}}">
-                {{ csrf_field() }}
+            <form id="musteriGuncelle" @submit="musteriGuncelle">
                 <ul>
                     <li>
                         <div class="step-title waves-effect">Kullanıcı Bilgileri</div>
@@ -50,23 +48,23 @@
                                 <div class="input-field col m6 s12">
                                     <label for="isimSoyisim">İsim Soyisim: <span class="red-text">*</span></label>
                                     <input type="text" id="isimSoyisim" value="{{$kullanici->isimSoyisim}}"
-                                        name="isimSoyisim" class="validate" required>
+                                        name="isimSoyisim" v-model="isimSoyisim" class="validate" required>
                                 </div>
                                 <div class="input-field col m6 s12">
                                     <label for="telefon">Telefon Numarası: <span class="red-text">*</span></label>
                                     <input type="number" class="validate" value="{{$kullanici->telefon}}" name="telefon"
-                                        id="telefon" required>
+                                        id="telefon" v-model="telefon" required>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="input-field col m6 s12">
                                     <label for="tc">Tc: <span class="red-text">*</span></label>
-                                    <input type="number" id="tc" value="{{$kullanici->tc}}" name="tc" class="validate"
+                                    <input type="number" id="tc" value="{{$kullanici->tc}}" name="tc" v-model="tc" class="validate"
                                         required>
                                 </div>
                                 <div class="input-field col m6 s12">
                                     <label for="adres">Adres: <span class="red-text">*</span></label>
-                                    <input type="text" class="validate" value="{{$kullanici->adres}}" name="adres"
+                                    <input type="text" class="validate" value="{{$kullanici->adres}}" name="adres" v-model="adres"
                                         id="adres" required>
                                 </div>
 
@@ -96,7 +94,28 @@
 @section('js')
 
 <script>
+function musteriGuncelle() {
+            let token = '{{csrf_token()}}';
+            let telefon = telefon.value;
+            let isimSoyisim = isimSoyisim.value;
+            let tc = tc.value;
+            let adres = adres.value;
 
+
+            axios.post("/musteriGuncelle/"+ kullanici->id, {
+                token: token,
+                telefon: telefon,
+                isimSoyisim: isimSoyisim,
+                tc: tc,
+                adres: adres
+            })
+            .then(res => {
+                console.log("başarılı "+ res);
+            })
+            .catch(er => {
+                console.log("başarısız "+ er);
+            });
+        }
 </script>
 
 @endsection

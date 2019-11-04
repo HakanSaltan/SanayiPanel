@@ -46,6 +46,13 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if ($exception instanceof \Spatie\Permission\Exceptions\UnauthorizedException) {
+            return response()->json([
+                'responseMessage' => 'Bu bilgiye ulasacak yetkiye sahip degilsiniz',
+                'responseStatus'  => 403,
+            ]);
+        }
         return parent::render($request, $exception);
+        
     }
 }

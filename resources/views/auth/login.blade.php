@@ -41,7 +41,7 @@
       <div class="row margin">
         <div class="input-field col s12">
           <i class="material-icons prefix pt-2">person_outline</i>
-          <input id="email" name="email" value="{{ old('email') }}" type="text" required autocomplete="email" autofocus>
+          <input id="email" name="email" value="{{ old('email') }}" type="text" required autofocus>
           <label for="username" class="center-align">Kullanıcı Adı</label>
         </div>
       </div>

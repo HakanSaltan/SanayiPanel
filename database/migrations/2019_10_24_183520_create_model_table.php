@@ -15,7 +15,8 @@ class CreateModelTable extends Migration
     {
         Schema::create('model', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->timestamps();
+            $table->integer('marka_id');
+            $table->text('name');
         });
     }
 

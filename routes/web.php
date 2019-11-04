@@ -1,17 +1,10 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 use App\User;
+
+//Aşağıdaki adresten route ları kontrol edebilirsiniz
+//https://docs.spatie.be/laravel-permission/v3/basic-usage/middleware/
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -21,21 +14,45 @@ Auth::routes();
 
 //AracController
 Route::get('/aracdetay/{plaka?}', 'AracController@aracDetay')->name('aracDetay');
-
-//HomeController 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/profile', 'HomeController@profile')->name('profile');
-Route::get('/musterilerim', 'HomeController@musterilerim');
-Route::get('/araclarim', 'HomeController@araclarim');
 
-//AdminController
-Route::post('/musteriKayit', 'AdminController@musteriKayit')->name('musteriKayit');
+Route::group(['middleware' => ['role:super-admin']], function () {
+    //
 
-//AdminController Araç
-Route::get('/aracGuncelle/{id?}/{mid?}', 'AdminController@aracGuncelle')->name('aracGuncelle');
-Route::get('/aracSil/{id?}', 'AdminController@aracSil')->name('aracSil');
+    
+});
+Route::group(['middleware' => ['role:admin']], function () {
 
-//AdminController Musteri
-Route::get('/musteriGuncelle/{id?}', 'AdminController@musteriGuncelle')->name('musteriGuncelle');
-Route::get('/musteriSil/{id?}', 'AdminController@musteriSil')->name('musteriSil');
+    //HomeController 
+    Route::get('/musterilerim', 'HomeController@musterilerim');
+
+    //AdminController
+    Route::post('/musteriKayit', 'AdminController@musteriKayit')->name('musteriKayit');
+
+    //AdminController Musteri
+    Route::post('/musteriGuncelle/{id?}', 'AdminController@musteriGuncelle')->name('musteriGuncelle');
+    Route::post('/musteriSil/{id?}', 'AdminController@musteriSil')->name('musteriSil');
+
+    //AdminController Araç
+    Route::post('/aracGuncelle/{id?}/{mid?}', 'AdminController@aracGuncelle')->name('aracGuncelle');
+    Route::post('/aracSil/{id?}', 'AdminController@aracSil')->name('aracSil');
+
+});
+Route::group(['middleware' => ['role:admin|musteri']], function () {
+
+     //HomeController 
+     Route::get('/profile', 'HomeController@profile')->name('profile');
+     Route::get('/araclarim', 'HomeController@araclarim');
+});
+
+
+
+
+
+
+
+
+
+
+
 

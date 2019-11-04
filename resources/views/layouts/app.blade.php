@@ -99,61 +99,31 @@
             
         <li class="bold"><a class="waves-effect waves-cyan " href="{{asset('/home')}}"><i class="material-icons">mail_outline</i><span class="menu-title" data-i18n="">Anasayfa</span></a>
         </li>
+        @role('admin')
         <li class="navigation-header"><a class="navigation-header-text">Araçlar</a><i class="navigation-header-icon material-icons">more_horiz</i>
         </li>
         <li class="bold"><a class="collapsible-header waves-effect waves-cyan " href="#"><i class="material-icons">settings_input_svideo</i><span class="menu-title" data-i18n="">Araç</span><span class="badge badge pill orange float-right mr-10">3</span></a>
-            <div class="collapsible-body">
-                <ul class="collapsible collapsible-sub" data-collapsible="accordion">
-                    <li><a class="collapsible-body" href="dashboard-modern.html" data-i18n=""><i class="material-icons">radio_button_unchecked</i><span>Araç Ekle</span></a>
-                    </li>
-                    <li><a class="collapsible-body" href="{{asset('/araclarim')}}" data-i18n=""><i class="material-icons">radio_button_unchecked</i><span>Araç Bilgisi</span></a>
-                    </li>
-                </ul>
-            </div>
-        </li>
-        <li class="bold"><a class="collapsible-header waves-effect waves-cyan " href="#"><i class="material-icons">dvr</i><span class="menu-title" data-i18n="">Kullanıcı</span><span class="badge badge pill orange float-right mr-10">3</span></a>
-            <div class="collapsible-body">
-                <ul class="collapsible collapsible-sub" data-collapsible="accordion">
-                    <li><a class="collapsible-body" href="dashboard-modern.html" data-i18n=""><i class="material-icons">radio_button_unchecked</i><span>Kullanıcı Ekle</span></a>
-                    </li>
-                  <li><a class="collapsible-body" href="{{asset('/musterilerim')}}" data-i18n=""><i class="material-icons">radio_button_unchecked</i><span>Kullanıcı Bilgisi</span></a>
-                    </li>
-                </ul>
-            </div>
-        </li>
-      <!--
-      <li class="bold"><a class="collapsible-header waves-effect waves-cyan " href="#"><i class="material-icons">dvr</i><span class="menu-title" data-i18n="">Kullanıcı</span></a>
-        <div class="collapsible-body">
-          <ul class="collapsible collapsible-sub" data-collapsible="accordion">
-            <li><a class="collapsible-body collapsible-header waves-effect waves-cyan" href="#" data-i18n=""><i class="material-icons">radio_button_unchecked</i><span>Vertical</span></a>
-              <div class="collapsible-body">
-                <ul class="collapsible" data-collapsible="accordion">
-                  <li><a class="collapsible-body" href="../vertical-modern-menu-template/" data-i18n=""><i class="material-icons">radio_button_unchecked</i><span>Modern  Menu</span></a>
+          <div class="collapsible-body">
+              <ul class="collapsible collapsible-sub" data-collapsible="accordion">
+                  <li><a class="collapsible-body" href="{{asset('/araclarim')}}" data-i18n=""><i class="material-icons">radio_button_unchecked</i><span>Araç Bilgisi</span></a>
                   </li>
-                  <li><a class="collapsible-body" href="../vertical-menu-nav-dark-template/" data-i18n=""><i class="material-icons">radio_button_unchecked</i><span>Navbar Dark</span></a>
-                  </li>
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <li><a class="collapsible-body collapsible-header waves-effect waves-cyan" href="#" data-i18n=""><i class="material-icons">radio_button_unchecked</i><span>Horizontal</span></a>
-              <div class="collapsible-body">
-                <ul class="collapsible" data-collapsible="accordion">
-                  <li><a class="collapsible-body" href="../horizontal-menu-template/" data-i18n=""><i class="material-icons">radio_button_unchecked</i><span>Horizontal Menu</span></a>
-                  </li>
-                </ul>
-              </div>
-            </li>
-          </ul>
-        </div>
+              </ul>
+          </div>
       </li>
-    -->
-      
+      <li class="bold"><a class="collapsible-header waves-effect waves-cyan " href="#"><i class="material-icons">dvr</i><span class="menu-title" data-i18n="">Kullanıcı</span><span class="badge badge pill orange float-right mr-10">3</span></a>
+          <div class="collapsible-body">
+              <ul class="collapsible collapsible-sub" data-collapsible="accordion">
+                <li><a class="collapsible-body" href="{{asset('/musterilerim')}}" data-i18n=""><i class="material-icons">radio_button_unchecked</i><span>Kullanıcı Bilgisi</span></a>
+                  </li>
+              </ul>
+          </div>
+      </li>
+        @endrole
     <div class="navigation-background"></div><a class="sidenav-trigger btn-sidenav-toggle btn-floating btn-medium waves-effect waves-light hide-on-large-only" href="#" data-target="slide-out"><i class="material-icons">menu</i></a>
 </aside>
 
-    <div id="main">
-        <div class="row">
+<div id="main">
+    <div class="row">
             <!--
           <div id="breadcrumbs-wrapper" data-image="{/{ asset('app-assets/images/gallery/breadcrumb-bg.jpg') }}">
             
@@ -186,6 +156,7 @@
                           
                 </div>
 <!-- START RIGHT SIDEBAR NAV -->
+@role('admin')
     <aside id="right-sidebar-nav">
         <div id="slide-out-right" class="slide-out-right-sidenav sidenav rightside-navigation">
            <div class="row">
@@ -265,6 +236,7 @@
                         </ul>
                     </div>
                 </div>
+                @endrole()
             </div>
         </div>
     </div>

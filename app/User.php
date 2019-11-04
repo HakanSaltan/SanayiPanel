@@ -7,6 +7,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Permission\Traits\HasRoles;
 //use Spatie\Permission\Traits\HasRoles;
 
 use Storage;
@@ -15,6 +16,7 @@ class User extends Authenticatable
 {
     use Notifiable;
     use SoftDeletes;
+    use HasRoles;
     //use HasRoles;
 
     /**
@@ -23,7 +25,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'avatar',
+        'name', 'email', 'password',
     ];
 
     /**
@@ -35,14 +37,9 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    protected $dates = ['deleted_at'];
 
-    protected $appends = ['avatar_url'];
 
-    public function getAvatarUrlAttribute()
-    {
-        return Storage::url('avatars/'.$this->id.'/'.$this->avatar);
-    }
+    
 
     public function Musteri(){
         return $this->hasMany('App\Musteri','user_id',"id");
