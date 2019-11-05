@@ -39,7 +39,7 @@
     @yield('css')
 </head>
 <!-- END: Head-->
-
+<?php $qrCodes = \App\qrOkutulan::all();?>
 <body class="vertical-layout page-header-light vertical-menu-collapsible vertical-dark-menu 2-columns  "
     data-open="click" data-menu="vertical-dark-menu" data-col="2-columns">
 
@@ -232,7 +232,7 @@
 
                                                     <li class="tab col s12 p-0">
                                                         <a href="#activity" class="active">
-                                                            <span>Olaylar</span>
+                                                            <span>QR Okutulanlar</span>
                                                         </a>
                                                     </li>
                                                 </ul>
@@ -244,36 +244,18 @@
 
                                     <div id="activity" class="col s12">
                                         <div class="activity">
-                                            <p class="mt-5 mb-0 ml-5 font-weight-900">GÜNCEL OLAYLAR</p>
                                             <ul class="collection with-header">
-                                                <li class="collection-item">
-                                                    <div class="font-weight-900">
-                                                        Homepage mockup design <span class="secondary-content">Just
-                                                            now</span>
-                                                    </div>
-                                                    <p class="mt-0 mb-2">Melissa liked your activity.</p>
-                                                    <span class="new badge amber" data-badge-caption="Important">
-                                                    </span>
-                                                </li>
-                                                <li class="collection-item">
-                                                    <div class="font-weight-900">
-                                                        Melissa liked your activity Drinks. <span
-                                                            class="secondary-content">10 mins</span>
-                                                    </div>
-                                                    <p class="mt-0 mb-2">Here are some news feed interactions concepts.
-                                                    </p>
-                                                    <span class="new badge light-green"
-                                                        data-badge-caption="Resolved"></span>
-                                                </li>
-                                                <li class="collection-item">
-                                                    <div class="font-weight-900">
-                                                        Josh is now following you <span class="secondary-content">5
-                                                            hrs</span>
-                                                    </div>
-                                                    <p class="mt-0 mb-2">Here are some news feed interactions concepts.
-                                                    </p>
-                                                    <span class="new badge red" data-badge-caption="Pending"></span>
-                                                </li>
+                                              @if(!empty($qrCodes))
+                                                @foreach ($qrCodes as $qrCode)
+                                                  <li class="collection-item">
+                                                      <div class="font-weight-900">
+                                                          <a class="bold">{{$qrCode->Arac->plaka}}</a> <span class="secondary-content">{{$qrCode->Arac->Musteri->isimSoyisim}}</span>
+                                                      </div>
+                                                      <p class="mt-0 mb-2">{{$qrCode->created_at}}</p>
+                                                      </span>
+                                                  </li>
+                                                  @endforeach
+                                              @endif
                                             </ul>
 
                                         </div>

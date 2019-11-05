@@ -6,13 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Musteri extends Model
+class qrOkutulan extends Model
 {
     use SoftDeletes;
-    protected $table = 'musteri';
-
+    protected $table = 'qr_okutulan';
     public function Arac(){
-        return $this->hasMany('App\Arac');
+        
+        return $this->belongsTo('App\Arac','arac_id','id');
     }
-    
 }
