@@ -62,6 +62,7 @@
                                 required>
                         </div>
                     </div>
+                    @if(!empty($marka)&&!empty($model))
                     <div class="row">
                         <div class="input-field col m12 s12">
                             <select name="marka" id="marka">
@@ -81,6 +82,7 @@
                             </select>
                         </div>
                     </div>
+                    @endif
                     <div class="row">
                         <div class="col m4 s12 mb-1">
                             <button class="waves-effect waves-light btn gradient-45deg-green-teal border-round mt-7 z-depth-4 animated rubberBand faster modal-trigger"

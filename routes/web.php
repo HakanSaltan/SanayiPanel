@@ -22,6 +22,11 @@ Route::group(['middleware' => ['role:super-admin']], function () {
     
 });
 Route::group(['middleware' => ['role:admin']], function () {
+    //RoleController
+    Route::resource('roles','RoleController');
+
+    //UserController
+    Route::resource('users','UserController');
 
     //HomeController 
     Route::get('/musterilerim', 'HomeController@musterilerim');
