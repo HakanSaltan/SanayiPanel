@@ -10,6 +10,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+//arac-detay sayfası
+Route::get('/arac-detay', function () {
+    return view('arac/arac-detay');
+});
+//
 Auth::routes();
 
 //AracController
