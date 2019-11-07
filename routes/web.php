@@ -7,11 +7,11 @@ use App\User;
 
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('welcome'); 
 });
 
 //arac-detay sayfası
-;
+
 Route::get('/arac-detay/{id?}', 'AdminController@aracDetay')->name('arac-Detay');
 //
 Auth::routes();

@@ -176,7 +176,6 @@ class AdminController extends Controller
         
         return view('arac/arac-detay')->with('aracdetay', $aracdetay);
         
-
     }
     
 

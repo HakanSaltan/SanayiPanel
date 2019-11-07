@@ -66,7 +66,7 @@
                   <div>
                      <span class="chart-title white-text">Durum</span>
                      <div class="chart-revenue cyan darken-2 white-text">
-                        <p class="chart-revenue-total">4,500.85  ₺</p>
+                        <p class="chart-revenue-total">4,500.85 ₺</p>
                         <p class="chart-revenue-per"><i class="material-icons">arrow_drop_up</i> 21.80 %</p>
                      </div>
                      <div class="switch chart-revenue-switch right">

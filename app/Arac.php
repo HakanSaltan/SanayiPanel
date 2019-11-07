@@ -19,5 +19,6 @@ class Arac extends Model
     public function Musteri(){
         
         return $this->belongsTo('App\musteri','musteri_id','id');
+    
     }
 }
