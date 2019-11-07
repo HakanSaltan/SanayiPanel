@@ -16,7 +16,7 @@ class Arac extends Model
         
         return $this->hasMany('App\Hizmet');
     }
-    public function musteri(){
+    public function Musteri(){
         
         return $this->belongsTo('App\musteri','musteri_id','id');
     }

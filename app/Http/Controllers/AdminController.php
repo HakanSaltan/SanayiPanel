@@ -169,6 +169,15 @@ class AdminController extends Controller
     public function plakaCoz($plaka) {
     return str_replace("_", " ", $plaka);
     }
+
+    public function aracDetay($id=0)
+    {
+        $aracdetay = Arac::find($id)->first();
+        
+        return view('arac/arac-detay')->with('aracdetay', $aracdetay);
+        
+
+    }
     
 
 }

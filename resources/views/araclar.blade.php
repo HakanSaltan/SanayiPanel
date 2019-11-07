@@ -37,8 +37,54 @@
 
     <div id="modal1{{$kullanici->id}}" class="modal bottom-sheet">
         <div class="modal-content">
-            <h4>{{$kullanici->isimSoyisim}}</h4>
-            <p>1</p>
+            <div class="col s12">
+                <div class="col s6">
+                    <h4>{{$kullanici->isimSoyisim}}</h4>
+                </div>
+                <div class="col s6 right-align">
+                <a href="{{asset('/arac-detay/'.$arac->id)}}" class="mb-6 btn waves-effect waves-light gradient-45deg-light-blue-cyan">Tüm Detaylar</a>
+                </div>
+                
+            </div>
+            
+            <div class="row">
+                <div class="col s12 m6 l3 card-width">
+                        <div class="card border-radius-6">
+                              <div class="card-content center-align">
+                                    <i class="material-icons amber-text small-ico-bg mb-5">near_me</i>
+                                    <h4 class="m-0"><b>97.585</b></h4>
+                                    <p>Araç Kilometresi</p>
+                              </div>
+                        </div>
+                </div>
+                <div class="col s12 m6 l3 card-width">
+                        <div class="card border-radius-6">
+                              <div class="card-content center-align">
+                                    <i class="material-icons amber-text small-ico-bg mb-5">directions_car</i>
+                                    <h4 class="m-0"><b>Audi</b></h4>
+                                    <p>Araç Markası</p>
+                              </div>
+                        </div>
+                </div>
+                <div class="col s12 m6 l3 card-width">
+                        <div class="card border-radius-6">
+                              <div class="card-content center-align">
+                                    <i class="material-icons amber-text small-ico-bg mb-5">eject</i>
+                                    <h4 class="m-0"><b>A4 SEDAN PI</b></h4>
+                                    <p>Araç Modeli</p>
+                              </div>
+                        </div>
+                </div>
+                <div class="col s12 m6 l3 card-width">
+                        <div class="card border-radius-6">
+                              <div class="card-content center-align">
+                                    <i class="material-icons amber-text small-ico-bg mb-5">access_time</i>
+                                    <h4 class="m-0"><b>7 Kasım 2019</b></h4>
+                                    <p>Servis Giriş Tarihi</p>
+                              </div>
+                        </div>
+                </div>
+            </div>
         </div>
         <div class="modal-footer">
 

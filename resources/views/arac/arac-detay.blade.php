@@ -27,7 +27,7 @@
           <div class="container">
             <div class="row">
               <div class="col s12 m6 l6">
-                <h5 class="breadcrumbs-title mt-0 mb-0">54 S 9854 Detayları</h5>
+                <h5 class="breadcrumbs-title mt-0 mb-0">{{$aracdetay->plaka}} Plakalı Arac Detayları</h5>
               </div>
             </div>
           </div>
@@ -38,7 +38,7 @@
                               <div class="card-content center-align">
                                     <i class="material-icons amber-text small-ico-bg mb-5">near_me</i>
                                     <h4 class="m-0"><b>97.585</b></h4>
-                                    <p>Araç Kilometresi</p>
+                                    <p>{{$aracdetay->km}}</p>
                               </div>
                         </div>
             </div>
@@ -65,7 +65,8 @@
                               <div class="card-content center-align">
                                     <i class="material-icons amber-text small-ico-bg mb-5">face</i>
                                     <h4 class="m-0"><b>Batuhan Haymana</b></h4>
-                                    <p>Araç Sahibi</p>
+                                    <p>{{$aracdetay->Musteri->isimSoyisim}}</p>
+                                   
                               </div>
                         </div>
             </div>
