@@ -175,7 +175,6 @@ class AdminController extends Controller
         $aracdetay = Arac::find($id)->first();
         
         return view('arac/arac-detay')->with('aracdetay', $aracdetay);
-        
     }
     
 

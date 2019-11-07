@@ -11,7 +11,6 @@ Route::get('/', function () {
 });
 
 //arac-detay sayfası
-
 Route::get('/arac-detay/{id?}', 'AdminController@aracDetay')->name('arac-Detay');
 //
 Auth::routes();

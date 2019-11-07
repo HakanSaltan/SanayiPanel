@@ -103,7 +103,7 @@
       <td>584213215151</td>
       <td>28.06.2019</td>
       <td>30.06.2019</td>
-      <td>Sol-Arka Ayna Değişiklik</td>
+      <td>Sol-Arka Ayna Değişiklik </td>
       <td>8K1857409 E</td>
       <td>658 TL</td>
       <th><a class="btn-flat mb-1 waves-effect">

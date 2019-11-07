@@ -71,7 +71,7 @@
                               <div class="card-content center-align">
                                     <i class="material-icons amber-text small-ico-bg mb-5">eject</i>
                                     <h4 class="m-0"><b>{{$arac->model}}</b></h4>
-                                    <p>Araç Modeli </p>
+                                    <p>Araç Modeli</p>
                               </div>
                         </div>
                 </div>
