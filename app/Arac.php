@@ -12,9 +12,9 @@ class Arac extends Model
     use SoftDeletes;
     protected $table = 'arac';
 
-    public function Hizmet(){
+    public function Fatura(){
         
-        return $this->hasMany('App\Hizmet');
+        return $this->hasMany('App\Fatura');
     }
     public function Musteri(){
         

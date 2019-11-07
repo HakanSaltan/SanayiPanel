@@ -14,12 +14,11 @@ class CreateHizmetTable extends Migration
     public function up()
     {
         Schema::create('hizmet', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->integer('arac_id');
+            $table->bigIncrements('id')->unique();
+            $table->integer('fatura_id');
             $table->integer('adet');
             $table->string('parca');
             $table->integer('parcaUcret')->nullable();
-            $table->string('tarihArac')->unique();
             $table->timestamp('tarih')->nullable();
             $table->rememberToken();
             $table->timestamps();

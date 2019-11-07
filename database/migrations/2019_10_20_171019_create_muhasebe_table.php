@@ -15,7 +15,7 @@ class CreateMuhasebeTable extends Migration
     {
         Schema::create('muhasebe', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('tarihArac');
+            $table->integer('fatura_id');
             $table->integer('parcaToplamUcret')->nullable();
             $table->integer('iscilik')->nullable();
             $table->integer('toplamUcret')->nullable();
