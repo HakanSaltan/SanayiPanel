@@ -52,7 +52,7 @@
                         <div class="card border-radius-6">
                               <div class="card-content center-align">
                                     <i class="material-icons amber-text small-ico-bg mb-5">near_me</i>
-                                    <h4 class="m-0"><b>97.585</b></h4>
+                                    <h4 class="m-0"><b>{{$arac->km}}</b></h4>
                                     <p>Araç Kilometresi</p>
                               </div>
                         </div>
@@ -61,7 +61,7 @@
                         <div class="card border-radius-6">
                               <div class="card-content center-align">
                                     <i class="material-icons amber-text small-ico-bg mb-5">directions_car</i>
-                                    <h4 class="m-0"><b>Audi</b></h4>
+                                    <h4 class="m-0"><b>{{$arac->marka}}</b></h4>
                                     <p>Araç Markası</p>
                               </div>
                         </div>
@@ -70,7 +70,7 @@
                         <div class="card border-radius-6">
                               <div class="card-content center-align">
                                     <i class="material-icons amber-text small-ico-bg mb-5">eject</i>
-                                    <h4 class="m-0"><b>A4 SEDAN PI</b></h4>
+                                    <h4 class="m-0"><b>{{$arac->model}}</b></h4>
                                     <p>Araç Modeli</p>
                               </div>
                         </div>
@@ -79,7 +79,7 @@
                         <div class="card border-radius-6">
                               <div class="card-content center-align">
                                     <i class="material-icons amber-text small-ico-bg mb-5">access_time</i>
-                                    <h4 class="m-0"><b>7 Kasım 2019</b></h4>
+                                    <h4 class="m-0"><b>{{substr($arac->created_at,0,10)}}</b></h4>
                                     <p>Servis Giriş Tarihi</p>
                               </div>
                         </div>

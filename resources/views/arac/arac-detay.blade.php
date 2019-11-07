@@ -37,8 +37,8 @@
                         <div class="card border-radius-6">
                               <div class="card-content center-align">
                                     <i class="material-icons amber-text small-ico-bg mb-5">near_me</i>
-                                    <h4 class="m-0"><b>97.585</b></h4>
-                                    <p>{{$aracdetay->km}}</p>
+                                    <h4 class="m-0"><b>{{$aracdetay->km}}</b></h4>
+                                    <p> Araç Kilometresi</p>
                               </div>
                         </div>
             </div>
@@ -46,7 +46,7 @@
                         <div class="card border-radius-6">
                               <div class="card-content center-align">
                                     <i class="material-icons amber-text small-ico-bg mb-5">directions_car</i>
-                                    <h4 class="m-0"><b>Audi</b></h4>
+                                    <h4 class="m-0"><b>{{$aracdetay->marka}}</b></h4>
                                     <p>Araç Markası</p>
                               </div>
                         </div>
@@ -55,7 +55,7 @@
                         <div class="card border-radius-6">
                               <div class="card-content center-align">
                                     <i class="material-icons amber-text small-ico-bg mb-5">eject</i>
-                                    <h4 class="m-0"><b>A4 SEDAN PI</b></h4>
+                                    <h4 class="m-0"><b>{{$aracdetay->model}}</b></h4>
                                     <p>Araç Modeli</p>
                               </div>
                         </div>
@@ -64,8 +64,8 @@
                         <div class="card border-radius-6">
                               <div class="card-content center-align">
                                     <i class="material-icons amber-text small-ico-bg mb-5">face</i>
-                                    <h4 class="m-0"><b>Batuhan Haymana</b></h4>
-                                    <p>{{$aracdetay->Musteri->isimSoyisim}}</p>
+                                    <h4 class="m-0"><b>{{$aracdetay->Musteri->isimSoyisim}}</b></h4>
+                                    <p>Araç Sahibi</p>
                                    
                               </div>
                         </div>
@@ -95,11 +95,11 @@
     </thead>
     <tbody>
     <tr>
-      <td>54 S 9854</td>
-      <td>Batuhan Haymana</td>
-      <td>97.585</td>
-      <td>Audi</td>
-      <td>A4 SEDAN PI</td>
+      <td>{{$aracdetay->plaka}}</td>
+      <td>{{$aracdetay->Musteri->isimSoyisim}}</td>
+      <td>{{$aracdetay->km}}</td>
+      <td>{{$aracdetay->marka}}</td>
+      <td>{{$aracdetay->model}}</td>
       <td>584213215151</td>
       <td>28.06.2019</td>
       <td>30.06.2019</td>
