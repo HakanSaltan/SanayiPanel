@@ -58,13 +58,37 @@
 </div>
 </div>
 <div class="row">
-    <div class="col s12 m12 xl2">
-        <canvas id="myChart" width="400" height="400"></canvas>
+    <div class="col s12 m6 fadeLeft">
+        <div class="container">
+            <div class="card">
+                <div class="card-move-up waves-effect waves-block waves-dark">
+               <div class="move-up cyan darken-1">
+                  <div>
+                     <span class="chart-title white-text">Durum</span>
+                     <div class="chart-revenue cyan darken-2 white-text">
+                        <p class="chart-revenue-total">4,500.85 ₺</p>
+                        <p class="chart-revenue-per"><i class="material-icons">arrow_drop_up</i> 21.80 %</p>
+                     </div>
+                     <div class="switch chart-revenue-switch right">
+                        <label class="cyan-text text-lighten-5">
+                           Month <input type="checkbox"> <span class="lever"></span> Year
+                        </label>
+                     </div>
+                  </div>
+                  <div class="revenue-line-chart-wrapper"><div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div><canvas id="revenue-line-chart" height="145" width="622" class="chartjs-render-monitor" style="display: block; width: 622px; height: 145px;"></canvas></div>
+               </div>
+            </div>
+            </div>
+        </div>
     </div>
-    <div class="col s12 m12 xl2">
-        <canvas id="myChart2" width="400" height="400"></canvas>
+    <div class="col s12 m6 fadeRight">
+        <div class="container">
+            <div class="card">
+                <div class="sample-chart-wrapper"><div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div><canvas id="line-chart" height="400" width="951" class="chartjs-render-monitor" style="display: block; width: 951px; height: 400px;"></canvas></div>
+            </div>
+        </div>
     </div>
-
+</div>
     @endsection
 
     @section('js')
@@ -73,68 +97,4 @@
     <!-- END PAGE VENDOR JS-->
     <!-- BEGIN PAGE LEVEL JS-->
     <script src="{{ asset('app-assets/js/scripts/card-advanced.js') }}" type="text/javascript"></script>
-    <script>
-        var ctx = document.getElementById('myChart').getContext('2d');
-        var ctx2 = document.getElementById('myChart2').getContext('2d');
-        var data = {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-            datasets: [{
-                label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
-                borderWidth: 1
-            }]
-        };
-        var data2 = {
-            datasets: [{
-                data: [10, 20, 30]
-            }],
-
-            // These labels appear in the legend and in the tooltips when hovering different arcs
-            labels: [
-                'Red',
-                'Yellow',
-                'Blue'
-            ]
-        };
-
-        var options = {
-            responsive: false,
-            // scales: {
-            //     yAxes: [{
-            //         ticks: {
-            //             beginAtZero: true
-            //         }
-            //     }]
-            // }
-        };
-
-        var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: data,
-            options: options
-        });
-
-        var myPieChart = new Chart(ctx2, {
-            type: 'pie',
-            data: data,
-            options: options
-        });
-
-    </script>
     @endsection
