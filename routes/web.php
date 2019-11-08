@@ -13,6 +13,11 @@ Route::get('/', function () {
 //arac-detay sayfası
 Route::get('/arac-detay/{id?}', 'AdminController@aracDetay')->name('arac-Detay');
 //
+// Fatura Sayfası
+Route::get('/fatura', function () {
+    return view('fatura');
+});
+//
 Auth::routes();
 
 //AracController
