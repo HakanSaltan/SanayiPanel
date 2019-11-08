@@ -17,6 +17,7 @@ class CreateAracTable extends Migration
             $table->bigIncrements('id');
             $table->integer('musteri_id');
             $table->string('plaka',150)->unique();
+            $table->string('sase')->nullable();
             $table->integer('km')->nullable();
             $table->string('marka')->nullable();
             $table->string('model')->nullable();

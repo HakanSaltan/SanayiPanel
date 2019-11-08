@@ -76,7 +76,7 @@
                     <tbody>
                       <tr>
                         <td>1.</td>
-                        <td>Arac Sağ Ayna Değişti</td>
+                        <td>Arac Sağ Ayna Değişikliği</td>
                         <td>50.00 ₺</td>
                         <td>1</td>
                         <td>50.00 ₺</td>
@@ -109,20 +109,12 @@
             <div class="invoice-footer mt-6">
               <div class="row">
                 <div class="col s12 m6 l6">
-                  <p class="strong">Payment Method</p>
+                  <p class="strong">Fatura Notu</p>
                   <p>Please make the cheque to: AMANDA ORTON</p>
                   <p class="strong">Terms &amp; Condition</p>
-                  <ul>
-                    <li>You know, being a test pilot isn't always the healthiest business in the world.</li>
-                    <li>We predict too much for the next year and yet far too little for the next 10.</li>
-                  </ul>
+                  
                 </div>
-                <div class="col s12 m6 l6 center-align">
-                  <p>Approved By</p>
-                  <img src="../../../app-assets/images/misch/signature-scan.png" alt="signature">
-                  <p class="header">AMANDA ORTON</p>
-                  <p>Managing Director</p>
-                </div>
+               
               </div>
             </div>
           </div>

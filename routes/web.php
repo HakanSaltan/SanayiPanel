@@ -1,7 +1,6 @@
 <?php
 
 use App\User;
-use Symfony\Component\Routing\Route;
 
 //Aşağıdaki adresten route ları kontrol edebilirsiniz
 //https://docs.spatie.be/laravel-permission/v3/basic-usage/middleware/
@@ -15,7 +14,7 @@ Route::get('/', function () {
 Route::get('/arac-detay/{id?}', 'AdminController@aracDetay')->name('arac-Detay');
 //
 // Fatura Sayfası
-Route::get('/fatura' , function(){
+Route::get('/fatura', function () {
     return view('fatura');
 });
 //
