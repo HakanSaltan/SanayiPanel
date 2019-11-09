@@ -10,26 +10,23 @@ Route::get('/', function () {
     return view('welcome'); 
 });
 
-//arac-detay sayfası
-Route::get('/arac-detay/{id?}', 'AdminController@aracDetay')->name('arac-Detay');
-//
-// Fatura Sayfası
-Route::get('/fatura', function () {
-    return view('fatura');
-});
-//
+
+
+
+
 Auth::routes();
 
 //AracController
-Route::get('/aracdetay/{plaka?}', 'AracController@aracDetay')->name('aracDetay');
+Route::get('/detay/{plaka?}', 'AracController@detay')->name('detay');
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => ['role:super-admin']], function () {
-    //
+
 
     
 });
 Route::group(['middleware' => ['role:admin']], function () {
+
     //RoleController
     Route::resource('roles','RoleController');
 
@@ -39,16 +36,18 @@ Route::group(['middleware' => ['role:admin']], function () {
     //HomeController 
     Route::get('/musterilerim', 'HomeController@musterilerim');
 
-    //AdminController
-    Route::post('/musteriKayit', 'AdminController@musteriKayit')->name('musteriKayit');
-
-    //AdminController Musteri
+    //AdminController - Musteri
     Route::post('/musteriGuncelle/{id?}', 'AdminController@musteriGuncelle')->name('musteriGuncelle');
     Route::post('/musteriSil/{id?}', 'AdminController@musteriSil')->name('musteriSil');
+    Route::post('/musteriKayit', 'AdminController@musteriKayit')->name('musteriKayit');
+    Route::get('/arac-detay/{id?}', 'AdminController@aracDetay')->name('arac-Detay');
 
-    //AdminController Araç
+    //AdminController - Araç
     Route::post('/aracGuncelle/{id?}/{mid?}', 'AdminController@aracGuncelle')->name('aracGuncelle');
     Route::post('/aracSil/{id?}', 'AdminController@aracSil')->name('aracSil');
+
+    //MuhasebeController - Fatura
+    Route::get('/fatura/{fatura?}', 'MuhasebeController@fatura')->name('fatura');
 
 });
 Route::group(['middleware' => ['role:admin|musteri']], function () {
@@ -56,6 +55,7 @@ Route::group(['middleware' => ['role:admin|musteri']], function () {
      //HomeController 
      Route::get('/profile', 'HomeController@profile')->name('profile');
      Route::get('/araclarim', 'HomeController@araclarim');
+
 });
 
 

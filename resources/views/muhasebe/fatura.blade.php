@@ -39,20 +39,21 @@
                   <p>0850 303 85 54</p>
                 </div>
                 <div class="col s12 m6 l6">
-                  <h4 class="text-uppercase right-align strong mb-5">Fatura</h4>
+                <h4 class="text-uppercase right-align strong mb-5">Fatura {{$fatura->fatura_id}}</h4>
                 </div>
               </div>
               <div class="row section">
                 <div class="col s12 m6 l6">
                   <h6 class="text-uppercase strong mb-2 mt-3">ALICI</h6>
-                  <p class="text-uppercase">Ekonsoft Yazılım ve Bilgi Teknolojileri A.Ş</p>
-                  <p>Semerciler Mahallesi Sait Faik Sokak No : 10 Daire 2</p>
+                <p class="text-uppercase">{{$kullanici->isimSoyisim}}</p>
+                  <p>{{$kullanici->adres}}</p>
                   <p>Vergi Dairesi : Sakarya</p>
-                  <p>Vergi Numarası : 18012384</p>
+                  <p>Vergi Numarası : {{$kullanici->tc}}</p>
+                  <p>Telefon No: {{$kullanici->telefon}}</p>
                 </div>
                 <div class="col s12 m6 l6">
                   <div class="invoce-no right-align">
-                    <p><span class="text-uppercase strong">Fatura Tarihi</span> 08.11.2019</p>
+                  <p><span class="text-uppercase strong">Fatura Tarihi</span> {{date('d-m-Y')}}</p>
                   </div>
                   <div class="invoce-no right-align">
                     <p><span class="text-uppercase strong">İrsaliye Tarihi</span> 03 Kasım 2019</p>
@@ -74,13 +75,15 @@
                       </tr>
                     </thead>
                     <tbody>
+                      @foreach ($fatura->Hizmet as $hizmet)
                       <tr>
-                        <td>1.</td>
-                        <td>Arac Sağ Ayna Değişikliği</td>
-                        <td>50.00 ₺</td>
-                        <td>1</td>
-                        <td>50.00 ₺</td>
+                      <td>{{$hizmet->id}}</td>
+                        <td>{{$hizmet->parca}}</td>
+                        <td>{{$hizmet->parcaUcret}}</td>
+                        <td>{{$hizmet->adet}}</td>
+                        <td>{{$hizmet->parcaUcret * $hizmet->adet}}</td>
                       </tr>
+                      @endforeach
                       <tr class="border-none">
                         <td colspan="3"></td>
                         <td>Ara Toplam:</td>
@@ -111,7 +114,6 @@
                 <div class="col s12 m6 l6">
                   <p class="strong">Fatura Notu</p>
                   <p>Please make the cheque to: AMANDA ORTON</p>
-                  <p class="strong">Terms &amp; Condition</p>
                   
                 </div>
                

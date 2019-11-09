@@ -12,4 +12,8 @@ class Fatura extends Model
         
         return $this->hasMany('App\Hizmet','fatura_id','fatura_id');
     }
+    public function Arac(){
+        
+        return $this->hasMany('App\Arac','arac_id','arac_id');
+    }
 }

@@ -82,11 +82,12 @@
         @foreach ($aracdetay->Fatura as $Fatura)
         <div class="row">
             <div class="col s12">
-                <div class="card card-tabs">
-                    <div class="container center-align">
-
+                <div id="responsive-table" class="card card card-default scrollspy">
+                    <div class="card-content">
+                        <h2 class="card-title stripe">Fatura No : {{$Fatura->fatura_id}}</h2>
                         <table class="responsive-table">
                             <thead>
+
                                 <tr>
                                     <th>Plaka</th>
                                     <th>Sahibi</th>
@@ -99,12 +100,13 @@
                                     <th>Yapılan İşlemler</th>
                                     <th>Adet</th>
                                     <th>Alınan Ücret</th>
-                                    <th><a class="btn-flat mb-1 waves-effect">
-                                                <i class="material-icons right">print</i></a></th>
+                                    <th><a class="btn-flat mb-1 waves-effect" href="{{asset('/fatura/'.$Fatura->fatura_id)}}">
+                                            <i class="material-icons right">print</i></a></th>
                             </thead>
                             <tbody>
 
                                 @foreach ($Fatura->Hizmet as $hizmet)
+
                                 <tr>
                                     <td>{{$aracdetay->plaka}}</td>
                                     <td>{{$aracdetay->Musteri->isimSoyisim}}</td>
@@ -117,7 +119,7 @@
                                     <td>{{$hizmet->parca}} </td>
                                     <td>{{$hizmet->adet}}</td>
                                     <td>{{$hizmet->parcaUcret}}</td>
-                                    <th>Fatura No : {{$hizmet->fatura_id}}</th>
+                                    <th></th>
                                 </tr>
                                 @endforeach
                             </tbody>

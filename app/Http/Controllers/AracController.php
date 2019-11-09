@@ -15,7 +15,7 @@ class AracController extends Controller
      */
     
 
-    public function aracDetay($plaka=0,Request $request)
+    public function detay($plaka=0,Request $request)
     {
         // $token = $request->header('Api-Key');
 

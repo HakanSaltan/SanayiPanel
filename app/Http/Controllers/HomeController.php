@@ -35,27 +35,27 @@ class HomeController extends Controller
         //auth()->user()->assignRole('admin');
         //auth()->user()->assignRole('musteri');
         $kullanici = User::where('id', '=',Auth::user()->id)->get();
-        return view('home')->with('kullanici', $kullanici);
+        return view('admin/home')->with('kullanici', $kullanici);
     }
     public function profile()
     {
         $kullanici = User::where('id', '=',Auth::user()->id)->get();
 
-        return view('profile')->with('kullanici', $kullanici);
+        return view('admin/profile')->with('kullanici', $kullanici);
     }
     public function musterilerim()
     {
         $kullanicilar = Musteri::where('user_id', '=',Auth::user()->id)->get();
 
 
-        return view('musteriler')->with('kullanicilar', $kullanicilar);
+        return view('admin/musteriler')->with('kullanicilar', $kullanicilar);
     }
     public function araclarim()
     {
-        $kullanicilar = Musteri::where('user_id', '=',Auth::user()->id)->get();
+        $kullanici = Musteri::where('user_id', '=',Auth::user()->id)->get();
         $markalar = Marka::all();
 
-        return view('araclar', ['kullanicilar' => $kullanicilar],['markalar'=>$markalar]);
+        return view('arac/araclar', ['kullanici' => $kullanici[0]],['markalar'=>$markalar]);
        
     }
 }
