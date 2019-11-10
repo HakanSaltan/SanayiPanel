@@ -166,7 +166,7 @@ class AdminController extends Controller
 
     public function plakaSifrele($plaka) {
         return str_replace(" ", "_", preg_replace('!\s+!', ' ', trim($plaka)));
-      }
+    }
       
     public function plakaCoz($plaka) {
     return str_replace("_", " ", $plaka);

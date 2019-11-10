@@ -21,7 +21,7 @@ class MuhasebeController extends Controller
     public function fatura($fatura)
     {
         $kullanici = Musteri::where('user_id', '=',Auth::user()->id)->get();
-        $faturabilgi = Fatura::where('fatura_id','=', $fatura)->get();
+        $faturabilgi = Fatura::where('fkod','=', $fatura)->get();
         return view('muhasebe/fatura', ['kullanici' => $kullanici[0]],['fatura'=>$faturabilgi[0]]);
     }
 

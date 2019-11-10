@@ -39,7 +39,7 @@
                   <p>0850 303 85 54</p>
                 </div>
                 <div class="col s12 m6 l6">
-                <h4 class="text-uppercase right-align strong mb-5">Fatura {{$fatura->fatura_id}}</h4>
+                <h4 class="text-uppercase right-align strong mb-5">Fatura {{$fatura->fkod}}</h4>
                 </div>
               </div>
               <div class="row section">
@@ -75,14 +75,16 @@
                       </tr>
                     </thead>
                     <tbody>
-                      @foreach ($fatura->Hizmet as $hizmet)
-                      <tr>
-                      <td>{{$hizmet->id}}</td>
-                        <td>{{$hizmet->parca}}</td>
-                        <td>{{$hizmet->parcaUcret}}</td>
-                        <td>{{$hizmet->adet}}</td>
-                        <td>{{$hizmet->parcaUcret * $hizmet->adet}}</td>
-                      </tr>
+                      @foreach ($fatura->IslemHizmetleri as $IslemHizmetleri)
+                        @foreach ($IslemHizmetleri->HizmetMany as $hizmet)
+                          <tr>
+                          <td>{{$hizmet->hkod}}</td>
+                          <td>{{$hizmet->ad}}</td>
+                          <td>{{$hizmet->fiyat}}</td>
+                          <td>{{$IslemHizmetleri->adet}}</td>
+                          <td>{{$hizmet->parcaUcret * $IslemHizmetleri->adet}}</td>
+                          </tr>
+                        @endforeach
                       @endforeach
                       <tr class="border-none">
                         <td colspan="3"></td>
@@ -128,10 +130,6 @@
           </div>
         </div>
 
-    <script src="{{asset('/app-assets/js/vendors.min.js')}}" type="text/javascript"></script>
-    <script src="{{asset('/app-assets/vendors/chartjs/chart.min.js')}}"></script>
-    <script src="{{asset('/app-assets/js/plugins.js')}}" type="text/javascript"></script>
-    <script src="{{asset('/app-assets/js/custom/custom-script.js')}}" type="text/javascript"></script>
-    <script src="{{asset('/app-assets/js/scripts/dashboard-ecommerce.js')}}" type="text/javascript"></script>
+    
 </body>
 </html>

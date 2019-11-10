@@ -14,11 +14,11 @@ class Arac extends Model
 
     public function Islemler(){
         
-        return $this->hasMany('App\Islemler','id','arac_id');
+        return $this->hasMany('App\Islemler','arac_id','id');
     }
     public function Fatura(){
         
-        return $this->hasMany('App\Fatura','id','arac_id');
+        return $this->hasMany('App\Fatura','arac_id','id');
     }
     public function Musteri(){
         

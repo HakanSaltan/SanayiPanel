@@ -106,8 +106,7 @@
                             </thead>
                             <tbody>
 
-                                @foreach ($Fatura->IslemHizmetleri as $IslemHizmetleri)
-
+                                @foreach ($Fatura->IslemHizmetleri as $Islem)
                                 <tr>
                                     <td>{{$aracdetay->plaka}}</td>
                                     <td>{{$aracdetay->Musteri->isimSoyisim}}</td>
@@ -115,13 +114,14 @@
                                     <td>{{$aracdetay->marka}}</td>
                                     <td>{{$aracdetay->model}}</td>
                                     <td>584213215151</td>
-                                    <td>{{$IslemHizmetleri->Hizmet->created_at}}</td>
-                                    <td>{{$IslemHizmetleri->Hizmet->created_at}}</td>
-                                    <td>{{$IslemHizmetleri->Hizmet->ad}} </td>
-                                    <td>{{$IslemHizmetleri->Hizmet->adet}}</td>
-                                    <td>{{$IslemHizmetleri->hizmet_fiyat}}</td>
+                                    <td>{{$Islem->Hizmet->created_at}}</td>
+                                    <td>{{$Islem->Hizmet->created_at}}</td>
+                                    <td>{{$Islem->Hizmet->ad}} </td>
+                                    <td>{{$Islem->Hizmet->adet}}</td>
+                                    <td>{{$Islem->hizmet_fiyat}}</td>
                                     <th></th>
                                 </tr>
+                                    
                                 @endforeach
                             </tbody>
                         </table>
