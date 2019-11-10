@@ -48,6 +48,9 @@ Route::group(['middleware' => ['role:admin']], function () {
 
     //MuhasebeController - Fatura
     Route::get('/fatura/{fatura?}', 'MuhasebeController@fatura')->name('fatura');
+    Route::get('/hizmet/{arac_id?}', 'MuhasebeController@hizmet')->name('hizmet');
+
+    Route::post('/hizmet/{arac_id?}', 'MuhasebeController@hizmetEkle')->name('hizmetEkle');
 
 });
 Route::group(['middleware' => ['role:admin|musteri']], function () {
