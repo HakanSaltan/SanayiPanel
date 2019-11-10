@@ -1,9 +1,10 @@
 <?php
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFaturaTable extends Migration
+class CreateIslemlerTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,13 +13,10 @@ class CreateFaturaTable extends Migration
      */
     public function up()
     {
-        Schema::create('fatura', function (Blueprint $table) {
+        Schema::create('islemler', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('fkod');
-            $table->integer('islem_id');
-            $table->integer('musteri_id');
             $table->integer('arac_id');
-            $table->integer('toplamUcret')->nullable();  
+            $table->integer('musteri_id');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -31,6 +29,6 @@ class CreateFaturaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('fatura');
+        Schema::dropIfExists('islemler');
     }
 }

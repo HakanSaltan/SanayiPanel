@@ -31,6 +31,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.2/dist/Chart.js"></script>
 
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
     @yield('css')
 </head>
@@ -320,8 +321,6 @@
     <script src="{{ asset('app-assets/js/scripts/css-animation.js') }}" type="text/javascript"></script>
     <!-- END PAGE VENDOR JS-->
   
-    <!-- BEGIN PAGE LEVEL JS-->
-    <script src="{{ asset('app-assets/js/scripts/data-tables.js') }}" type="text/javascript"></script>
     
     <!-- END THEME  JS-->
     <!-- BEGIN PAGE LEVEL JS-->

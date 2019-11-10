@@ -3,11 +3,9 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
 use Illuminate\Database\Eloquent\SoftDeletes;
-
-class Muhasebe extends Model
+class Hizmetler extends Model
 {
     use SoftDeletes;
-    protected $table = 'muhasebe';
+    protected $table = 'hizmetler';
 }

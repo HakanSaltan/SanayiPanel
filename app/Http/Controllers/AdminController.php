@@ -145,7 +145,9 @@ class AdminController extends Controller
                 ]);
 
 */
-            $sonuc = $this->sonuc(true);
+            $sonuc = $this->sonuc(true, [
+                "location" => "/araclarim"
+            ]);
                         
         }else{
             $sonuc = $this->sonuc(false);

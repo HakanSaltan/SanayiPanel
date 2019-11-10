@@ -12,12 +12,16 @@ class Arac extends Model
     use SoftDeletes;
     protected $table = 'arac';
 
+    public function Islemler(){
+        
+        return $this->hasMany('App\Islemler','id','arac_id');
+    }
     public function Fatura(){
         
-        return $this->hasMany('App\Fatura');
+        return $this->hasMany('App\Fatura','id','arac_id');
     }
     public function Musteri(){
         
-        return $this->belongsTo('App\musteri','musteri_id','id');
+        return $this->belongsTo('App\Musteri','musteri_id','id');
     }
 }

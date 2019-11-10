@@ -14,5 +14,8 @@ class Musteri extends Model
     public function Arac(){
         return $this->hasMany('App\Arac');
     }
+    public function Fatura(){
+        return $this->hasMany('App\Fatura','musteri_id','musteri_id');
+    }
     
 }

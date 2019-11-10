@@ -321,10 +321,16 @@
                 adres: adres
             })
             .then(res => {
-                console.log("başarılı "+ res);
+                if(!res.data.sonuc)
+                    return console.log("hata");
+
+                if(res.data.parametreler.location)
+                    location.href = res.data.parametreler.location;
+                else
+                    location.href = "/home";
             })
             .catch(er => {
-                console.log("başarısız "+ er);
+                console.log(er);
             });
         }
 

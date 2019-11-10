@@ -84,8 +84,9 @@
             <div class="col s12">
                 <div id="responsive-table" class="card card card-default scrollspy">
                     <div class="card-content">
-                        <h2 class="card-title stripe">Fatura No : {{$Fatura->fatura_id}}</h2>
-                        <table class="responsive-table">
+                        <h2 class="card-title stripe">Fatura No : {{$Fatura->fkod}}</h2>
+                        <table class="responsive-ta
+                        ble">
                             <thead>
 
                                 <tr>
@@ -100,12 +101,12 @@
                                     <th>Yapılan İşlemler</th>
                                     <th>Adet</th>
                                     <th>Alınan Ücret</th>
-                                    <th><a class="btn-flat mb-1 waves-effect" href="{{asset('/fatura/'.$Fatura->fatura_id)}}">
+                                    <th><a class="btn-flat mb-1 waves-effect" href="{{asset('/fatura/'.$Fatura->fkod)}}">
                                             <i class="material-icons right">print</i></a></th>
                             </thead>
                             <tbody>
 
-                                @foreach ($Fatura->Hizmet as $hizmet)
+                                @foreach ($Fatura->IslemHizmetleri as $IslemHizmetleri)
 
                                 <tr>
                                     <td>{{$aracdetay->plaka}}</td>
@@ -114,11 +115,11 @@
                                     <td>{{$aracdetay->marka}}</td>
                                     <td>{{$aracdetay->model}}</td>
                                     <td>584213215151</td>
-                                    <td>{{$hizmet->created_at}}</td>
-                                    <td>{{$hizmet->tarih}}</td>
-                                    <td>{{$hizmet->parca}} </td>
-                                    <td>{{$hizmet->adet}}</td>
-                                    <td>{{$hizmet->parcaUcret}}</td>
+                                    <td>{{$IslemHizmetleri->Hizmet->created_at}}</td>
+                                    <td>{{$IslemHizmetleri->Hizmet->created_at}}</td>
+                                    <td>{{$IslemHizmetleri->Hizmet->ad}} </td>
+                                    <td>{{$IslemHizmetleri->Hizmet->adet}}</td>
+                                    <td>{{$IslemHizmetleri->hizmet_fiyat}}</td>
                                     <th></th>
                                 </tr>
                                 @endforeach
@@ -139,11 +140,6 @@
         <!-- Print Button -->
     </div>
 
-
-
-
-    <script src="{{asset('/app-assets/js/vendors.min.js')}}" type="text/javascript"></script>
-    <script src="{{asset('/app-assets/vendors/chartjs/chart.min.js')}}"></script>
     <script src="{{asset('/app-assets/js/plugins.js')}}" type="text/javascript"></script>
     <script src="{{asset('/app-assets/js/custom/custom-script.js')}}" type="text/javascript"></script>
     <script src="{{asset('/app-assets/js/scripts/dashboard-ecommerce.js')}}" type="text/javascript"></script>
