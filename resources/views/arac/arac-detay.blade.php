@@ -20,7 +20,6 @@
         .toast {
             display: none;
         }
-
     </style>
 </head>
 
@@ -33,8 +32,14 @@
             <!-- Search for small screen-->
             <div class="container">
                 <div class="row">
-                    <div class="col s12 m6 l6">
-                        <h5 class="breadcrumbs-title mt-0 mb-0">{{$aracdetay->plaka}} Plakalı Arac Detayları</h5>
+                    <div class="col s12">
+                        <div class="col s6 m6 l6">
+                            <h5 class="breadcrumbs-title uppercase mt-0 mb-0">
+                                {{str_replace("_", " ", $aracdetay->plaka)}} Plakalı Arac Detayları</h5>
+                        </div>
+                        <div class="col s6 m6 l6 right-align">
+                        <a href="{{asset('/araclarim')}}" class="mb-6 btn waves-effect waves-light gradient-45deg-amber-amber">Geri Dön</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -85,8 +90,7 @@
                 <div id="responsive-table" class="card card card-default scrollspy">
                     <div class="card-content">
                         <h2 class="card-title stripe">Fatura No : {{$Fatura->fkod}}</h2>
-                        <table class="responsive-ta
-                        ble">
+                        <table class="responsive-table">
                             <thead>
 
                                 <tr>
@@ -101,14 +105,15 @@
                                     <th>Yapılan İşlemler</th>
                                     <th>Adet</th>
                                     <th>Alınan Ücret</th>
-                                    <th><a class="btn-flat mb-1 waves-effect" href="{{asset('/fatura/'.$Fatura->fkod)}}">
+                                    <th><a class="btn-flat mb-1 waves-effect"
+                                            href="{{asset('/fatura/'.$Fatura->fkod)}}">
                                             <i class="material-icons right">print</i></a></th>
                             </thead>
                             <tbody>
 
                                 @foreach ($Fatura->IslemHizmetleri as $Islem)
                                 <tr>
-                                    <td>{{$aracdetay->plaka}}</td>
+                                    <td class="uppercase">{{str_replace("_", " ", $aracdetay->plaka)}}</td>
                                     <td>{{$aracdetay->Musteri->isimSoyisim}}</td>
                                     <td>{{$aracdetay->km}}</td>
                                     <td>{{$aracdetay->marka}}</td>
@@ -121,7 +126,7 @@
                                     <td>{{$Islem->hizmet_fiyat}}</td>
                                     <th></th>
                                 </tr>
-                                    
+
                                 @endforeach
                             </tbody>
                         </table>

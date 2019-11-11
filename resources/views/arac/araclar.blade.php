@@ -22,11 +22,11 @@
                 <p>{{$arac->marka}} {{$arac->model}} modelindeki Araç {{$arac->km}} km dedir.</p>
 
                 <a data-target="modal1{{$arac->id}}"
-                    class="waves-effect waves-light btn gradient-45deg-light-blue-cyan border-round mt-7 z-depth-4 animated rubberBand faster modal-trigger ">Detay</a>
+                    class="waves-effect waves-light btn gradient-45deg-light-blue-cyan mt-7 z-depth-4 animated rubberBand faster modal-trigger ">Detay</a>
 
 
                 <a data-target="modal2{{$arac->id}}"
-                    class="waves-effect waves-light btn gradient-45deg-green-teal border-round mt-7 z-depth-4 animated rubberBand faster modal-trigger ">Güncelle</a>
+                    class="waves-effect waves-light btn gradient-45deg-green-teal mt-7 z-depth-4 animated rubberBand faster modal-trigger ">Güncelle</a>
 
             </div>
         </div>
@@ -129,7 +129,7 @@
                         <div class="row">
                             <div class="col m4 s12 mb-1">
                                 <button onclick="aracGuncelle({{ $arac_key }})"
-                                    class="waves-effect waves-light btn gradient-45deg-green-teal border-round mt-7 z-depth-4 animated rubberBand faster modal-trigger"
+                                    class="waves-effect waves-light btn gradient-45deg-green-teal mt-7 z-depth-4 animated rubberBand faster modal-trigger"
                                     >Güncelle</button>
                             </div>
                         </div>

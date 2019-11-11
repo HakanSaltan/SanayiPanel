@@ -20,9 +20,9 @@
                     {{$kullanici->adres}}
                 </p>
                 <a data-target="modal1{{$kullanici->id}}"
-                    class="waves-effect waves-light btn gradient-45deg-green-teal border-round mt-7 z-depth-4 animated rubberBand faster modal-trigger ">Detay</a>
+                    class="waves-effect waves-light btn gradient-45deg-green-teal  mt-7 z-depth-4 animated rubberBand faster modal-trigger ">Detay</a>
                 <a data-target="modal2{{$kullanici->id}}"
-                    class="waves-effect waves-light btn gradient-45deg-amber-amber border-round mt-7 z-depth-4 animated rubberBand faster modal-trigger ">Güncelle</a>
+                    class="waves-effect waves-light btn gradient-45deg-amber-amber  mt-7 z-depth-4 animated rubberBand faster modal-trigger ">Güncelle</a>
 
             </div>
         </div>
@@ -72,7 +72,7 @@
                             <div>
                                 <div class="row">
                                     <div class="col m6 s12 mb-1">
-                                        <button class="waves-effect waves-light btn gradient-45deg-amber-amber border-round mt-7 z-depth-4 animated rubberBand faster modal-trigger"
+                                        <button class="waves-effect waves-light btn gradient-45deg-amber-amber  mt-7 z-depth-4 animated rubberBand faster modal-trigger"
                                             type="submit">Güncelle</button>
                                     </div>
                                 </div>
