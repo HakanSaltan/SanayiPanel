@@ -33,8 +33,8 @@
     <div class="col s12 m6 xl3">
         <div class="card">
             <div class="card-content red accent-2 white-text">
-                <p class="card-stats-title"><i class="material-icons">attach_money</i>Aylık Ciro</p>
-                <h4 class="card-stats-number white-text">$8990.63</h4>
+                <p class="card-stats-title"><i class="material-icons">directions_car</i>Toplam Alınan Servis</p>
+                <h4 class="card-stats-number white-text">{{ \App\Islemler::all()->count() }}</h4>
 
             </div>
             <div class="card-action red">
@@ -46,7 +46,12 @@
         <div class="card">
             <div class="card-content orange lighten-1 white-text">
                 <p class="card-stats-title"><i class="material-icons">trending_up</i> Gelişim</p>
-                <h4 class="card-stats-number white-text">$806.52</h4>
+                <h4 class="card-stats-number white-text">₺
+                     @foreach (DB::table('Fatura')->pluck('toplamUcret') as $toplam)
+                         <?= $toplam = $toplam + $toplam ?>
+                     @endforeach
+                    
+                </h4>
 
             </div>
             <div class="card-action orange">
