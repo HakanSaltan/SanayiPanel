@@ -45,9 +45,9 @@
     <div class="col s12 m6 xl3">
         <div class="card">
             <div class="card-content orange lighten-1 white-text">
-                <p class="card-stats-title"><i class="material-icons">trending_up</i> Gelişim</p>
+                <p class="card-stats-title"><i class="material-icons">trending_up</i> Toplam Ciro</p>
                 <h4 class="card-stats-number white-text">₺
-                     @foreach (DB::table('Fatura')->pluck('toplamUcret') as $toplam)
+                     @foreach (\App\Fatura::pluck('toplamUcret') as $toplam)
                          <?= $toplam = $toplam + $toplam ?>
                      @endforeach
                     
