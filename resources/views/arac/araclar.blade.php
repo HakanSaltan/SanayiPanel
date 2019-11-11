@@ -15,7 +15,7 @@
                 <div class="resimKapsayici">
                     <img class="responsive-img border-radius-8 z-depth-4 image-n-margin"
                         src="{{asset('app-assets/images/cards/plaka2.jpg')}}" alt="" />
-                    <h1 class="resimYazisi image-n-margin">{{str_replace("_", " ", $arac->plaka)}}</h1>
+                    <h1 style="font-size:3vw!important; top:56%!important;" class="resimYazisi image-n-margin">{{str_replace("_", " ", $arac->plaka)}}</h1>
                 </div>
                 <h6><a href="#" class="mt-5">{{$arac->Musteri->isimSoyisim}}</a></h6>
 
