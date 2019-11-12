@@ -37,6 +37,7 @@
 </head>
 <!-- END: Head-->
 <?php $qrCodes = \App\qrOkutulan::all();?>
+
 <body class="vertical-layout page-header-light vertical-menu-collapsible vertical-dark-menu 2-columns  "
     data-open="click" data-menu="vertical-dark-menu" data-col="2-columns">
 
@@ -117,10 +118,9 @@
     <!-- BEGIN: SideNav-->
     <aside class="sidenav-main nav-expanded nav-lock nav-collapsible sidenav-dark sidenav-active-rounded">
         <div class="brand-sidebar">
-            <h1 class="logo-wrapper"><a class="brand-logo darken-1" href="{{asset('/')}}"><img
-                        src="{{ asset('app-assets/images/logo/materialize-logo.png') }}" alt="materialize logo" /><span
-                        class="logo-text hide-on-med-and-down">{{ config('app.name', 'Otogaraj') }}</span></a><a class="navbar-toggler" href="#"><i
-                        class="material-icons">radio_button_checked</i></a></h1>
+            <h1 class="logo-wrapper"><a class="brand-logo darken-1" href="{{asset('/')}}"><span
+                        class="logo-text hide-on-med-and-down">{{ config('app.name', 'Otogaraj') }}</span></a><a
+                    class="navbar-toggler" href="#"><i class="material-icons">radio_button_checked</i></a></h1>
         </div>
         <ul class="sidenav sidenav-collapsible leftside-navigation collapsible sidenav-fixed menu-shadow" id="slide-out"
             data-menu="menu-navigation" data-collapsible="accordion">
@@ -138,12 +138,12 @@
                                     class="material-icons">radio_button_unchecked</i><span>Profil</span></a>
                         </li>
                         <li><a class="collapsible-body" href="{{ route('roles.index') }}" data-i18n=""><i
-                          class="material-icons">radio_button_unchecked</i><span>Roller</span></a>
+                                    class="material-icons">radio_button_unchecked</i><span>Roller</span></a>
                         </li>
                     </ul>
                 </div>
             </li>
-           
+
             <li class="navigation-header"><a class="navigation-header-text">Araçlar</a><i
                     class="navigation-header-icon material-icons">more_horiz</i>
             </li>
@@ -169,8 +169,9 @@
                     </ul>
                 </div>
             </li>
-            
+
             @endrole
+        </ul>
             <div class="navigation-background"></div><a
                 class="sidenav-trigger btn-sidenav-toggle btn-floating btn-medium waves-effect waves-light hide-on-large-only"
                 href="#" data-target="slide-out"><i class="material-icons">menu</i></a>
@@ -178,30 +179,7 @@
 
     <div id="main">
         <div class="row">
-            <!--
-          <div id="breadcrumbs-wrapper" data-image="{/{ asset('app-assets/images/gallery/breadcrumb-bg.jpg') }}">
-            
-            <div class="container">
-              <div class="row">
-                <div class="col s12 m6 l6">
-                  <h5 class="breadcrumbs-title mt-0 mb-0">Anasayfa</h5>
-                </div>
-            
-                <div class="col s12 m6 l6 right-align-md">
-                  <ol class="breadcrumbs mb-0">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a>
-                    </li>
-                    <li class="breadcrumb-item"><a href="#">Pages</a>
-                    </li>
-                    <li class="breadcrumb-item active">Blank Page
-                    </li>
-                  </ol>
-                </div>
-           
-              </div>
-            </div>
-          </div>
-        -->
+
             <div class="col s12">
                 <div class="container">
                     <div class="section">
@@ -242,17 +220,18 @@
                                     <div id="activity" class="col s12">
                                         <div class="activity">
                                             <ul class="collection with-header">
-                                              @if(!empty($qrCodes))
+                                                @if(!empty($qrCodes))
                                                 @foreach ($qrCodes as $qrCode)
-                                                  <li class="collection-item">
-                                                      <div class="font-weight-900">
-                                                          <a class="bold">{{$qrCode->Arac->plaka}}</a> <span class="secondary-content">{{$qrCode->Arac->Musteri->isimSoyisim}}</span>
-                                                      </div>
-                                                      <p class="mt-0 mb-2">{{$qrCode->created_at}}</p>
-                                                      </span>
-                                                  </li>
-                                                  @endforeach
-                                              @endif
+                                                <li class="collection-item">
+                                                    <div class="font-weight-900">
+                                                        <a class="bold">{{$qrCode->Arac->plaka}}</a> <span
+                                                            class="secondary-content">{{$qrCode->Arac->Musteri->isimSoyisim}}</span>
+                                                    </div>
+                                                    <p class="mt-0 mb-2">{{$qrCode->created_at}}</p>
+                                                    </span>
+                                                </li>
+                                                @endforeach
+                                                @endif
                                             </ul>
 
                                         </div>
@@ -308,23 +287,12 @@
         </div>
     </footer>
 
-
-    <!-- END: Footer-->
-    <!-- BEGIN VENDOR JS-->
     <script src="{{ asset('app-assets/js/vendors.min.js') }}" type="text/javascript"></script>
-    <!-- BEGIN VENDOR JS-->
-    <!-- BEGIN PAGE VENDOR JS-->
-    <!-- END PAGE VENDOR JS-->
-    <!-- BEGIN THEME  JS-->
+
     <script src="{{ asset('app-assets/js/plugins.js') }}" type="text/javascript"></script>
     <script src="{{ asset('app-assets/js/custom/custom-script.js') }}" type="text/javascript"></script>
     <script src="{{ asset('app-assets/js/scripts/css-animation.js') }}" type="text/javascript"></script>
-    <!-- END PAGE VENDOR JS-->
-  
-    
-    <!-- END THEME  JS-->
-    <!-- BEGIN PAGE LEVEL JS-->
-    <!-- END PAGE LEVEL JS-->
+
     @yield('js')
     <script>
         $(document).ready(function () {
