@@ -15,23 +15,23 @@
     <link rel="apple-touch-icon" href="{{ asset('app-assets/images/favicon/apple-touch-icon-152x152.png') }}">
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('app-assets/images/favicon/favicon-32x32.png') }}">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!-- BEGIN: VENDOR CSS-->
+
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/vendors.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/animate-css/animate.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/flag-icon/css/flag-icon.min.css') }}">
-    <!-- END: VENDOR CSS-->
-    <!-- BEGIN: Page Level CSS-->
+
+    <link rel="stylesheet" type="text/css"
+        href="{{ asset('app-assets/vendors/data-tables/css/jquery.dataTables.min.css') }}">
+    <link rel="stylesheet" type="text/css"
+        href="{{ asset('app-assets/vendors/data-tables/extensions/responsive/css/responsive.dataTables.min.css') }}">
     <link rel="stylesheet" type="text/css"
         href="{{ asset('app-assets/css/themes/vertical-dark-menu-template/materialize.css') }}">
     <link rel="stylesheet" type="text/css"
         href="{{ asset('app-assets/css/themes/vertical-dark-menu-template/style.css') }}">
-    <!-- END: Page Level CSS-->
-    <!-- BEGIN: Custom CSS-->
+
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/custom/custom.css') }}">
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.2/dist/Chart.js"></script>
-
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    
 
     @yield('css')
 </head>
@@ -159,12 +159,12 @@
                 </div>
             </li>
             <li class="bold"><a class="collapsible-header waves-effect waves-cyan " href="#"><i
-                        class="material-icons">dvr</i><span class="menu-title" data-i18n="">Kullanıcı</span><span
+                        class="material-icons">dvr</i><span class="menu-title" data-i18n="">Müşteriler</span><span
                         class="badge badge pill orange float-right mr-10">1</span></a>
                 <div class="collapsible-body">
                     <ul class="collapsible collapsible-sub" data-collapsible="accordion">
                         <li><a class="collapsible-body" href="{{asset('/musterilerim')}}" data-i18n=""><i
-                                    class="material-icons">radio_button_unchecked</i><span>Kullanıcı Bilgisi</span></a>
+                                    class="material-icons">radio_button_unchecked</i><span>Müşteri Bilgisi</span></a>
                         </li>
                     </ul>
                 </div>
@@ -172,24 +172,20 @@
 
             @endrole
         </ul>
-            <div class="navigation-background"></div><a
-                class="sidenav-trigger btn-sidenav-toggle btn-floating btn-medium waves-effect waves-light hide-on-large-only"
-                href="#" data-target="slide-out"><i class="material-icons">menu</i></a>
+        <div class="navigation-background"></div><a
+            class="sidenav-trigger btn-sidenav-toggle btn-floating btn-medium waves-effect waves-light hide-on-large-only"
+            href="#" data-target="slide-out"><i class="material-icons">menu</i></a>
     </aside>
 
     <div id="main">
-        <div class="row">
+      <div class="row">
+        <div class="content-wrapper-before blue-grey lighten-5"></div>
+        <div class="col s12">
+          <div class="container">
 
-            <div class="col s12">
-                <div class="container">
-                    <div class="section">
-                        <div class="card">
-                            <div class="card-content">
 
-                                @yield('content')
-                            </div>
-                        </div>
-                    </div>
+                    @yield('content')
+
                     <!-- START RIGHT SIDEBAR NAV -->
                     @role('admin')
                     <aside id="right-sidebar-nav">
@@ -221,16 +217,16 @@
                                         <div class="activity">
                                             <ul class="collection with-header">
                                                 @if(!empty($qrCodes))
-                                                @foreach ($qrCodes as $qrCode)
-                                                <li class="collection-item">
-                                                    <div class="font-weight-900">
-                                                        <a class="bold">{{$qrCode->Arac->plaka}}</a> <span
-                                                            class="secondary-content">{{$qrCode->Arac->Musteri->isimSoyisim}}</span>
-                                                    </div>
-                                                    <p class="mt-0 mb-2">{{$qrCode->created_at}}</p>
-                                                    </span>
-                                                </li>
-                                                @endforeach
+                                                    @foreach ($qrCodes as $qrCode)
+                                                    <li class="collection-item">
+                                                        <div class="font-weight-900">
+                                                            <a class="bold">{{$qrCode->Arac->plaka}}</a> <span
+                                                                class="secondary-content">{{$qrCode->Arac->Musteri->isimSoyisim}}</span>
+                                                        </div>
+                                                        <p class="mt-0 mb-2">{{$qrCode->created_at}}</p>
+                                                        </span>
+                                                    </li>
+                                                    @endforeach
                                                 @endif
                                             </ul>
 
@@ -274,6 +270,7 @@
                     @endrole()
                 </div>
             </div>
+
         </div>
     </div>
     <!-- END: Page Main-->
@@ -286,9 +283,10 @@
                     Hakları Saklıdır.</span></div>
         </div>
     </footer>
-
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="{{ asset('app-assets/js/vendors.min.js') }}" type="text/javascript"></script>
-
+    <script src="{{ asset('app-assets/vendors/data-tables/js/jquery.dataTables.js') }}" type="text/javascript"> </script>
+    <script src="{{ asset('app-assets/vendors/data-tables/extensions/responsive/js/dataTables.responsive.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('app-assets/js/plugins.js') }}" type="text/javascript"></script>
     <script src="{{ asset('app-assets/js/custom/custom-script.js') }}" type="text/javascript"></script>
     <script src="{{ asset('app-assets/js/scripts/css-animation.js') }}" type="text/javascript"></script>

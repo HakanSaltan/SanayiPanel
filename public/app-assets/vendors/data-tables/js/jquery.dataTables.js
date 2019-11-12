@@ -11389,7 +11389,7 @@
 				 *      } );
 				 *    } );
 				 */
-				"sNext": "Next",
+				"sNext": "İleri",
 	
 	
 				/**
@@ -11412,7 +11412,7 @@
 				 *      } );
 				 *    } );
 				 */
-				"sPrevious": "Previous"
+				"sPrevious": "Geri"
 			},
 	
 			/**
@@ -11435,7 +11435,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sEmptyTable": "No data available in table",
+			"sEmptyTable": "Tabloda veri yok",
 	
 	
 			/**
@@ -11467,7 +11467,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sInfo": "Showing _START_ to _END_ of _TOTAL_ entries",
+			"sInfo": " _START_ ile _END_ arasında _TOTAL_ Veri Gösteriliyor",
 	
 	
 			/**
@@ -11488,7 +11488,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sInfoEmpty": "Showing 0 to 0 of 0 entries",
+			"sInfoEmpty": "0 ile 0 arasında 0 Veri Gösteriliyor",
 	
 	
 			/**
@@ -11510,7 +11510,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sInfoFiltered": "(filtered from _MAX_ total entries)",
+			"sInfoFiltered": "(Toplam _MAX_ kayıt arasında)",
 	
 	
 			/**
@@ -11652,7 +11652,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sLoadingRecords": "Loading...",
+			"sLoadingRecords": "Lütfen Bekleyin Yükleniyor...",
 	
 	
 			/**
@@ -11673,7 +11673,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sProcessing": "Processing...",
+			"sProcessing": "İşleniyor...",
 	
 	
 			/**
@@ -11708,7 +11708,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sSearch": "Search:",
+			"sSearch": "Arama:",
 	
 	
 			/**
@@ -11739,7 +11739,7 @@
 			 *    $(document).ready( function() {
 			 *      $('#example').dataTable( {
 			 *        "language": {
-			 *          "url": "http://www.sprymedia.co.uk/dataTables/lang.txt"
+			 *          "url": ""
 			 *        }
 			 *      } );
 			 *    } );
@@ -11766,7 +11766,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sZeroRecords": "No matching records found"
+			"sZeroRecords": "Hiçbir eşleşen kayıt bulunamadı"
 		},
 	
 	
