@@ -27,7 +27,7 @@
                                     <div class="row">
                                         <div class="input-field">
                                             <i class="material-icons prefix">build</i>
-                                            <input @input="autocompleteEslesmeKontrol" autocomplete="off" v-model="veri.model" type="text" id="autocomplete-input" :class="'autocomplete' + index">
+                                            <input autocomplete="off" v-model="veri.model" type="text" id="autocomplete-input" :class="'autocomplete' + index">
                                             <label for="autocomplete-input">Yapılan Hizmet Adı</label>
                                         </div>
                                     </div>
@@ -81,9 +81,6 @@
             },
         },
         methods: {
-            autocompleteEslesmeKontrol(e) {
-                /* console.log(e.srcElement.M_Autocomplete.count);*/
-            },
             autocompleteDegerBul(key) {
                 return vm.hizmetler.find(o => o.ad == key);
             },
@@ -97,12 +94,9 @@
 
                 vm.$nextTick(() => {
                     var elems = document.querySelector('.autocomplete' + son_index);
-                    console.log(elems);
                     vm.ins = M.Autocomplete.init(elems, {
                         data: vm.autocompleteDeger,
                         onAutocomplete: val => {
-                            console.log(vm.autocompleteDegerBul(val));
-                            console.log(son_index);
                             vm.yapilan_hizmetler[son_index].model = val;
                             vm.yapilan_hizmetler[son_index] = { ...vm.yapilan_hizmetler[son_index], ...vm.autocompleteDegerBul(val)};
                         }
@@ -118,7 +112,7 @@
 
             },
             hizmetGetir() {
-                axios.post("/")
+                /*axios.post("/");*/
                 vm.ekle();
             }
         },
