@@ -28,6 +28,11 @@
                 <a data-target="modal2{{$arac->id}}"
                     class="waves-effect waves-light btn gradient-45deg-green-teal mt-7 z-depth-4 animated rubberBand faster modal-trigger ">Güncelle</a>
 
+                <a onclick="hizmetEkle({{ $arac->id }})"
+                    class="waves-effect waves-light btn blue darken-4 mt-7 z-depth-4 animated rubberBand faster ">
+                    <!-- <i class="material-icons pt-5">add</i> -->
+                    <span>Hizmet Ekle</span>
+                </a>
             </div>
         </div>
 
@@ -162,6 +167,11 @@
         .catch(error => {
             console.log(error);
         });
+    }
+
+    function hizmetEkle(index) {
+        location.href = "/hizmet/" + index;
+        console.log(index);
     }
 
 </script>

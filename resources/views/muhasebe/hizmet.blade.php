@@ -8,31 +8,43 @@
 <div id="app">
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-sm justify-content-center">
-                Hizmet oluştur
+            <div class="col s6 justify-content-center">
+                <h5>Hizmet oluştur</h5>
             </div>
-            <div class="col-sm justify-content-center">
+            <div class="col s6 justify-content-center">
                 <button @click="ekle()" type="button" class="btn btn-primary">YENİ</button>
             </div>
         </div>
     </div>
-    <div class="container" v-for="(veri, index) in veriler" :key="index + 'div'">
-        <div class="row justify-content-center">
-            <div class="col-sm justify-content-center">
+    <div class="container" v-for="(veri, index) in yapilan_hizmetler" :key="index + 'div'">
+        <div class="row">
+            <div class="col-sm">
                 <div class="row">
                     <div class="col s12">
                         <div class="row">
-                            <div class="input-field col s12">
-                                <i class="material-icons prefix">textsms</i>
-                                <input v-model="veri.model" type="text" :id="'model' + index" class="autocomplete">
-                                <label :for="'model' + index">Autocomplete |index|</label>
-                            </div>
+                            <form autocomplete="off">
+                                <div class="col s12 m8">
+                                    <div class="row">
+                                        <div class="input-field">
+                                            <i class="material-icons prefix">build</i>
+                                            <input @input="autocompleteEslesmeKontrol" autocomplete="off" v-model="veri.model" type="text" id="autocomplete-input" :class="'autocomplete' + index">
+                                            <label for="autocomplete-input">Yapılan Hizmet Adı</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col s12 m4">
+                                    <div class="row">
+                                        <div class="input-field">
+                                            <i class="prefix">₺</i>
+                                            <input autocomplete="off" v-model="veri.fiyat" type="number">
+                                            <label for="autocomplete-input">Fiyat</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-sm justify-content-center">
-                | veri.fiyat |₺
             </div>
         </div>
     </div>
@@ -51,32 +63,63 @@
         data: {
             kullanici: <?php echo $kullanici; ?>,
             arac: <?php echo $arac; ?>,
-            veriler: []
+            hizmetler: [
+                { id: 0, ad: "İşçilik", kod: "ISCILIK", img: null },
+                { id: 1, ad: "Deneme", kod: "DENEME", img: null },
+            ],
+            ins: null,
+            yapilan_hizmetler: []
         },
         mounted() {
             this.$nextTick(() => {
-                vm.ekle();
+                vm.hizmetGetir();
             });
         },
+        computed: {
+            autocompleteDeger() {
+                return vm.hizmetler.reduce((acc, cur) => ({ ...acc, [cur.ad]: cur.img }), {});
+            },
+        },
         methods: {
+            autocompleteEslesmeKontrol(e) {
+                /* console.log(e.srcElement.M_Autocomplete.count);*/
+            },
+            autocompleteDegerBul(key) {
+                return vm.hizmetler.find(o => o.ad == key);
+            },
             ekle() {
-                var elems = document.querySelectorAll('.autocomplete');
-                var instances = M.Autocomplete.init(elems, {
-                    data: {
-                        "Apple": "Deneme"
-                    }
-                });
 
-                vm.veriler.push({
-                    fiyat: Math.round(Math.random(1) * 100)
+                vm.yapilan_hizmetler.push({});
+
+                vm.$forceUpdate();
+
+                let son_index = vm.yapilan_hizmetler.length - 1;
+
+                vm.$nextTick(() => {
+                    var elems = document.querySelector('.autocomplete' + son_index);
+                    console.log(elems);
+                    vm.ins = M.Autocomplete.init(elems, {
+                        data: vm.autocompleteDeger,
+                        onAutocomplete: val => {
+                            console.log(vm.autocompleteDegerBul(val));
+                            console.log(son_index);
+                            vm.yapilan_hizmetler[son_index].model = val;
+                            vm.yapilan_hizmetler[son_index] = { ...vm.yapilan_hizmetler[son_index], ...vm.autocompleteDegerBul(val)};
+                        }
+                    });
                 });
 
                 vm.$nextTick(() => {
-                    console.log(document.getElementById("model" + (vm.veriler.length - 1)));
-
-                    if(document.getElementById("model" + (vm.veriler.length - 1)))
-                        document.getElementById("model" + (vm.veriler.length - 1)).focus();
+                    if(document.getElementById("model" + (vm.hizmetler.length - 1)))
+                        document.getElementById("model" + (vm.hizmetler.length - 1)).focus();
                 });
+            },
+            kaydet() {
+
+            },
+            hizmetGetir() {
+                axios.post("/")
+                vm.ekle();
             }
         },
     });
