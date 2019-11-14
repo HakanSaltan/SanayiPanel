@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 class islemHizmetleri extends Model
 {
     protected $table = 'islem_hizmetleri';
+    public $timestamps = false;
 
     public function Islem(){
         return $this->hasMany('App\Islemler', 'id', 'islem_id');

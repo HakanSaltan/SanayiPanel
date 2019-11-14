@@ -21,24 +21,34 @@
         </div>
     </div>
 </div>
-<div  class="card card-default scrollspy">
-    
-    <div class="card-content">
+
            
-        <div id="app">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col s6 justify-content-center">
-                        <h6 class="uppercase">Hizmet Oluştur</h6>
-                    </div>
-                    <div style="bottom: 50px; right: 90px;" class="fixed-action-btn direction-top">
-                            <a class="btn-floating btn-large primary-text gradient-shadow modal-trigger" @click="ekle()">
-                                    <i class="material-icons">build</i>
-                            </a>
-                    </div>
+<div id="app">
+    <div  class="card card-default scrollspy padding-1">
+        <div class="container">
+            <div class="row center-align">
+                <div class="col s12 m5 justify-content-end">
+                    <h5 class="uppercase">Toplam Fiyat: | toplamFiyatlar.toplamFiyat |₺</h5>
+                </div>
+                <div class="col s12 m5 justify-content-end">
+                    <h5 class="uppercase">Toplam KDV: | toplamFiyatlar.toplamKDVFiyat |₺</h5>
+                </div>
+                <div class="col s12 m2 justify-content-end">
+                    <a @click="kaydet()" class="btn-floating btn-large waves-effect waves-light green">
+                        <i class="material-icons">done</i>
+                    </a>
+                </div>
+                <div style="bottom: 50px; right: 90px;" class="fixed-action-btn direction-top">
+                    <a class="btn-floating btn-large primary-text gradient-shadow pulse" @click="ekle()">
+                        <i class="material-icons">build</i>
+                    </a>
                 </div>
             </div>
-            <div class="container" v-for="(veri, index) in yapilan_hizmetler" :key="index + 'div'">
+        </div>
+    </div>
+    <div class="container" v-for="(veri, index) in yapilan_hizmetler" :key="index + 'div'">
+        <div  class="card card-default scrollspy hoverable">
+            <div class="card-content">
                 <div class="row">
                     <div class="col-sm">
                         <div class="row">
@@ -50,7 +60,6 @@
                                                 <div class="input-field">
                                                     <i class="material-icons prefix">build</i>
                                                     <input class="validate" placeholder="Yapılan Hizmet Adı" autocomplete="off" v-model="veri.model" type="text" id="autocomplete-input" :class="'autocomplete' + index">
-                                                   
                                                 </div>
                                             </div>
                                         </div>
@@ -58,7 +67,7 @@
                                             <div class="row">
                                                 <div class="input-field">
                                                     <i class="prefix">₺</i>
-                                                    <input autocomplete="off" v-model="veri.fiyat" placeholder="Fiyat" class="validate" type="number">
+                                                    <input autocomplete="off" @change="yapilan_hizmetler = _j(yapilan_hizmetler)" @input="yapilan_hizmetler = _j(yapilan_hizmetler)" v-model="veri.fiyat" placeholder="Fiyat" class="validate" type="number">
                                                 </div>
                                             </div>
                                         </div>
@@ -87,12 +96,10 @@
         data: {
             kullanici: <?php echo $kullanici; ?>,
             arac: <?php echo $arac; ?>,
-            hizmetler: [
-                { id: 0, ad: "İşçilik", kod: "ISCILIK", img: null },
-                { id: 1, ad: "Deneme", kod: "DENEME", img: null },
-            ],
+            hizmetler: <?= $hizmetler ?>,
             ins: null,
-            yapilan_hizmetler: []
+            yapilan_hizmetler: [],
+            kdvOrani: 18
         },
         mounted() {
             this.$nextTick(() => {
@@ -103,8 +110,27 @@
             autocompleteDeger() {
                 return vm.hizmetler.reduce((acc, cur) => ({ ...acc, [cur.ad]: cur.img }), {});
             },
+            toplamFiyatlar() {
+                let veriler = {
+                    toplamFiyat: 0,
+                    toplamKDVFiyat: 0,
+                };
+
+                this.yapilan_hizmetler.forEach(v => {
+                    let fiyat = parseFloat(v.fiyat);
+                    if(!isNaN(fiyat) && fiyat > 0) {
+                        veriler.toplamFiyat += fiyat;
+                        veriler.toplamKDVFiyat += fiyat * this.kdvOrani / 100;
+                    }
+                });
+
+                return veriler;
+            }
         },
         methods: {
+            _j(v) {
+                return JSON.parse(JSON.stringify(v));
+            },
             autocompleteDegerBul(key) {
                 return vm.hizmetler.find(o => o.ad == key);
             },
@@ -123,6 +149,7 @@
                         onAutocomplete: val => {
                             vm.yapilan_hizmetler[son_index].model = val;
                             vm.yapilan_hizmetler[son_index] = { ...vm.yapilan_hizmetler[son_index], ...vm.autocompleteDegerBul(val)};
+                            vm.yapilan_hizmetler = vm._j(vm.yapilan_hizmetler);
                         }
                     });
                 });
@@ -133,7 +160,17 @@
                 });
             },
             kaydet() {
-
+                axios.post("/hizmetEkle", {
+                    arac_id: vm.arac.id,
+                    musteri_id: vm.arac.musteri_id,
+                    hizmet_fiyat: vm.toplamFiyatlar.toplamFiyat,
+                    hizmet_kdv: vm.kdvOrani,
+                    yapilan_hizmetler: vm.yapilan_hizmetler
+                })
+                .then(donen => {
+                    console.log(donen);
+                })
+                .catch(console.log)
             },
             hizmetGetir() {
                 /*axios.post("/");*/
