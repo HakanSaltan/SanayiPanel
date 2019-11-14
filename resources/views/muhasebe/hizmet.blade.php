@@ -11,7 +11,7 @@
                 <h4 class="uppercase center-align">{{str_replace("_", " ", $arac->plaka)}}</h4>
                 </div>   
             <div class="col s6">
-                    <p class=" uppercase caption mb-0"> <br> {{$arac->marka}} - {{$arac->model}} Araca Ait Hizmet Sayfası</p>
+                    <p class=" uppercase caption mb-0"> <br> {{$arac->marka}} - {{$arac->model}}</p>
             </div>
             <div class="col s6">
                     <p class="caption mb-0 right-align"> <br> Tarih : {{date('d-m-Y')}}</p>
@@ -29,7 +29,7 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col s6 justify-content-center">
-                        <h5 class="uppercase">Hizmet Oluştur</h5>
+                        <h6 class="uppercase">Hizmet Oluştur</h6>
                     </div>
                     <div style="bottom: 50px; right: 90px;" class="fixed-action-btn direction-top">
                             <a class="btn-floating btn-large primary-text gradient-shadow modal-trigger" @click="ekle()">
