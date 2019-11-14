@@ -165,7 +165,7 @@
                     musteri_id: vm.arac.musteri_id,
                     hizmet_fiyat: vm.toplamFiyatlar.toplamFiyat,
                     hizmet_kdv: vm.kdvOrani,
-                    yapilan_hizmetler: []
+                    yapilan_hizmetler: vm.yapilan_hizmetler
                 })
                 .then(donen => {
                     if(!donen.data.sonuc)
