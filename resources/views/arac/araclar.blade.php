@@ -110,52 +110,52 @@
         </div>
 
         <div id="modal2{{$arac->id}}" class="modal">
-                <div class="modal-content">
-                    {{ csrf_field() }}
-                    <div class="step-title waves-effect">Araç Bilgileri = <img class="qr-code" src="{{$arac->qrCode}}"
-                            alt="qr-code"></div>
-                    <div class="step-content">
-                        <div class="row">
-                            <div class="input-field col m12 s12">
-                                <label for="plaka">Plaka: <span class="red-text">*</span></label>
-                                <input type="text" class="validate" value="{{$arac->plaka}}" id="plaka" name="plaka"
-                                    required>
-                            </div>
-                            <div class="input-field col m12 s12">
-                                <label for="km">Km: <span class="red-text">*</span></label>
-                                <input type="text" class="validate" value="{{$arac->km}}" id="km" name="km" required>
-                            </div>
+            <div class="modal-content">
+                {{ csrf_field() }}
+                <div class="step-title waves-effect">Araç Bilgileri = <img class="qr-code" src="{{$arac->qrCode}}"
+                        alt="qr-code"></div>
+                <div class="step-content">
+                    <div class="row">
+                        <div class="input-field col m12 s12">
+                            <label for="plaka">Plaka: <span class="red-text">*</span></label>
+                            <input type="text" class="validate" value="{{$arac->plaka}}" id="plaka" name="plaka"
+                                required>
                         </div>
-                        
-                        <div class="row">
-                            <div class="input-field col m12 s12">
-                                <select name="marka" id="marka">
-                                    <option value="{{$arac->model}}" disabled selected>{{$arac->model}}
-                                    </option>
-                                    @foreach ($markalar as $marka)
-                                    <option  value="{{$marka->name}}">{{$marka->name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="input-field col m12 s12">
-                                <select name="aracModel" id="aracModel">
-                                    <option value="{{$arac->marka}}" disabled selected>Model</option>
-                                    @foreach ($marka->AracModel as $model)
-                                    <option value="{{$model->name}}">{{$model->name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+                        <div class="input-field col m12 s12">
+                            <label for="km">Km: <span class="red-text">*</span></label>
+                            <input type="text" class="validate" value="{{$arac->km}}" id="km" name="km" required>
                         </div>
-                        
-                        <div class="row">
-                            <div class="col m4 s12 mb-1">
-                                <button onclick="aracGuncelle({{ $arac_key }})"
-                                    class="waves-effect waves-light btn gradient-45deg-green-teal mt-7 z-depth-4 animated rubberBand faster modal-trigger"
-                                    >Güncelle</button>
-                            </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="input-field col m12 s12">
+                            <select name="marka" id="marka">
+                                <option value="{{$arac->model}}" disabled selected>{{$arac->model}}
+                                </option>
+                                @foreach ($markalar as $marka)
+                                <option  value="{{$marka->name}}">{{$marka->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="input-field col m12 s12">
+                            <select name="aracModel" id="aracModel">
+                                <option value="{{$arac->marka}}" disabled selected>Model</option>
+                                @foreach ($marka->AracModel as $model)
+                                <option value="{{$model->name}}">{{$model->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col m4 s12 mb-1">
+                            <button onclick="aracGuncelle({{ $arac_key }})"
+                                class="waves-effect waves-light btn gradient-45deg-green-teal mt-7 z-depth-4 animated rubberBand faster modal-trigger"
+                                >Güncelle</button>
                         </div>
                     </div>
                 </div>
+            </div>
         </div>
 
         @endforeach

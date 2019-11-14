@@ -165,10 +165,14 @@
                     musteri_id: vm.arac.musteri_id,
                     hizmet_fiyat: vm.toplamFiyatlar.toplamFiyat,
                     hizmet_kdv: vm.kdvOrani,
-                    yapilan_hizmetler: vm.yapilan_hizmetler
+                    yapilan_hizmetler: []
                 })
                 .then(donen => {
-                    console.log(donen);
+                    if(!donen.data.sonuc)
+                        return M.toast({html: 'İşlem sırasında bir hata oluştu!', classes: "red"});
+
+                    M.toast({html: 'İşlem başarılı!', classes: "green"});
+                    vm.yapilan_hizmetler = [];
                 })
                 .catch(console.log)
             },
