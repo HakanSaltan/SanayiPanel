@@ -30,7 +30,7 @@ class MuhasebeController extends Controller
         // $tarih= new Carbon();
         $kullanici = Musteri::where('user_id', '=', Auth::user()->id)->get();
         $arac_bilgi = Arac::where('id','=', $arac_id)->get();
-        return view('muhasebe/hizmet', ['kullanici' => htmlspecialchars_decode($kullanici)], ['arac' => $arac_bilgi]);
+        return view('muhasebe/hizmet', ['kullanici' => htmlspecialchars_decode($kullanici)], ['arac' => $arac_bilgi[0]]);
     }
 
     public function hizmetEkle($arac_id)

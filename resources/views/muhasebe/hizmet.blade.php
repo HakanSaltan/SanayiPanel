@@ -4,44 +4,67 @@
 
 @endsection
 @section('content')
-
-<div id="app">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col s6 justify-content-center">
-                <h5>Hizmet oluştur</h5>
+<div class="row">
+    <div  class="card">
+        <div class="card-content">
+                <div class="col s12">
+                <h4 class="uppercase center-align">{{str_replace("_", " ", $arac->plaka)}}</h4>
+                </div>   
+            <div class="col s6">
+                    <p class=" uppercase caption mb-0"> <br> {{$arac->marka}} - {{$arac->model}} Araca Ait Hizmet Sayfası</p>
             </div>
-            <div class="col s6 justify-content-center">
-                <button @click="ekle()" type="button" class="btn btn-primary">YENİ</button>
+            <div class="col s6">
+                    <p class="caption mb-0 right-align"> <br> Tarih : {{date('d-m-Y')}}</p>
+                </div>
             </div>
+            
         </div>
     </div>
-    <div class="container" v-for="(veri, index) in yapilan_hizmetler" :key="index + 'div'">
-        <div class="row">
-            <div class="col-sm">
+</div>
+<div  class="card card-default scrollspy">
+    
+    <div class="card-content">
+           
+        <div id="app">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col s6 justify-content-center">
+                        <h5 class="uppercase">Hizmet Oluştur</h5>
+                    </div>
+                    <div style="bottom: 50px; right: 90px;" class="fixed-action-btn direction-top">
+                            <a class="btn-floating btn-large primary-text gradient-shadow modal-trigger" @click="ekle()">
+                                    <i class="material-icons">build</i>
+                            </a>
+                    </div>
+                </div>
+            </div>
+            <div class="container" v-for="(veri, index) in yapilan_hizmetler" :key="index + 'div'">
                 <div class="row">
-                    <div class="col s12">
+                    <div class="col-sm">
                         <div class="row">
-                            <form autocomplete="off">
-                                <div class="col s12 m8">
-                                    <div class="row">
-                                        <div class="input-field">
-                                            <i class="material-icons prefix">build</i>
-                                            <input autocomplete="off" v-model="veri.model" type="text" id="autocomplete-input" :class="'autocomplete' + index">
-                                            <label for="autocomplete-input">Yapılan Hizmet Adı</label>
+                            <div class="col s12">
+                                <div class="row">
+                                    <form autocomplete="off">
+                                        <div class="col s12 m8">
+                                            <div class="row">
+                                                <div class="input-field">
+                                                    <i class="material-icons prefix">build</i>
+                                                    <input class="validate" placeholder="Yapılan Hizmet Adı" autocomplete="off" v-model="veri.model" type="text" id="autocomplete-input" :class="'autocomplete' + index">
+                                                   
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="col s12 m4">
-                                    <div class="row">
-                                        <div class="input-field">
-                                            <i class="prefix">₺</i>
-                                            <input autocomplete="off" v-model="veri.fiyat" type="number">
-                                            <label for="autocomplete-input">Fiyat</label>
+                                        <div class="col s12 m4">
+                                            <div class="row">
+                                                <div class="input-field">
+                                                    <i class="prefix">₺</i>
+                                                    <input autocomplete="off" v-model="veri.fiyat" placeholder="Fiyat" class="validate" type="number">
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </form>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -50,11 +73,12 @@
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
 @endsection
 
 @section('js')
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
 <script>
     Vue.options.delimiters = ['|', '|'];
 

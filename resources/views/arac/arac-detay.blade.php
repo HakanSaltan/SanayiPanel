@@ -44,7 +44,7 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        
             <div class="col s12 m6 l3 card-width">
                 <div class="card border-radius-6">
                     <div class="card-content center-align">

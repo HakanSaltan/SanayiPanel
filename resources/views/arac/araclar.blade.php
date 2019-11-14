@@ -1,7 +1,24 @@
 @extends('layouts.app')
 
 @section('css')
-
+<style>
+        .resimKapsayici {
+            position: relative
+        }
+    
+        .resimYazisi {
+            position: absolute;
+            left: 15%;
+            top: 50%;
+            font-size: 3.5vw;
+        }
+    
+        .qr-code {
+            width: 200px;
+            height: 200px;
+        }
+    
+    </style>
 @endsection
 @section('content')
 <div class="row mt-2">
@@ -30,7 +47,6 @@
 
                 <a onclick="hizmetEkle({{ $arac->id }})"
                     class="waves-effect waves-light btn blue darken-4 mt-7 z-depth-4 animated rubberBand faster ">
-                    <!-- <i class="material-icons pt-5">add</i> -->
                     <span>Hizmet Ekle</span>
                 </a>
             </div>
@@ -175,23 +191,6 @@
     }
 
 </script>
-<style>
-    .resimKapsayici {
-        position: relative
-    }
 
-    .resimYazisi {
-        position: absolute;
-        left: 15%;
-        top: 50%;
-        font-size: 3.5vw;
-    }
-
-    .qr-code {
-        width: 200px;
-        height: 200px;
-    }
-
-</style>
 
 @endsection
