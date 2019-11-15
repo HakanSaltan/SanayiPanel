@@ -141,7 +141,7 @@
                                         <div class="row">
                                             <div class="input-field col m6 s12">
                                                 <i class="material-icons prefix"> perm_identity </i>
-                                                <input id="first_name" type="text" value="{{$kullanici->isimSoyisim}}"
+                                                <input id="isimSoyisim" type="text" value="{{$kullanici->isimSoyisim}}"
                                                     class="validate">
                                                 <label for="first_name">Ad Soyad</label>
                                             </div>
@@ -156,13 +156,13 @@
 
                                             <div class="input-field col s12">
                                                 <i class="material-icons prefix"> call </i>
-                                                <input id="phone" type="number" value="{{$kullanici->telefon}}"
+                                                <input id="telefon" type="number" value="{{$kullanici->telefon}}"
                                                     class="validate">
                                                 <label for="phone">Telefon</label>
                                             </div>
                                             <div class="input-field col s12">
                                                 <i class="material-icons prefix"> note </i>
-                                                <input id="notes" type="text" value="{{$kullanici->adres}}"
+                                                <input id="adres" type="text" value="{{$kullanici->adres}}"
                                                     class="validate">
                                                 <label for="notes">Adres</label>
                                             </div>
@@ -192,10 +192,10 @@
 <script>
     function musteriGuncelle() {
         let token = '{{csrf_token()}}';
-        let telefon = telefon.value;
-        let isimSoyisim = isimSoyisim.value;
-        let tc = tc.value;
-        let adres = adres.value;
+        let telefon = document.getElementById("telefon");
+        let isimSoyisim = document.getElementById("isimSoyisim");
+        let tc = document.getElementById("tc");
+        let adres = document.getElementById("adres");
 
 
         axios.post("/musteriGuncelle/" + kullanici - > id, {

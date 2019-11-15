@@ -252,9 +252,6 @@
                     <div style="bottom: 50px; right: 19px;" class="fixed-action-btn direction-top"><a
                             class="btn-floating btn-large gradient-45deg-light-blue-cyan gradient-shadow"><i
                                 class="material-icons">add</i></a>
-                        <div style="bottom: 50px; right: 19px;" class="fixed-action-btn direction-top"><a
-                                class="btn-floating btn-large gradient-45deg-light-blue-cyan gradient-shadow"><i
-                                    class="material-icons">add</i></a>
                             <ul>
                                 <li><a href="{{asset('/')}}" class="btn-floating green"><i
                                             class="material-icons">home</i></a></li>
@@ -265,7 +262,6 @@
                                 <li><a data-target="modal3" class="btn-floating blue modal-trigger"><i
                                             class="material-icons">add</i></a></li>
                             </ul>
-                        </div>
                     </div>
                     @endrole()
                 </div>
@@ -290,30 +286,9 @@
     <script src="{{ asset('app-assets/js/plugins.js') }}" type="text/javascript"></script>
     <script src="{{ asset('app-assets/js/custom/custom-script.js') }}" type="text/javascript"></script>
     <script src="{{ asset('app-assets/js/scripts/css-animation.js') }}" type="text/javascript"></script>
-
+    <script src="{{asset('app-assets/js/scripts/advance-ui-modals.js')}}" type="text/javascript"></script>
     @yield('js')
-    <script>
-        $(document).ready(function () {
-
-            $('.modal').modal({
-                dismissible: true, // Modal can be dismissed by clicking outside of the modal
-                opacity: .5, // Opacity of modal background
-                inDuration: 300, // Transition in duration
-                outDuration: 200, // Transition out duration
-                startingTop: '4%', // Starting top style attribute
-                endingTop: '10%', // Ending top style attribute
-                ready: function (modal,
-                    trigger) { // Callback for Modal open. Modal and trigger parameters available.
-                    alert("Harika");
-                    console.log(modal, trigger);
-                },
-                complete: function () {
-                    alert('Kapandı');
-                } // Callback for Modal close
-            });
-        });
-
-    </script>
+    
 </body>
 
 </html>
