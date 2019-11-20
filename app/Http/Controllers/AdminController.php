@@ -11,6 +11,7 @@ use App\AracModel;
 use App\Marka;
 use App\userAyar;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Contracts\Cache\Factory;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use \Illuminate\Support\Collection;
@@ -49,6 +50,12 @@ class AdminController extends Controller
         }
         DB::commit();
         return $sonuc;
+    }
+    public function firmaGuncelle(Request $request, $id, Factory $cache)
+    {
+        
+        $cache->forget('userAyar');
+        
     }
 
     public function resimKayit($Resim,Request $request)
