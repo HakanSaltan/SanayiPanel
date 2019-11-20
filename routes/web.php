@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\Ayar;
 use App\User;
 
 //Aşağıdaki adresten route ları kontrol edebilirsiniz
@@ -9,6 +10,10 @@ use App\User;
 Route::get('/', function () {
     return view('welcome'); 
 });
+Route::get('/ayar', function () {
+    return view('ayar'); 
+});
+
 
 
 

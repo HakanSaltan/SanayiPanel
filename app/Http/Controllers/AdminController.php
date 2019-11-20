@@ -26,66 +26,49 @@ class AdminController extends Controller
     }
     public function firmaKayit()
 	{
-        DB::beginTransaction();
+       
 
         $post = $_POST;
         $dosyalar = $_FILES;
-        $resimUrl = file_put_contents('./app-assets/images/logo/', $dosyalar["firma_logo"], FILE_USE_INCLUDE_PATH);
-        //$resimUrl = resimKayit($dosyalar);
-        $post = json_decode($post, true);
-        $post['firma_logo'] = $resimUrl;
-        $post = json_encode($post, true);
-        return $post;
-       
-        if($post){
-                
-                $ayar = new userAyar();
-                $ayar->user_id = Auth::user()->id;
-                $ayar->ayarJSON = $post;
+        
+        if ($dosyalar["firma_logo"]["error"] == UPLOAD_ERR_OK) {
+            $resimUrl = $this->resimKayit($dosyalar);
+            if(!$resimUrl["sonuc"])
+            {
+                return ["sonuc" => false];
+            }
 
-                $ayar->save();
-                        
+            $post['firma_logo'] = [
+                "yol" => $resimUrl["yol"],
+                "eskiAd" => $resimUrl["eskiDosyaIsmi"]
+            ];
+
+            $post = json_encode($post);
+        }
+            
+        if($post){
+            $ayar = new userAyar();
+            $ayar->user_id = Auth::user()->id;
+            $ayar->ayarJSON = $post;
+
+            if(!$ayar->save())
+            {
+                $sonuc = $this->sonuc(false);
+            }
+
+            $sonuc = $this->sonuc(true);
         }else{
             $sonuc = $this->sonuc(false);
         }
-        DB::commit();
+        
         return $sonuc;
     }
+    
     public function firmaGuncelle(Request $request, $id, Factory $cache)
     {
         
         $cache->forget('userAyar');
         
-    }
-
-    public function resimKayit($Resim,Request $request)
-    {
-        $Resim = 'uploads/' . $Resim;
-        $uretilen = $this->rastgele();
-        if (!$Resim == 0) {
-            if (file_exists($Resim)) {
-                unlink($Resim);
-            }
-        }
-
-        $file = $request->file('Resim');
-        /*
-        $validator = Validator::make($request->all(), [
-            'Resim' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2024',
-        ]);
-
-        if ($validator->fails()) {
-
-            return redirect()->back()->with('status', 'Resminiz jpg , png formatında olmalı ve 2 megabaytı geçmemelidir.');
-        }
-       */
-        $destinationPath = 'uploads';
-        $yeniurl = $uretilen . "." . $file->getClientOriginalExtension();
-
-        $file->move($destinationPath, $yeniurl);
-        $resimUrl =  $destinationPath . "/" . $yeniurl;
-        return $resimUrl;
-
     }
     
     public function aracGuncelle($id,$mid,Request $request)
@@ -220,20 +203,6 @@ class AdminController extends Controller
     }
     
 
-    public function sonuc($sonuc, $parametreler=[]){
-        return json_encode([
-            "sonuc" => $sonuc,
-            "parametreler" => $parametreler
-        ]);
-    }
-
-    public function plakaSifrele($plaka) {
-        return str_replace(" ", "_", preg_replace('!\s+!', ' ', trim($plaka)));
-    }
-      
-    public function plakaCoz($plaka) {
-    return str_replace("_", " ", $plaka);
-    }
 
     public function aracDetay($id=0)
     {

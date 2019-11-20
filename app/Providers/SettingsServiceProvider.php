@@ -24,13 +24,8 @@ class SettingsServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot(Factory $cache, Setting $settings)
+    public function boot(Factory $cache, userAyar $settings)
     {
-        $settings = $cache->remember('userAyar', 60, function() use ($settings)
-        {
-            return $settings->where('user_id','=',Auth::user()->id)->all();
-        });
-    
-        config()->set('settings', $settings);
+      
     }
 }

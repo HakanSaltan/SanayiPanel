@@ -284,13 +284,14 @@
                     Hakları Saklıdır.</span></div>
         </div>
     </footer>
-    @endif
+    
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="{{ asset('app-assets/js/vendors.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('app-assets/vendors/data-tables/js/jquery.dataTables.js') }}" type="text/javascript">
     </script>
     <script src="{{ asset('app-assets/vendors/data-tables/extensions/responsive/js/dataTables.responsive.min.js') }}"
         type="text/javascript"></script>
+        
     <script src="{{ asset('app-assets/js/plugins.js') }}" type="text/javascript"></script>
     <script src="{{ asset('app-assets/js/custom/custom-script.js') }}" type="text/javascript"></script>
     <script src="{{ asset('app-assets/js/scripts/css-animation.js') }}" type="text/javascript"></script>
