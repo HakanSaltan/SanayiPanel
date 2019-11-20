@@ -25,16 +25,22 @@ class AdminController extends Controller
     }
     public function firmaKayit()
 	{
-        DB::beginTransaction();
-
+        
         $post = $_POST;
         $dosyalar = $_FILES;
-        $resimUrl = file_put_contents('./app-assets/images/logo/', $dosyalar["firma_logo"], FILE_USE_INCLUDE_PATH);
-        //$resimUrl = resimKayit($dosyalar);
-        $post = json_decode($post, true);
-        $post['firma_logo'] = $resimUrl;
-        $post = json_encode($post, true);
+        print_r($dosyalar["firma_logo"]);
+        $Resim = $dosyalar["firma_logo"];
+
+        //$name = $_FILES["pictures"]["name"][$key];
+        //move_uploaded_file($tmp_name, "$uploads_dir/$name");
+        
         return $post;
+       // $resimUrl = $this->resimKayit($Resim);
+        $cozulmusPost = json_decode($post, true);
+        $cozulmusPost['firma_logo'] = $resimUrl;
+        $post = json_encode($cozulmusPost);
+        echo $post;
+        
        
         if($post){
                 
@@ -47,11 +53,11 @@ class AdminController extends Controller
         }else{
             $sonuc = $this->sonuc(false);
         }
-        DB::commit();
+        
         return $sonuc;
     }
 
-    public function resimKayit($Resim,Request $request)
+    public function resimKayit($Resim)
     {
         $Resim = 'uploads/' . $Resim;
         $uretilen = $this->rastgele();
@@ -61,22 +67,14 @@ class AdminController extends Controller
             }
         }
 
-        $file = $request->file('Resim');
-        /*
-        $validator = Validator::make($request->all(), [
-            'Resim' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2024',
-        ]);
-
-        if ($validator->fails()) {
-
-            return redirect()->back()->with('status', 'Resminiz jpg , png formatında olmalı ve 2 megabaytı geçmemelidir.');
-        }
-       */
+        $file = $Resim;
+        
         $destinationPath = 'uploads';
         $yeniurl = $uretilen . "." . $file->getClientOriginalExtension();
 
         $file->move($destinationPath, $yeniurl);
         $resimUrl =  $destinationPath . "/" . $yeniurl;
+
         return $resimUrl;
 
     }

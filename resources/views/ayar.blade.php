@@ -116,7 +116,7 @@
                                 <div class="row">
                                     <div class="col s12 center">
                                         <p>Maximum 2 MB Boyutunda Logo Yükleyebilirsiniz.</p>
-                                        <input type="file" id="input-file-max-fs" class="dropify" data-max-file-size="2M" />
+                                        <input type="file" name="firma_logo" id="input-file-max-fs" class="dropify" data-max-file-size="2M" />
                                     </div>
 
                                 </div>
