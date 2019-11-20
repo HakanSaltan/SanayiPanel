@@ -31,11 +31,20 @@
 
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/custom/custom.css') }}">
 
-    
+
+
+
 
     @yield('css')
 </head>
 <!-- END: Head-->
+
+<?php  $kontrol = DB::table('user_ayar')->where('user_id', Auth::user()->id)->get(); ?>
+
+@if(!count($kontrol))
+@include('ayar')
+@else
+
 <?php $qrCodes = \App\qrOkutulan::all();?>
 
 <body class="vertical-layout page-header-light vertical-menu-collapsible vertical-dark-menu 2-columns  "
@@ -169,6 +178,9 @@
                     </ul>
                 </div>
             </li>
+            <li>
+                <img src="{{Storage::url('app\\app-assets\\images\\logo')}}" alt="">
+            </li>
 
             @endrole
         </ul>
@@ -178,10 +190,10 @@
     </aside>
 
     <div id="main">
-      <div class="row">
-        <div class="content-wrapper-before blue-grey lighten-5" style="height: calc(100vh - 64px)"></div>
-        <div class="col s12">
-          <div class="container">
+        <div class="row">
+            <div class="content-wrapper-before blue-grey lighten-5" style="height: calc(100vh - 64px)"></div>
+            <div class="col s12">
+                <div class="container">
 
 
                     @yield('content')
@@ -217,16 +229,16 @@
                                         <div class="activity">
                                             <ul class="collection with-header">
                                                 @if(!empty($qrCodes))
-                                                    @foreach ($qrCodes as $qrCode)
-                                                    <li class="collection-item">
-                                                        <div class="font-weight-900">
-                                                            <a class="bold">{{$qrCode->Arac->plaka}}</a> <span
-                                                                class="secondary-content">{{$qrCode->Arac->Musteri->isimSoyisim}}</span>
-                                                        </div>
-                                                        <p class="mt-0 mb-2">{{$qrCode->created_at}}</p>
-                                                        </span>
-                                                    </li>
-                                                    @endforeach
+                                                @foreach ($qrCodes as $qrCode)
+                                                <li class="collection-item">
+                                                    <div class="font-weight-900">
+                                                        <a class="bold">{{$qrCode->Arac->plaka}}</a> <span
+                                                            class="secondary-content">{{$qrCode->Arac->Musteri->isimSoyisim}}</span>
+                                                    </div>
+                                                    <p class="mt-0 mb-2">{{$qrCode->created_at}}</p>
+                                                    </span>
+                                                </li>
+                                                @endforeach
                                                 @endif
                                             </ul>
 
@@ -235,6 +247,7 @@
                                 </div>
                             </div>
                         </div>
+                        <!--
                         <div id="modal3" class="modal modal-fixed-footer">
                             <div class="modal-content">
                                 <h4>Modal Header</h4>
@@ -245,23 +258,23 @@
                                     class="modal-action modal-close waves-effect waves-green btn-flat ">Agree</a>
                             </div>
                         </div>
-
+-->
 
                     </aside>
                     <!-- END RIGHT SIDEBAR NAV -->
                     <div style="bottom: 50px; right: 19px;" class="fixed-action-btn direction-top"><a
                             class="btn-floating btn-large gradient-45deg-light-blue-cyan gradient-shadow"><i
                                 class="material-icons">add</i></a>
-                            <ul>
-                                <li><a href="{{asset('/')}}" class="btn-floating green"><i
-                                            class="material-icons">home</i></a></li>
-                                <li><a href="{{asset('/araclarim')}}" class="btn-floating amber"><i
-                                            class="material-icons">directions_car</i></a></li>
-                                <li><a href="{{asset('/musterilerim')}}" class="btn-floating red"><i
-                                            class="material-icons">assignment_ind</i></a></li>
-                                <li><a data-target="modal3" class="btn-floating blue modal-trigger"><i
-                                            class="material-icons">add</i></a></li>
-                            </ul>
+                        <ul>
+                            <li><a href="{{asset('/')}}" class="btn-floating green"><i
+                                        class="material-icons">home</i></a></li>
+                            <li><a href="{{asset('/araclarim')}}" class="btn-floating amber"><i
+                                        class="material-icons">directions_car</i></a></li>
+                            <li><a href="{{asset('/musterilerim')}}" class="btn-floating red"><i
+                                        class="material-icons">assignment_ind</i></a></li>
+                            <li><a data-target="modal3" class="btn-floating blue modal-trigger"><i
+                                        class="material-icons">add</i></a></li>
+                        </ul>
                     </div>
                     @endrole()
                 </div>
@@ -279,16 +292,19 @@
                     Hakları Saklıdır.</span></div>
         </div>
     </footer>
+    @endif
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="{{ asset('app-assets/js/vendors.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('app-assets/vendors/data-tables/js/jquery.dataTables.js') }}" type="text/javascript"> </script>
-    <script src="{{ asset('app-assets/vendors/data-tables/extensions/responsive/js/dataTables.responsive.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('app-assets/vendors/data-tables/js/jquery.dataTables.js') }}" type="text/javascript">
+    </script>
+    <script src="{{ asset('app-assets/vendors/data-tables/extensions/responsive/js/dataTables.responsive.min.js') }}"
+        type="text/javascript"></script>
     <script src="{{ asset('app-assets/js/plugins.js') }}" type="text/javascript"></script>
     <script src="{{ asset('app-assets/js/custom/custom-script.js') }}" type="text/javascript"></script>
     <script src="{{ asset('app-assets/js/scripts/css-animation.js') }}" type="text/javascript"></script>
     <script src="{{asset('app-assets/js/scripts/advance-ui-modals.js')}}" type="text/javascript"></script>
     @yield('js')
-    
+
 </body>
 
 </html>

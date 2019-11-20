@@ -86,7 +86,7 @@
 
 @section('js')
 <script src="{{ asset('app-assets/vendors/sparkline/jquery.sparkline.min.js') }}"></script>
-<script src="{{ asset('app-assets/vendors/chartjs/chart.min.js') }}"></script>
+<script src="{{ asset('app-assets/vendors/chartjs/chart.js') }}"></script>
 <script src="{{ asset('app-assets/js/scripts/card-advanced.js') }}" type="text/javascript"></script>
 
 <script>

@@ -25,7 +25,32 @@
 </head>
 
 <body>
+    <div style="bottom: 50px; right: 20px;" class="fixed-action-btn direction-top">
+        <a class="btn-floating btn-large primary-text gradient-shadow modal-trigger" href="#modalislem">
+            <i class="material-icons">add</i>
+        </a>
+    </div>
 
+    <div id="modalislem" class="modal border-radius-6">
+        <div class="modal-content">
+            <h4>Fatura Oluştur</h4>
+            <div class="col s6">
+                <div class="input-field">
+                    <select>
+                        <option value="" disabled selected>İşlem Seçiniz</option>
+                        @foreach ($aracdetay->Islemler as $Islemler)
+                        <option value="1">{{$Islemler->id}}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+
+       
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Oluştur</a>
+        </div>
+    </div>
     <div class="row">
         <div id="breadcrumbs-wrapper" data-image="{{asset('app-assets/images/gallery/breadcrumb-bg.jpg')}}"
             class="breadcrumbs-bg-image"
@@ -137,25 +162,13 @@
         </div>
     </div>
     @endforeach
-    
 
-    <div style="bottom: 50px; right: 19px;" class="fixed-action-btn direction-top">
-        <a data-target="modal3" class="btn-floating btn-large gradient-45deg-light-blue-cyan gradient-shadow"><i
-            class="material-icons">add</i></a>
-    </div>
-    <div id="modal3" class="modal modal-fixed-footer">
-            <div class="modal-content">
-                <h4>Fatura Oluştur</h4>
-            </div>
-            <div class="modal-footer">
-                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Kaydet</a>
-            </div>
-        </div>
+
     <script src="{{asset('app-assets/js/vendors.min.js')}}" type="text/javascript"></script>
     <script src="{{asset('app-assets/js/plugins.js')}}" type="text/javascript"></script>
     <script src="{{asset('app-assets/js/custom/custom-script.js')}}" type="text/javascript"></script>
     <script src="{{asset('app-assets/js/scripts/customizer.js')}}" type="text/javascript"></script>
-    
+
     <script src="{{asset('app-assets/js/scripts/advance-ui-modals.js')}}" type="text/javascript"></script>
 </body>
 

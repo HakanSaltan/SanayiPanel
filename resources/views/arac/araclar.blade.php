@@ -112,7 +112,7 @@
         <div id="modal2{{$arac->id}}" class="modal">
             <div class="modal-content">
                 {{ csrf_field() }}
-                <div class="step-title waves-effect">Araç Bilgileri = <img class="qr-code" src="{{$arac->qrCode}}"
+                <div class="step-title waves-effect center"> <img class="qr-code" src="{{$arac->qrCode}}"
                         alt="qr-code"></div>
                 <div class="step-content">
                     <div class="row">
@@ -150,7 +150,7 @@
                     <div class="row">
                         <div class="col m4 s12 mb-1">
                             <button onclick="aracGuncelle({{ $arac_key }})"
-                                class="waves-effect waves-light btn gradient-45deg-green-teal mt-7 z-depth-4 animated rubberBand faster modal-trigger"
+                                class="waves-effect waves-light btn gradient-45deg-green-teal mt-7 z-depth-4 animated rubberBand faster"
                                 >Güncelle</button>
                         </div>
                     </div>
@@ -170,12 +170,17 @@
     let a = <?= $kullanici->Arac ?>;
 
     function aracGuncelle(sayi) {
-        console.log(a[sayi]);
-        let el = document.querySelector("#modal2" + a[sayi].id + " #km");
-        console.log(el.value);
-        let km = el.value;
-        axios.post("/", {
-            km
+        console.log(a[sayi].musteri_id);
+        let plaka = document.querySelector("#modal2" + a[sayi].id + " #plaka");
+        let km = document.querySelector("#modal2" + a[sayi].id + " #km");
+        let marka = document.querySelector("#modal2" + a[sayi].id + " #marka");
+        let aracModel = document.querySelector("#modal2" + a[sayi].id + " #aracModel");
+        console.log(plaka.value, km.value, marka.value, aracModel.value);
+        axios.post("aracGuncelle/"+a[sayi].id+"/"+a[sayi].musteri_id, {
+            km: km.value,
+            marka: marka.value,
+            aracModel: aracModel.value,
+            plaka: plaka.value
         })
         .then(donen => {
             console.log(donen);

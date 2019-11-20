@@ -134,52 +134,6 @@
     @endif
     
     <div class="kg-container">
-        <!--
-        <div class="a_r kg-app">
-            <div class="app">
-              
-                <div class="top-panel">
-                    
-                    <div class="left">
-                        <div class="circles">
-                            <span class="full"></span>
-                            <span class="full"></span>
-                            <span class="full"></span>
-                            <span class="full"></span>
-                            <span></span>
-                        </div>
-                        <div class="operator">
-                            <p id="lang">--</p>
-                        </div>
-                    </div>
-                 
-                    <div class="center">
-                        <div class="time">
-                            <p id="time">--:--&nbsp;--</p>
-                        </div>
-                    </div>
-                   
-                    <div class="right">
-                        <div class="percentage">
-                            <p id="perc">--%</p>
-                        </div>
-                        <div class="battery">
-                            <span class="icon"></span>
-                        </div>
-                    </div>
-                </div>
-    
-                <div class="screen" id="screen" style="position: releative">
-                    <div id="img" style="top: 50%; left:50%">
-                        
-                    </div>
-                </div>
-                <div class="clearfix"></div>
-    
-            </div>
-        </div>
--->
-
         <div id="progress"></div>
         <div class="kg-main">
             <div class="center">
@@ -212,35 +166,6 @@
         }
     });
 
-    // iFrame saat işlemi
-    // window.setInterval(function () {
-    //     // current time
-    //     var d = new Date();
-
-    //     var time = {
-    //         hours: d.getHours(),
-    //         minutes: d.getMinutes(),
-    //         ampm: d.getHours >= 12 ? "PM" : "AM"
-    //     };
-
-    //     // convert format into -> hh:mm am/pm
-    //     time.hours = time.hours % 12;
-    //     time.hours = time.hours ? time.hours : 12;
-    //     time.minutes = time.minutes < 10 ? "0" + time.minutes : time.minutes;
-
-    //     var string = time.hours + ":" + time.minutes + "&nbsp;" + time.ampm;
-    //     document.getElementById("time").innerHTML = string;
-
-    //     // get client language
-    //     var lang = navigator.language;
-    //     document.getElementById("lang").innerHTML = lang.toUpperCase();
-
-    //     // battery level
-    //     var battery = navigator.getBattery().then(function (battery) {
-    //         document.getElementById("perc").innerHTML = (battery.level * 100).toFixed(0) + "%";
-    //     });
-    // }, 1000);
-
     @auth
     var questions = [
         { question: "Plaka Giriniz" },
@@ -269,8 +194,7 @@
         var wTime = 200
         var eTime = 1000
 
-        // init
-        // --------------
+        
         var position = 0
 
         var geriEl = document.getElementById("geri-buton");
@@ -289,7 +213,7 @@
 
 
 
-        // load the next question
+       
         function putQuestion() {
             inputLabel.innerHTML = questions[position].question
             if(questions[position].value)
@@ -334,94 +258,8 @@
             });
         }
 
-        /*
-                function keykayit(){
-                    var deger = $cikti;
-                    var token= '{{csrf_token()}}';
-                    var url = questions[0].value;
-                    
-                    $.ajax({
-                        url: '{{URL::asset('keykayit')}}',
-                        type: 'GET',
-                        data: {
-                            _token: token,
-                            deger: deger,
-                            url: url,
-                        },
-                        dataType: 'JSON',
-                        success: function (a) {
-                            if (a.error) {
-                                console.log("eror");
-                                alert(a.error);
-                            } else {
-                                if (a.cevap) {
-                                    console.log("başarılı");
-                                    swal("Kayıt Başarılı!", "", "success");
-
-                                } else {
-                                    console.log("başarısız");
-                                    swal("kayıt Başarısız! ", "", "error");
-                                }
-                            }
-                        }
-                    })
-                }
-        
-        function email() {
-            var deger = $cikti;
-            var url = questions[0].value;
-            var isim = questions[1].value;
-            var email = questions[2].value;
-
-            let veriler = {
-                _token: token,
-                email: email,
-                deger: deger,
-                url: url,
-                isim: isim
-            };
-
-            console.log(veriler);
-
-            var token = '{{csrf_token()}}';
-            axios.post('/sendmail', veriler)
-            .then(donen => {
-                console.log(donen);
-            })
-            .catch(console.log);
-            /*$.ajax({
-                url: '{/{URL::route("sendmail")}}',
-                type: 'GET',
-                data: {
-                    _token: token,
-                    email: email,
-                    deger: deger,
-                    url: url,
-                    isim: isim
-                },
-                dataType: 'JSON',
-                success: function (a) {
-                    if (a.error) {
-                        console.log("eror");
-                        alert(a.error);
-                    } else {
-                        if (a.cevap) {
-                            console.log("başarılı");
-                            swal("Mail Gönderme Başarılı!", "", "success");
-
-                        } else {
-                            console.log("başarısız");
-                            swal("Mail Gönderme Başarısız! ", "", "error");
-                        }
-                    }
-                }
-            })
-        }
-        */
-
-        // when all the questions have been answered
         function done() {
-            // remove the box if there is no next question
+            
             register.className = 'close'
             @auth
 
@@ -435,20 +273,20 @@
 
         }
 
-        // when submitting the current question
+     
         function validate() {
 
-            // set the value of the field into the array
+            
             questions[position].value = inputField.value
 
-            // check if the pattern matches
+           
             if (!inputField.value.match(questions[position].pattern || /.+/)) wrong()
             else ok(function () {
 
-                // set the progress of the background
+           
                 progress.style.width = ++position * 100 / questions.length + 'vw'
 
-                // if there is a new question, hide current and load next
+             
                 if (questions[position]) hideCurrent(putQuestion)
                 else hideCurrent(done)
 
@@ -469,10 +307,10 @@
 
                 --position;
 
-                // set the progress of the background
+               
                 progress.style.width = position * 100 / questions.length + 'vw'
 
-                // if there is a new question, hide current and load next
+              
                 if (questions[position]) hideCurrent(putQuestion)
                 else hideCurrent(done)
 
@@ -480,8 +318,6 @@
             });
         }
 
-        // helper
-        // --------------
 
         function hideCurrent(callback) {
             inputContainer.style.opacity = 0
@@ -513,7 +349,7 @@
 
         function wrong(callback) {
             register.className = 'wrong'
-            for (var i = 0; i < 6; i++) // shaking motion
+            for (var i = 0; i < 6; i++) 
                 setTimeout(transform, tTime * i, (i % 2 * 2 - 1) * 20, 0)
             setTimeout(transform, tTime * 6, 0, 0)
             setTimeout(callback, tTime * 7)

@@ -9,19 +9,77 @@ use App\Musteri;
 use App\Arac;
 use App\AracModel;
 use App\Marka;
+use App\userAyar;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use \Illuminate\Support\Collection;
 use \Spatie\Permission\Models\Role;
 use \Spatie\Permission\Models\Permission;
+use Illuminate\Support\Facades\Storage;
 class AdminController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
     }
-   
+    public function firmaKayit()
+	{
+        DB::beginTransaction();
+
+        $post = $_POST;
+        $dosyalar = $_FILES;
+        $resimUrl = file_put_contents('./app-assets/images/logo/', $dosyalar["firma_logo"], FILE_USE_INCLUDE_PATH);
+        //$resimUrl = resimKayit($dosyalar);
+        $post = json_decode($post, true);
+        $post['firma_logo'] = $resimUrl;
+        $post = json_encode($post, true);
+        return $post;
+       
+        if($post){
+                
+                $ayar = new userAyar();
+                $ayar->user_id = Auth::user()->id;
+                $ayar->ayarJSON = $post;
+
+                $ayar->save();
+                        
+        }else{
+            $sonuc = $this->sonuc(false);
+        }
+        DB::commit();
+        return $sonuc;
+    }
+
+    public function resimKayit($Resim,Request $request)
+    {
+        $Resim = 'uploads/' . $Resim;
+        $uretilen = $this->rastgele();
+        if (!$Resim == 0) {
+            if (file_exists($Resim)) {
+                unlink($Resim);
+            }
+        }
+
+        $file = $request->file('Resim');
+        /*
+        $validator = Validator::make($request->all(), [
+            'Resim' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2024',
+        ]);
+
+        if ($validator->fails()) {
+
+            return redirect()->back()->with('status', 'Resminiz jpg , png formatında olmalı ve 2 megabaytı geçmemelidir.');
+        }
+       */
+        $destinationPath = 'uploads';
+        $yeniurl = $uretilen . "." . $file->getClientOriginalExtension();
+
+        $file->move($destinationPath, $yeniurl);
+        $resimUrl =  $destinationPath . "/" . $yeniurl;
+        return $resimUrl;
+
+    }
     
     public function aracGuncelle($id,$mid,Request $request)
 	{
@@ -32,11 +90,10 @@ class AdminController extends Controller
         if(!isset($req["plaka"]) || !$req["plaka"])
             return $this->sonuc(false);
         
-        $plaka =  plakaSifrele($req['plaka']);
+        $plaka =  $this->plakaSifrele($req['plaka']);
         $km =  trim($req['km']);
         $marka =  trim($req['marka']);
         $aracModel =  trim($req['aracModel']);
-        $qrCode =  trim($req['qrCode']);
 
         if($plaka){
                 
@@ -45,8 +102,7 @@ class AdminController extends Controller
                 $arac->plaka = $plaka;
                 $arac->km = $km;
                 $arac->marka = $marka;
-                $arac->aracModel = $aracModel;
-                $arac->qrCode = $qrCode;
+                $arac->model = $aracModel;
                 $arac->save();
 
             $sonuc = $this->sonuc(true);

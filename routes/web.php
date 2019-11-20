@@ -40,6 +40,7 @@ Route::group(['middleware' => ['role:admin']], function () {
     Route::post('/musteriGuncelle/{id?}', 'AdminController@musteriGuncelle')->name('musteriGuncelle');
     Route::post('/musteriSil/{id?}', 'AdminController@musteriSil')->name('musteriSil');
     Route::post('/musteriKayit', 'AdminController@musteriKayit')->name('musteriKayit');
+    Route::post('/firmaKayit', 'AdminController@firmaKayit')->name('firmaKayit');
     Route::get('/arac-detay/{id?}', 'AdminController@aracDetay')->name('arac-Detay');
 
     //AdminController - Araç
