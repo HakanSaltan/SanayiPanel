@@ -37,8 +37,12 @@
 <!-- END: Head-->
 
 
-<?php $qrCodes = \App\qrOkutulan::all();?>
-
+<?php 
+    $qrCodes = \App\qrOkutulan::all();
+    $ayarlar =\App\userAyar::where('user_id','=', Auth::user()->id)->get();
+    $ayar = $ayarlar[0]->ayarJSON;
+    $ayar = json_decode($ayar);
+ ?>
 <body class="vertical-layout page-header-light vertical-menu-collapsible vertical-dark-menu 2-columns  "
     data-open="click" data-menu="vertical-dark-menu" data-col="2-columns">
 
@@ -122,6 +126,7 @@
             <h1 class="logo-wrapper"><a class="brand-logo darken-1" href="{{asset('/')}}"><span
                         class="logo-text hide-on-med-and-down">{{ config('app.name', 'Otogaraj') }}</span></a><a
                     class="navbar-toggler" href="#"><i class="material-icons">radio_button_checked</i></a></h1>
+            
         </div>
         <ul class="sidenav sidenav-collapsible leftside-navigation collapsible sidenav-fixed menu-shadow" id="slide-out"
             data-menu="menu-navigation" data-collapsible="accordion">
@@ -159,7 +164,7 @@
                     </ul>
                 </div>
             </li>
-            <li class="bold"><a class="collapsible-header waves-effect waves-cyan " href="#"><i
+            <li ><a class="collapsible-header waves-effect waves-cyan " href="#"><i
                         class="material-icons">dvr</i><span class="menu-title" data-i18n="">Müşteriler</span><span
                         class="badge badge pill orange float-right mr-10">1</span></a>
                 <div class="collapsible-body">
@@ -170,8 +175,11 @@
                     </ul>
                 </div>
             </li>
-            <li>
-                <img src="{{Storage::url('app\\app-assets\\images\\logo')}}" alt="">
+            <li class="bold">
+                <div class="collapsible-body">
+                    <li> <img width="50px" height="50px" src="" alt="">
+                    </li>
+                </div>
             </li>
 
             @endrole
@@ -286,14 +294,17 @@
     </footer>
     
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    
     <script src="{{ asset('app-assets/js/vendors.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('app-assets/vendors/data-tables/js/jquery.dataTables.js') }}" type="text/javascript">
-    </script>
+    <script src="{{ asset('app-assets/js/plugins.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('app-assets/js/custom/custom-script.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('app-assets/vendors/data-tables/js/jquery.dataTables.js') }}" type="text/javascript"> </script>
+        <script src="{{ asset('app-assets/vendors/sparkline/jquery.sparkline.min.js') }}"></script>
+       
+        
     <script src="{{ asset('app-assets/vendors/data-tables/extensions/responsive/js/dataTables.responsive.min.js') }}"
         type="text/javascript"></script>
         
-    <script src="{{ asset('app-assets/js/plugins.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('app-assets/js/custom/custom-script.js') }}" type="text/javascript"></script>
     <script src="{{ asset('app-assets/js/scripts/css-animation.js') }}" type="text/javascript"></script>
     <script src="{{asset('app-assets/js/scripts/advance-ui-modals.js')}}" type="text/javascript"></script>
     @yield('js')

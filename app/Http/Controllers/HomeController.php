@@ -54,13 +54,11 @@ class HomeController extends Controller
     {
         $kullanici = Musteri::where('user_id', '=',Auth::user()->id)->get();
         $markalar = Marka::all();
-
-        $araclar = Arac::all();
-
-        return view('arac/araclar', [
-            'kullanici' => $kullanici[0],
-            'araclar' => $araclar,
-            'markalar'=>$markalar
-        ]);
+    
+            return view('arac/araclar', [
+                'kullanici' => $kullanici,
+                'markalar'=>$markalar
+            ]);
+        
     }
 }

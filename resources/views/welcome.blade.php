@@ -115,6 +115,7 @@
         </form>
         @else
         <a href="{{ route('login') }}">Giriş Yap</a>
+        <a href="{{ route('register') }}">Kayıt Ol</a>
         @endauth
     </div>
     @endif

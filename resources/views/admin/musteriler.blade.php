@@ -63,7 +63,7 @@
                     </h5>
                     <div class="mt-10 pt-2">
                         <p class="m-0 subtitle font-weight-700">Toplam Müşteri</p>
-                        <p class="m-0 text-muted">{{ \App\Musteri::all()->count() }}</p>
+                        <p class="m-0 text-muted">{{ \App\Musteri::where('user_id',Auth::user()->id)->count() }}</p>
                     </div>
                 </div>
             </div>

@@ -2,29 +2,29 @@
 
 @section('css')
 <style>
-        .resimKapsayici {
-            position: relative
-        }
-    
-        .resimYazisi {
-            position: absolute;
-            left: 15%;
-            top: 50%;
-            font-size: 3.5vw;
-        }
-    
-        .qr-code {
-            width: 200px;
-            height: 200px;
-        }
-    
-    </style>
+    .resimKapsayici {
+        position: relative
+    }
+
+    .resimYazisi {
+        position: absolute;
+        left: 15%;
+        top: 50%;
+        font-size: 3.5vw;
+    }
+
+    .qr-code {
+        width: 200px;
+        height: 200px;
+    }
+
+</style>
 @endsection
 @section('content')
 <div class="row mt-2">
 
-    
-        @foreach ($araclar as $arac_key => $arac)
+@foreach ($kullanici as $kul)
+        @foreach ($kul->Arac as $arac_key => $arac)
 
         <div class="col s12 m6 l4 card-width">
             <div class="card-panel border-radius-6 mt-10 card-animation-1">
@@ -32,7 +32,8 @@
                 <div class="resimKapsayici">
                     <img class="responsive-img border-radius-8 z-depth-4 image-n-margin"
                         src="{{asset('app-assets/images/cards/plaka2.jpg')}}" alt="" />
-                    <h1 style="font-size:3vw!important; top:56%!important;" class="resimYazisi image-n-margin">{{str_replace("_", " ", $arac->plaka)}}</h1>
+                    <h1 style="font-size:3vw!important; top:56%!important;" class="resimYazisi image-n-margin">
+                        {{str_replace("_", " ", $arac->plaka)}}</h1>
                 </div>
                 <h6><a href="#" class="mt-5">{{$arac->Musteri->isimSoyisim}}</a></h6>
 
@@ -112,28 +113,27 @@
         <div id="modal2{{$arac->id}}" class="modal">
             <div class="modal-content">
                 {{ csrf_field() }}
-                <div class="step-title waves-effect center"> <img class="qr-code" src="{{$arac->qrCode}}"
-                        alt="qr-code"></div>
+                <div class="step-title waves-effect center"> <img class="qr-code" src="{{$arac->qrCode}}" alt="qr-code">
+                </div>
                 <div class="step-content">
                     <div class="row">
                         <div class="input-field col m12 s12">
                             <label for="plaka">Plaka: <span class="red-text">*</span></label>
-                            <input type="text" class="validate" value="{{$arac->plaka}}" id="plaka" name="plaka"
-                                required>
+                            <input type="text" class="validate" value="{{$arac->plaka}}" id="plaka" name="plaka" required>
                         </div>
                         <div class="input-field col m12 s12">
                             <label for="km">Km: <span class="red-text">*</span></label>
                             <input type="text" class="validate" value="{{$arac->km}}" id="km" name="km" required>
                         </div>
                     </div>
-                    
+
                     <div class="row">
                         <div class="input-field col m12 s12">
                             <select name="marka" id="marka">
                                 <option value="{{$arac->model}}" disabled selected>{{$arac->model}}
                                 </option>
                                 @foreach ($markalar as $marka)
-                                <option  value="{{$marka->name}}">{{$marka->name}}</option>
+                                <option value="{{$marka->name}}">{{$marka->name}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -146,12 +146,11 @@
                             </select>
                         </div>
                     </div>
-                    
+
                     <div class="row">
                         <div class="col m4 s12 mb-1">
                             <button onclick="aracGuncelle({{ $arac_key }})"
-                                class="waves-effect waves-light btn gradient-45deg-green-teal mt-7 z-depth-4 animated rubberBand faster"
-                                >Güncelle</button>
+                                class="waves-effect waves-light btn gradient-45deg-green-teal mt-7 z-depth-4 animated rubberBand faster">Güncelle</button>
                         </div>
                     </div>
                 </div>
@@ -159,15 +158,16 @@
         </div>
 
         @endforeach
+@endforeach
 
-    
+
 </div>
 @endsection
 
 @section('js')
 
 <script>
-    let a = <?= $kullanici->Arac ?>;
+    let a = <?= \App\Arac::all() ?>;
 
     function aracGuncelle(sayi) {
         console.log(a[sayi].musteri_id);
@@ -176,18 +176,18 @@
         let marka = document.querySelector("#modal2" + a[sayi].id + " #marka");
         let aracModel = document.querySelector("#modal2" + a[sayi].id + " #aracModel");
         console.log(plaka.value, km.value, marka.value, aracModel.value);
-        axios.post("aracGuncelle/"+a[sayi].id+"/"+a[sayi].musteri_id, {
-            km: km.value,
-            marka: marka.value,
-            aracModel: aracModel.value,
-            plaka: plaka.value
-        })
-        .then(donen => {
-            console.log(donen);
-        })
-        .catch(error => {
-            console.log(error);
-        });
+        axios.post("aracGuncelle/" + a[sayi].id + "/" + a[sayi].musteri_id, {
+                km: km.value,
+                marka: marka.value,
+                aracModel: aracModel.value,
+                plaka: plaka.value
+            })
+            .then(donen => {
+                console.log(donen);
+            })
+            .catch(error => {
+                console.log(error);
+            });
     }
 
     function hizmetEkle(index) {

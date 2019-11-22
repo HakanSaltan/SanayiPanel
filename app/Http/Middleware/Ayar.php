@@ -16,14 +16,15 @@ class Ayar
   
     public function handle($request, Closure $next)
     { $response = $next($request);
+        if($request->user()){
         $ayar=userAyar::where('user_id', '=', $request->user()->id)->first();
         if(!$ayar) {
             $path = $request->path();
-            if($path != "ayar" && $path != "firmaKayit") {
+            if($path != "ayar" && $path != "firmaKayit" && $path != "login" && $path != "register") {
                 return redirect('/ayar');
             }
         }
-
+    }
         return $response;
     }
     
