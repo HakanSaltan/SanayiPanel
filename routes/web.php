@@ -23,7 +23,10 @@ Auth::routes();
 
 //AracController
 Route::get('/detay/{plaka?}', 'AracController@detay')->name('detay');
+
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/aracDetay/{id?}', 'AracController@aracDetay')->name('aracDetay');
 
 Route::group(['middleware' => ['role:super-admin']], function () {
 
@@ -46,13 +49,14 @@ Route::group(['middleware' => ['role:admin']], function () {
     Route::post('/musteriSil/{id?}', 'AdminController@musteriSil')->name('musteriSil');
     Route::post('/musteriKayit', 'AdminController@musteriKayit')->name('musteriKayit');
     Route::post('/firmaKayit', 'AdminController@firmaKayit')->name('firmaKayit');
-    Route::get('/arac-detay/{id?}', 'AdminController@aracDetay')->name('arac-Detay');
+    
 
     //AdminController - Araç
-    Route::post('/aracGuncelle/{id?}/{mid?}', 'AdminController@aracGuncelle')->name('aracGuncelle');
+    Route::post('/aracGuncelle', 'AdminController@aracGuncelle')->name('aracGuncelle');
     Route::post('/aracSil/{id?}', 'AdminController@aracSil')->name('aracSil');
 
     //MuhasebeController - Fatura
+    Route::post('/faturaOlustur', 'MuhasebeController@faturaOlustur')->name('faturaOlustur');
     Route::get('/fatura/{fatura?}', 'MuhasebeController@fatura')->name('fatura');
     Route::get('/hizmet/{arac_id?}', 'MuhasebeController@hizmet')->name('hizmet');
 

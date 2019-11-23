@@ -71,7 +71,7 @@ class AdminController extends Controller
         
     }
     
-    public function aracGuncelle($id,$mid,Request $request)
+    public function aracGuncelle(Request $request)
 	{
         DB::beginTransaction();
         $req = file_get_contents("php://input");
@@ -84,10 +84,12 @@ class AdminController extends Controller
         $km =  trim($req['km']);
         $marka =  trim($req['marka']);
         $aracModel =  trim($req['aracModel']);
+        $arac_id =  trim($req['arac_id']);
+        $mid =  trim($req['mid']);
 
         if($plaka){
                 
-                $arac = Arac::find($id);
+                $arac = Arac::find($arac_id);
                 $arac->musteri_id = $mid;
                 $arac->plaka = $plaka;
                 $arac->km = $km;
@@ -204,11 +206,7 @@ class AdminController extends Controller
     
 
 
-    public function aracDetay($id=0)
-    {
-        $aracdetay = Arac::find($id);
-        return view('arac/arac-detay')->with('aracdetay', $aracdetay);
-    }
+    
     
 
 }

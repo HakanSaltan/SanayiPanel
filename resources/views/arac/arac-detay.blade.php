@@ -25,32 +25,43 @@
 </head>
 
 <body>
-    <div style="bottom: 50px; right: 20px;" class="fixed-action-btn direction-top">
-        <a class="btn-floating btn-large primary-text gradient-shadow modal-trigger" href="#modalislem">
-            <i class="material-icons">add</i>
-        </a>
-    </div>
-
-    <div id="modalislem" class="modal border-radius-6">
-        <div class="modal-content">
-            <h4>Fatura Oluştur</h4>
-            <div class="col s6">
-                <div class="input-field">
-                    <select>
-                        <option value="" disabled selected>İşlem Seçiniz</option>
-                        @foreach ($aracdetay->Islemler as $Islemler)
-                        <option value="1">{{$Islemler->id}}</option>
-                        @endforeach
-                    </select>
-                </div>
+    @auth
+        @role('admin')
+            <div style="bottom: 50px; right: 20px;" class="fixed-action-btn direction-top">
+                <a class="btn-floating btn-large primary-text gradient-shadow modal-trigger" href="#modalislem">
+                    <i class="material-icons">add</i>
+                </a>
             </div>
 
-       
-        </div>
-        <div class="modal-footer">
-            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Oluştur</a>
-        </div>
-    </div>
+            <div id="modalislem" class="modal border-radius-6">
+                <form action="{{route('faturaOlustur')}}" method="POST">
+                        @csrf
+                    <div class="modal-content">
+                        <h4>Fatura Oluştur</h4>
+                        <div class="col s6">
+                        
+                                <div class="input-field">
+                                    <select name="islem_id">
+                                        <option value="" disabled selected>İşlem Seçiniz</option>
+                                        @foreach ($aracdetay->Islemler as $Islemler)
+                                        <option value="{{$Islemler->id}}">{{$Islemler->id}}</option>
+                                        @endforeach
+                                    </select>
+                                    <div class="input-field">
+                                            <label for="km">Fatura No: <span class="red-text">*</span></label>
+                                            <input type="text" class="validate" id="fatura_no" name="fatura_no" required>
+                                    </div>
+                                </div>
+                            
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="modal-action modal-close waves-effect waves-green btn-flat ">Oluştur</button>
+                </div>
+                </form>
+            </div>
+        @endrole
+    @endauth
     <div class="row">
         <div id="breadcrumbs-wrapper" data-image="{{asset('app-assets/images/gallery/breadcrumb-bg.jpg')}}"
             class="breadcrumbs-bg-image"
@@ -63,10 +74,12 @@
                             <h5 class="breadcrumbs-title uppercase mt-0 mb-0">
                                 {{str_replace("_", " ", $aracdetay->plaka)}} Plakalı Arac Detayları</h5>
                         </div>
-                        <div class="col s6 m6 l6 right-align">
-                            <a href="{{asset('/araclarim')}}"
-                                class="mb-6 btn waves-effect waves-light gradient-45deg-amber-amber">Geri Dön</a>
-                        </div>
+                        @auth
+                            <div class="col s6 m6 l6 right-align">
+                                <a href="{{asset('/araclarim')}}"
+                                    class="mb-6 btn waves-effect waves-light gradient-45deg-amber-amber">Geri Dön</a>
+                            </div>
+                        @endauth
                     </div>
                 </div>
             </div>
@@ -111,6 +124,7 @@
         </div>
 
     </div>
+
     @foreach ($aracdetay->Fatura as $Fatura)
     <div class="row">
         <div class="col s12">
@@ -132,8 +146,11 @@
                                 <th>Yapılan İşlemler</th>
                                 <th>Adet</th>
                                 <th>Alınan Ücret</th>
-                                <th><a class="btn-flat mb-1 waves-effect" href="{{asset('/fatura/'.$Fatura->fkod)}}">
-                                        <i class="material-icons right">print</i></a></th>
+                                @auth
+                                    @role('admin')
+                                        <th><a class="btn-flat mb-1 waves-effect" href="{{asset('/fatura/'.$Fatura->fkod)}}"> <i class="material-icons right">print</i></a></th>
+                                    @endrole
+                                @endauth
                         </thead>
                         <tbody>
 
@@ -150,7 +167,11 @@
                                 <td>{{$Islem->Hizmet->ad}} </td>
                                 <td>{{$Islem->Hizmet->adet}}</td>
                                 <td>{{$Islem->hizmet_fiyat}}</td>
-                                <th></th>
+                                @auth
+                                    @role('admin')
+                                        <th></th>
+                                    @endrole
+                                @endauth
                             </tr>
 
                             @endforeach

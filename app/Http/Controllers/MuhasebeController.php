@@ -21,11 +21,43 @@ class MuhasebeController extends Controller
     {
         $this->middleware('auth');
     }
+    
+
     public function fatura($fatura)
     {
         $kullanici = Musteri::where('user_id', '=',Auth::user()->id)->get();
         $faturabilgi = Fatura::where('fkod','=', $fatura)->get();
         return view('muhasebe/fatura', ['kullanici' => $kullanici[0]],['fatura'=>$faturabilgi[0]]);
+    }
+
+    public function faturaOlustur(Request $request)
+    {   DB::beginTransaction();
+        $bilgi = Islemler::where('id', '=', $request->islem_id)->first();
+        $hizmetler = islemHizmetleri::where('islem_id', '=', $request->islem_id)->get();
+        $toplam_fiyat = 0;
+        foreach($hizmetler as $hizmet){
+            $toplam_fiyat = $toplam_fiyat + $this->kdv_ekle($hizmet->hizmet_fiyat,$hizmet->hizmet_oran);
+        }
+        $fatura = new Fatura;
+        $fatura->fkod = $request->fatura_no;
+        $fatura->islem_id = $request->islem_id;
+        $fatura->musteri_id = Auth::user()->id;
+        $fatura->arac_id = $bilgi->arac_id;
+        $fatura->toplamUcret = $toplam_fiyat;
+        $fatura->save();
+        DB::commit();
+        return redirect()->back();
+    }
+
+    public function kdv_ekle($tutar,$oran){
+        $kdv = $tutar * ($oran / 100);
+        $ytutar = $tutar + $kdv;
+        return $ytutar;
+    }
+
+    public function kdv_cikar($tutar,$oran){
+        $ytutar = $tutar / (1 + ($oran/100));
+        return $ytutar;
     }
 
     public function hizmet($arac_id)

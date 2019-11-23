@@ -47,6 +47,12 @@ class AracController extends Controller
             ]);
        
     }
+    
+    public function aracDetay($id=0)
+    {
+        $aracdetay = Arac::find($id);
+        return view('arac/arac-detay')->with('aracdetay', $aracdetay);
+    }
         
 
 }
