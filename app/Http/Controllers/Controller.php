@@ -34,7 +34,7 @@ class Controller extends BaseController
     {
         $uretilen = $this->rastgele();
        
-        $uploads_dir = 'uploads/';
+        $uploads_dir = 'uploads';
         $tmp_name = $Resim["firma_logo"]["tmp_name"];
         $name = $Resim["firma_logo"]["name"];
         $sonuc = move_uploaded_file($tmp_name, "$uploads_dir/$uretilen");

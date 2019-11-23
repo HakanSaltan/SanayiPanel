@@ -7,6 +7,7 @@ use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class RegisterController extends Controller
 {
@@ -63,10 +64,32 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        DB::beginTransaction();
+
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+
+        if(!$user)
+        {
+            DB::rollBack();
+
+            return false;
+        }
+
+        $role = DB::insert('insert into model_has_roles (role_id, model_type, model_id) values (?, ?, ?)', [2, 'App\User', $user->id]);
+
+        if(!$role)
+        {
+            DB::rollBack();
+
+            return false;
+        }
+
+        DB::commit();
+
+        return $user;
     }
 }
