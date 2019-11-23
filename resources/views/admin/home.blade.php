@@ -13,12 +13,7 @@
             <div class="card-content cyan white-text">
                 <p class="card-stats-title"><i class="material-icons">person_outline</i> Kayıtlı Kullanıcı</p>
                 <h4 class="card-stats-number white-text">
-                        <?php $a = 0; ?>
-                    @foreach ($Musteri as $toplam)
-                    <?=
-                        $a = $a + 1; 
-                    ?>
-                    @endforeach
+                    {{ $toplamMusteri }}
                 </h4>
 
             </div>
@@ -32,14 +27,7 @@
             <div class="card-content green lighten-1 white-text">
                 <p class="card-stats-title"><i class="material-icons">settings_input_svideo</i> Kayıtlı Araç</p>
                 <h4 class="card-stats-number white-text">
-                        <?php $a = 0; ?>
-                    @foreach ($Musteri as $musteri)
-                        @foreach ($musteri->Arac as $toplam)
-                        <?=
-                        $a = $a + 1; 
-                        ?>
-                        @endforeach
-                    @endforeach
+                    {{ $toplamKayitliArac }}
                 </h4>
 
             </div>
@@ -53,16 +41,7 @@
             <div class="card-content red accent-2 white-text">
                 <p class="card-stats-title"><i class="material-icons">directions_car</i>Toplam Alınan Servis</p>
                 <h4 class="card-stats-number white-text">
-                    <?php $a = 0; ?>
-                    @foreach ($Musteri as $musteri)
-                        @foreach ($musteri->Arac as $arac)
-                            @foreach ($arac->Islemler as $toplam)
-                            <?= 
-                            $a = $a + 1; 
-                            ?>
-                            @endforeach
-                        @endforeach
-                    @endforeach
+                    {{ $toplamYapilanHizmet }}
                 </h4>
 
             </div>
@@ -75,17 +54,9 @@
         <div class="card">
             <div class="card-content orange lighten-1 white-text">
                 <p class="card-stats-title"><i class="material-icons">trending_up</i> Toplam Ciro</p>
-                <h4 class="card-stats-number white-text">₺
-                        <?php $a = 0; ?>
-                    @foreach ($Musteri as $musteri)
-                        @foreach ($musteri->Fatura as $toplam)
-                            <?= $a = $a + $toplam->toplamUcret ?>
-                        @endforeach
-                    @endforeach
-
-
+                <h4 class="card-stats-number white-text">
+                    <?= is_numeric($toplamCiro) && floatval($toplamCiro) > 0 ? $toplamCiro : 0 ?> ₺
                 </h4>
-
             </div>
             <div class="card-action orange">
                 <div id="profit-tristate" class="center-align"></div>

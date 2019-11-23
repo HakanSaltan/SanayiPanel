@@ -34,8 +34,34 @@ class HomeController extends Controller
     {
         //auth()->user()->assignRole('admin');
         //auth()->user()->assignRole('musteri');
-        $kullanici = User::where('id', '=',Auth::user()->id)->get();
-        return view('admin/home')->with('kullanici', $kullanici);
+        $user_id = Auth::user()->id;
+
+        $kullanici = User::where('id', '=', $user_id)->get();
+        $toplamMusteri = Musteri::where('user_id', $user_id)->count();
+        $toplamKayitliArac = DB::table('arac')
+            ->join('musteri', 'arac.musteri_id', '=', 'musteri.id')
+            ->leftJoin("users", "users.id", "=", "musteri.user_id")
+            ->where("users.id", "=", $user_id)
+            ->count();
+        $toplamYapilanHizmet = DB::table('islemler')
+            ->join('musteri', 'islemler.musteri_id', '=', 'musteri.id')
+            ->leftJoin("users", "users.id", "=", "musteri.user_id")
+            ->where("users.id", "=", $user_id)
+            ->count();
+        $toplamCiro = DB::table('fatura')
+            ->join('islemler', 'islemler.id', '=', 'fatura.islem_id')
+            ->join('musteri', 'musteri.id', '=', 'islemler.musteri_id')
+            ->leftJoin("users", "users.id", "=", "musteri.user_id")
+            ->where("users.id", "=", $user_id)
+            ->sum("fatura.toplamUcret");
+
+        return view('admin/home')->with([
+            'kullanici' => $kullanici,
+            "toplamMusteri" => $toplamMusteri,
+            "toplamKayitliArac" => $toplamKayitliArac,
+            "toplamYapilanHizmet" => $toplamYapilanHizmet,
+            "toplamCiro" => $toplamCiro,
+        ]);
     }
     public function profile()
     {
