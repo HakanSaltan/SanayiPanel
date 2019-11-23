@@ -31,7 +31,7 @@ class AdminController extends Controller
         $post = $_POST;
         $dosyalar = $_FILES;
         
-        if ($dosyalar["firma_logo"]["error"] == UPLOAD_ERR_OK) {
+        if (isset($dosyalar["firma_logo"]) && $dosyalar["firma_logo"]["error"] == UPLOAD_ERR_OK) {
             $resimUrl = $this->resimKayit($dosyalar);
             if(!$resimUrl["sonuc"])
             {
@@ -43,8 +43,9 @@ class AdminController extends Controller
                 "eskiAd" => $resimUrl["eskiDosyaIsmi"]
             ];
 
-            $post = json_encode($post);
         }
+
+        $post = json_encode($post);
             
         if($post){
             $ayar = new userAyar();
