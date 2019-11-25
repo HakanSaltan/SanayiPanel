@@ -27,34 +27,34 @@
     <div  class="card card-default scrollspy">
         <div class="card-content">
             <div class="container">
-                <form autocomplete="off">
-                    <div class="col s12 m7">
-                        <div class="input-field">
-                            <i class="material-icons prefix">build</i>
-                            <input class="validate autocompleter" placeholder="Yapılan Hizmet Adı" autocomplete="off" v-model="yapilanHizmetBilgileri.islemAdi" type="text" id="autocomplete-input">
+                <div class="row center-align">
+                    <form autocomplete="off">
+                        <div class="col s12 m7">
+                            <div class="input-field">
+                                <i class="material-icons prefix">build</i>
+                                <input class="validate autocompleter" placeholder="Yapılan Hizmet Adı" autocomplete="off" v-model="yapilanHizmetBilgileri.islemAdi" type="text" id="autocomplete-input">
+                            </div>
                         </div>
-                    </div>
-                    <div class="col s12 m3">
-                        <div class="input-field">
-                            <i class="prefix">₺</i>
-                            <input
-                                autocomplete="off"
-                                @input="yapilan_hizmetler = _j(yapilan_hizmetler)"
-                                v-model="yapilanHizmetBilgileri.fiyat"
-                                placeholder="Fiyat"
-                                class="validate"
-                                type="number"
-                            >
+                        <div class="col s12 m3">
+                            <div class="input-field">
+                                <i class="prefix">₺</i>
+                                <input
+                                    autocomplete="off"
+                                    @input="yapilan_hizmetler = _j(yapilan_hizmetler)"
+                                    v-model="yapilanHizmetBilgileri.fiyat"
+                                    placeholder="Fiyat"
+                                    class="validate"
+                                    type="number"
+                                >
+                            </div>
                         </div>
-                    </div>
-                    <div class="col s12 m2 center-align" style="align-items: center">
-                        <div class="container">
+                        <div class="col s12 m2 center-align">
                             <a @click="ekle()" class="btn-floating waves-effect waves-light green pulse">
                                 <i class="material-icons">add</i>
                             </a>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
                 <div class="row center-align">
                     <div class="col s12 green" style="padding: 2px; margin-top: 24px; margin-bottom: 24px"></div>
                 </div>
@@ -81,10 +81,12 @@
                                             <input autocomplete="off" @change="yapilan_hizmetler = _j(yapilan_hizmetler)" @input="yapilan_hizmetler = _j(yapilan_hizmetler)" v-model="hizmet.fiyat" placeholder="Fiyat" class="validate" type="number">
                                         </div>
                                     </td>
-                                    <td class="center-align">
-                                        <a @click="sil(i)" class="btn-floating waves-effect waves-light red">
-                                            <i class="material-icons">remove</i>
-                                        </a>
+                                    <td>
+                                        <div class="col s12 center-align">
+                                            <a @click="sil(i)" class=" btn-floating waves-effect waves-light red">
+                                                <i class="material-icons">remove</i>
+                                            </a>
+                                        </div>
                                     </td>
                                 </tr>
                             </tbody>
