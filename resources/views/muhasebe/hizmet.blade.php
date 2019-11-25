@@ -24,58 +24,86 @@
 
            
 <div id="app">
-    <div  class="card card-default scrollspy padding-1">
-        <div class="container">
-            <div class="row center-align">
-                <div class="col s12 m5 justify-content-end">
-                    <h5 class="uppercase">Toplam Fiyat: | toplamFiyatlar.toplamFiyat |₺</h5>
-                </div>
-                <div class="col s12 m5 justify-content-end">
-                    <h5 class="uppercase">Toplam KDV: | toplamFiyatlar.toplamKDVFiyat |₺</h5>
-                </div>
-                <div class="col s12 m2 justify-content-end">
-                    <a @click="kaydet()" class="btn-floating btn-large waves-effect waves-light green">
-                        <i class="material-icons">done</i>
-                    </a>
-                </div>
-                <div style="bottom: 50px; right: 90px;" class="fixed-action-btn direction-top">
-                    <a class="btn-floating btn-large primary-text gradient-shadow pulse" @click="ekle()">
-                        <i class="material-icons">build</i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="container" v-for="(veri, index) in yapilan_hizmetler" :key="index + 'div'">
-        <div  class="card card-default scrollspy hoverable">
-            <div class="card-content">
-                <div class="row">
-                    <div class="col-sm">
-                        <div class="row">
-                            <div class="col s12">
-                                <div class="row">
-                                    <form autocomplete="off">
-                                        <div class="col s12 m8">
-                                            <div class="row">
-                                                <div class="input-field">
-                                                    <i class="material-icons prefix">build</i>
-                                                    <input class="validate" placeholder="Yapılan Hizmet Adı" autocomplete="off" v-model="veri.model" type="text" id="autocomplete-input" :class="'autocomplete' + index">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col s12 m4">
-                                            <div class="row">
-                                                <div class="input-field">
-                                                    <i class="prefix">₺</i>
-                                                    <input autocomplete="off" @change="yapilan_hizmetler = _j(yapilan_hizmetler)" @input="yapilan_hizmetler = _j(yapilan_hizmetler)" v-model="veri.fiyat" placeholder="Fiyat" class="validate" type="number">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
+    <div  class="card card-default scrollspy">
+        <div class="card-content">
+            <div class="container">
+                <form autocomplete="off">
+                    <div class="col s12 m7">
+                        <div class="input-field">
+                            <i class="material-icons prefix">build</i>
+                            <input class="validate autocompleter" placeholder="Yapılan Hizmet Adı" autocomplete="off" v-model="yapilanHizmetBilgileri.islemAdi" type="text" id="autocomplete-input">
                         </div>
                     </div>
+                    <div class="col s12 m3">
+                        <div class="input-field">
+                            <i class="prefix">₺</i>
+                            <input
+                                autocomplete="off"
+                                @input="yapilan_hizmetler = _j(yapilan_hizmetler)"
+                                v-model="yapilanHizmetBilgileri.fiyat"
+                                placeholder="Fiyat"
+                                class="validate"
+                                type="number"
+                            >
+                        </div>
+                    </div>
+                    <div class="col s12 m2 center-align" style="align-items: center">
+                        <div class="container">
+                            <a @click="ekle()" class="btn-floating waves-effect waves-light green pulse">
+                                <i class="material-icons">add</i>
+                            </a>
+                        </div>
+                    </div>
+                </form>
+                <div class="row center-align">
+                    <div class="col s12 green" style="padding: 2px; margin-top: 24px; margin-bottom: 24px"></div>
+                </div>
+                <div class="row center-align scale-transition" v-if="yapilan_hizmetler.length">
+                    <form autocomplete="off">
+                        <table class="highlight">
+                            <thead>
+                                <tr>
+                                    <th><i class="material-icons tiny padding-1">build</i>Hizmet Adı</th>
+                                    <th><i class="prefix tiny padding-1">₺</i>Hizmet Ücreti</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr v-for="(hizmet, i) in yapilan_hizmetler" :key="hizmet.ad">
+                                    <td>
+                                        <div class="input-field">
+                                            <input class="validate" placeholder="Yapılan Hizmet Adı" autocomplete="off" v-model="hizmet.model" type="text" :class="'autocomplete' + i">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-field">
+                                            <input autocomplete="off" @change="yapilan_hizmetler = _j(yapilan_hizmetler)" @input="yapilan_hizmetler = _j(yapilan_hizmetler)" v-model="hizmet.fiyat" placeholder="Fiyat" class="validate" type="number">
+                                        </div>
+                                    </td>
+                                    <td class="center-align">
+                                        <a @click="sil(i)" class="btn-floating waves-effect waves-light red">
+                                            <i class="material-icons">remove</i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </form>
+                    <div class="col s12 m5 justify-content-end">
+                        <h5 class="uppercase">Toplam Fiyat: | toplamFiyatlar.toplamFiyat |₺</h5>
+                    </div>
+                    <div class="col s12 m5 justify-content-end">
+                        <h5 class="uppercase">Toplam KDV: | toplamFiyatlar.toplamKDVFiyat |₺</h5>
+                    </div>
+                    <div class="col s12 m2 justify-content-end">
+                        <a @click="kaydet()" class="btn waves-effect waves-light green">
+                            <i class="material-icons">done</i>
+                        </a>
+                    </div>
+                </div>
+                <div class="row center-align scale-transition padding-3" v-else>
+                    <h5>Lütfen hizmet ekleyiniz...</h5>
                 </div>
             </div>
         </div>
@@ -97,6 +125,10 @@
             kullanici: <?php echo $kullanici; ?>,
             arac: <?php echo $arac; ?>,
             hizmetler: <?= $hizmetler ?>,
+            yapilanHizmetBilgileri: {
+                islemAdi: "",
+                fiyat: 0
+            },
             ins: null,
             yapilan_hizmetler: [],
             kdvOrani: 18
@@ -104,6 +136,18 @@
         mounted() {
             this.$nextTick(() => {
                 vm.hizmetGetir();
+
+                vm.ins = M.Autocomplete.init(document.querySelector('.autocompleter'), {
+                    data: vm.autocompleteDeger,
+                    onAutocomplete: val => {
+                        /*let son_index = vm.yapilan_hizmetler.length - 1;
+                        vm.yapilan_hizmetler[son_index].model = val;
+                        vm.yapilan_hizmetler[son_index] = { ...vm.yapilan_hizmetler[son_index], ...vm.autocompleteDegerBul(val)};*/
+                        vm.yapilanHizmetBilgileri.islemAdi = val;
+                        vm.yapilanHizmetBilgileri = { ...vm.yapilanHizmetBilgileri, ...vm.autocompleteDegerBul(val)};
+                        vm.yapilan_hizmetler = vm._j(vm.yapilan_hizmetler);
+                    }
+                });
             });
         },
         computed: {
@@ -134,30 +178,23 @@
             autocompleteDegerBul(key) {
                 return vm.hizmetler.find(o => o.ad == key);
             },
+            sil(key) {
+                vm.yapilan_hizmetler.splice(key, 1);
+            },
             ekle() {
+                if(!vm.yapilanHizmetBilgileri.islemAdi)
+                    return M.toast({html: 'Lütfen işlem adı giriniz!', classes: 'rounded'});
 
-                vm.yapilan_hizmetler.push({});
-
-                vm.$forceUpdate();
-
-                let son_index = vm.yapilan_hizmetler.length - 1;
-
-                vm.$nextTick(() => {
-                    var elems = document.querySelector('.autocomplete' + son_index);
-                    vm.ins = M.Autocomplete.init(elems, {
-                        data: vm.autocompleteDeger,
-                        onAutocomplete: val => {
-                            vm.yapilan_hizmetler[son_index].model = val;
-                            vm.yapilan_hizmetler[son_index] = { ...vm.yapilan_hizmetler[son_index], ...vm.autocompleteDegerBul(val)};
-                            vm.yapilan_hizmetler = vm._j(vm.yapilan_hizmetler);
-                        }
-                    });
+                vm.yapilan_hizmetler.push({
+                    model: vm._j(vm.yapilanHizmetBilgileri.islemAdi),
+                    ...vm.yapilanHizmetBilgileri
                 });
 
-                vm.$nextTick(() => {
-                    if(document.getElementById("model" + (vm.hizmetler.length - 1)))
-                        document.getElementById("model" + (vm.hizmetler.length - 1)).focus();
-                });
+                vm.yapilanHizmetBilgileri = {
+                    islemAdi: "",
+                    fiyat: 0
+                };
+                document.querySelector(".autocompleter").focus();
             },
             kaydet() {
                 axios.post("/hizmetEkle", {
@@ -178,7 +215,7 @@
             },
             hizmetGetir() {
                 /*axios.post("/");*/
-                vm.ekle();
+                /*vm.ekle();*/
             }
         },
     });
