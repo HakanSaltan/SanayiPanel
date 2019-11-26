@@ -92,11 +92,20 @@
                             </tbody>
                         </table>
                     </form>
-                    <div class="col s12 m5 justify-content-end">
+                    <div class="col s12 m4 justify-content-end">
                         <h5 class="uppercase">Toplam Fiyat: | toplamFiyatlar.toplamFiyat |₺</h5>
                     </div>
-                    <div class="col s12 m5 justify-content-end">
+                    <div class="col s12 m4 justify-content-end">
                         <h5 class="uppercase">Toplam KDV: | toplamFiyatlar.toplamKDVFiyat |₺</h5>
+                    </div>
+                    
+                    <div class="col s12 m2 center-align">
+                        <p>
+                            <label>
+                                <input type="checkbox" v-model="fatura" />
+                                <span>Fatura oluştur</span>
+                            </label>
+                        </p>
                     </div>
                     <div class="col s12 m2 justify-content-end">
                         <a @click="kaydet()" class="btn waves-effect waves-light green">
@@ -133,7 +142,8 @@
             },
             ins: null,
             yapilan_hizmetler: [],
-            kdvOrani: 18
+            kdvOrani: 18,
+            fatura: true
         },
         mounted() {
             this.$nextTick(() => {
@@ -204,6 +214,7 @@
                     musteri_id: vm.arac.musteri_id,
                     hizmet_fiyat: vm.toplamFiyatlar.toplamFiyat,
                     hizmet_kdv: vm.kdvOrani,
+                    fatura: vm.fatura,
                     yapilan_hizmetler: vm.yapilan_hizmetler
                 })
                 .then(donen => {

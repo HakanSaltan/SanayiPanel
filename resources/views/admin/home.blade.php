@@ -76,7 +76,7 @@
                     <p class="mb-2">
 
                     </p>
-                    <div class="sample-chart-wrapper"><canvas id="bar-chart" height="400"></canvas></div>
+                    <div class="sample-chart-wrapper"><canvas id="bar-chart" width="400" height="400"></canvas></div>
                 </div>
             </div>
         </div>
@@ -88,8 +88,10 @@
 @endsection
 
 @section('js')
-<script src="{{ asset('app-assets/vendors/chartjs/chart.js') }}"></script>
-<script src="{{ asset('app-assets/js/scripts/card-advanced.js') }}" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js" integrity="sha256-qSIshlknROr4J8GMHRlW3fGKrPki733tLq+qeMCR05Q=" crossorigin="anonymous"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" integrity="sha256-Uv9BNBucvCPipKQ2NS9wYpJmi8DTOEfTA/nH2aoJALw=" crossorigin="anonymous"></script> -->
+<!-- <script src="{{ asset('app-assets/vendors/chartjs/chart.js') }}"></script> -->
+<!-- <script src="{{ asset('app-assets/js/scripts/card-advanced.js') }}" type="text/javascript"></script> -->
 
 <script>
     $(window).on("load", function () {
@@ -146,16 +148,17 @@
             labels: ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül",
                 "Ekim", "Kasım", "Aralık"
             ],
-            datasets: [{
+            datasets: [
+                {
                     label: "Gelir",
-                    data: [65, 59, 80, 81, 65, 59, 80, 81, 65, 59, 80, 81],
+                    data: [65, 59, 80, 81, 65, 59, 80, 81, 65, 59],
                     backgroundColor: "#66bb6a",
                     hoverBackgroundColor: "#4caf50",
                     borderColor: "transparent"
                 },
                 {
                     label: "Gider",
-                    data: [28, 48, 40, 19, 28, 48, 40, 19, 28, 48, 40, 19],
+                    data: [28, 48, 40, 19, 28, 48, 40, 19, 28, 48],
                     backgroundColor: "#ff5252",
                     hoverBackgroundColor: "#f44336",
                     borderColor: "transparent"
@@ -164,7 +167,7 @@
         };
 
         var config = {
-            type: "horizontalBar",
+            type: "bar",
 
             // Chart Options
             options: chartOptions,

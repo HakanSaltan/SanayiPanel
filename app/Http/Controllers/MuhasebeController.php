@@ -81,6 +81,8 @@ class MuhasebeController extends Controller
         $islemModel->arac_id = $post["arac_id"];
         $islemModel->musteri_id = $post["musteri_id"];
 
+        $faturaOlusturulsun = $post["fatura"];
+
         if(!$islemModel->save())
         {
             DB::rollBack();
@@ -89,8 +91,6 @@ class MuhasebeController extends Controller
                 "hataKodu" => "he-1"
             ]);
         }
-
-        $toplam_fiyat = $post["hizmet_fiyat"];
 
         foreach($post["yapilan_hizmetler"] as $hizmet)
         {
@@ -112,12 +112,43 @@ class MuhasebeController extends Controller
             }
         }
 
+        if($faturaOlusturulsun)
+        {
+            $sonFaturaKodu = Fatura::where("id", "<>", "NULL")
+                                ->orderBy('created_at', 'desc')
+                                ->take(1)
+                                ->get();
+
+            if(isset($sonFaturaKodu[0]->fkod))
+                $fkod = $sonFaturaKodu[0]->fkod;
+            else
+                $fkod = 1;
+
+            $toplam_fiyat = $post["hizmet_fiyat"];
+
+            $faturaModel = new Fatura();
+
+            $faturaModel->fkod = $fkod;
+            $faturaModel->islem_id = $islemModel->id;
+            $faturaModel->musteri_id = $post["musteri_id"];
+            $faturaModel->arac_id = $post["arac_id"];
+            $faturaModel->toplamUcret = $toplam_fiyat;
+
+            if(!$faturaModel->save())
+            {
+                DB::rollBack();
+                return json_encode([
+                    "sonuc" => false,
+                    "hataKodu" => "he-3"
+                ]);
+            }
+        }
 
         DB::commit();
 
         return json_encode([
             "sonuc" => true,
-            "veriler" => $islemModel->id
+            "veriler" => $faturaModel
         ]);
     }
 }
