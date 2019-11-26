@@ -5,7 +5,6 @@
 @endsection
 
 @section('content')
-
 <?php $Musteri = \App\Musteri::where('user_id',Auth::user()->id)->get();?>
 <div id="card-stats" class="row">
     <div class="col s12 m6 xl3">
@@ -94,7 +93,18 @@
 <!-- <script src="{{ asset('app-assets/js/scripts/card-advanced.js') }}" type="text/javascript"></script> -->
 
 <script>
+    var chartVerileri = "";
     $(window).on("load", function () {
+        
+        chartVerileri = <?= $chartVerileri ?>;
+
+        let aylar = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"];
+
+        let hazirlananVeriler = Array(aylar.length).fill(0);
+
+        Object.keys(chartVerileri).forEach(item => {
+            hazirlananVeriler[parseInt(item) - 1] = chartVerileri[item];
+        });
         //Get the context of the Chart canvas element we want to select
         var ctx = $("#bar-chart");
 
@@ -145,24 +155,22 @@
 
         // Chart Data
         var chartData = {
-            labels: ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül",
-                "Ekim", "Kasım", "Aralık"
-            ],
+            labels: aylar,
             datasets: [
                 {
                     label: "Gelir",
-                    data: [65, 59, 80, 81, 65, 59, 80, 81, 65, 59],
+                    data: hazirlananVeriler,
                     backgroundColor: "#66bb6a",
                     hoverBackgroundColor: "#4caf50",
                     borderColor: "transparent"
                 },
-                {
-                    label: "Gider",
-                    data: [28, 48, 40, 19, 28, 48, 40, 19, 28, 48],
-                    backgroundColor: "#ff5252",
-                    hoverBackgroundColor: "#f44336",
-                    borderColor: "transparent"
-                }
+                // {
+                //     label: "Gider",
+                //     data: [28, 48, 40, 19, 28, 48, 40, 19, 28, 48],
+                //     backgroundColor: "#ff5252",
+                //     hoverBackgroundColor: "#f44336",
+                //     borderColor: "transparent"
+                // }
             ]
         };
 

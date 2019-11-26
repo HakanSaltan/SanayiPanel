@@ -54,6 +54,25 @@ class HomeController extends Controller
             ->leftJoin("users", "users.id", "=", "musteri.user_id")
             ->where("users.id", "=", $user_id)
             ->sum("fatura.toplamUcret");
+        $chartVerileri = DB::table("fatura")
+            ->select('fkod', 'fatura.created_at as tarih', 'toplamUcret')
+            ->join('islemler', 'islemler.id', '=', 'fatura.islem_id')
+            ->join('musteri', 'musteri.id', '=', 'islemler.musteri_id')
+            ->leftJoin("users", "users.id", "=", "musteri.user_id")
+            ->where("users.id", "=", $user_id)
+            ->get();
+
+        $aylar = [];
+        foreach($chartVerileri as $veri)
+        {
+            $date = date_create($veri->tarih);
+            $ay = date_format($date, 'm');
+
+            if(!isset($aylar[$ay]))
+                $aylar[$ay] = 0;
+
+            $aylar[$ay] += floatval($veri->toplamUcret);
+        }
 
         return view('admin/home')->with([
             'kullanici' => $kullanici,
@@ -61,6 +80,7 @@ class HomeController extends Controller
             "toplamKayitliArac" => $toplamKayitliArac,
             "toplamYapilanHizmet" => $toplamYapilanHizmet,
             "toplamCiro" => $toplamCiro,
+            "chartVerileri" => json_encode($aylar, JSON_FORCE_OBJECT)
         ]);
     }
     public function profile()
