@@ -68,7 +68,7 @@ class UserController extends Controller
 
 
         return redirect()->route('users.index')
-                        ->with('success','User created successfully');
+                        ->with('success','Kullanıcı Kaydı Başarılı');
     }
 
 
@@ -127,7 +127,6 @@ class UserController extends Controller
             $input = Arr::except($input,['password']);    
         }
 
-
         $user = User::find($id);
         $user->update($input);
         DB::table('model_has_roles')->where('model_id',$id)->delete();
@@ -136,8 +135,7 @@ class UserController extends Controller
         $user->assignRole($request->input('roles'));
 
 
-        return redirect()->route('users.index')
-                        ->with('Başarılı','Kullanıcı Güncellendi');
+        return redirect()->route('users.index')->with('success','Kullanıcı Güncellendi');
     }
 
 
@@ -151,6 +149,6 @@ class UserController extends Controller
     {
         User::find($id)->delete();
         return redirect()->route('users.index')
-                        ->with('success','User deleted successfully');
+                        ->with('success','Kullanıcı Silindi');
     }
 }

@@ -27,6 +27,7 @@ Route::get('/aracDetay/{id?}', 'AracController@aracDetay')->name('aracDetay');
 
 Route::group(['middleware' => ['role:super-admin']], function () {
 
+    
     //RoleController
     Route::resource('roles','RoleController');
 

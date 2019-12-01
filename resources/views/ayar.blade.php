@@ -178,6 +178,7 @@
         axios.post("/firmaKayit", formData)
         .then(donen => {
             console.log(donen);
+            location.href = "/home";
         })
         .catch(error => {
             console.log(error);
