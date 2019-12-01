@@ -79,7 +79,7 @@ class RegisterController extends Controller
             return false;
         }
 
-        $role = DB::insert('insert into model_has_roles (role_id, model_type, model_id) values (?, ?, ?)', [2, 'App\User', $user->id]);
+        $role = auth()->user()->assignRole('super-admin');
 
         if(!$role)
         {

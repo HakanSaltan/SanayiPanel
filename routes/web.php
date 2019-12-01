@@ -10,14 +10,10 @@ use App\User;
 Route::get('/', function () {
     return view('welcome'); 
 });
+
 Route::get('/ayar', function () {
     return view('ayar'); 
 });
-
-
-
-
-
 
 Auth::routes();
 
@@ -28,18 +24,18 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/aracDetay/{id?}', 'AracController@aracDetay')->name('aracDetay');
 
+
 Route::group(['middleware' => ['role:super-admin']], function () {
-
-
-    
-});
-Route::group(['middleware' => ['role:admin']], function () {
 
     //RoleController
     Route::resource('roles','RoleController');
 
     //UserController
     Route::resource('users','UserController');
+
+    
+});
+Route::group(['middleware' => ['role:admin']], function () {
 
     //HomeController 
     Route::get('/musterilerim', 'HomeController@musterilerim');

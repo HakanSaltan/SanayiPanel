@@ -4,12 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
-use App\User;
-use App\Musteri;
-use App\Arac;
-use App\AracModel;
-use App\Marka;
-use App\userAyar;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Contracts\Cache\Factory;
 use Illuminate\Support\Facades\DB;
@@ -18,6 +12,12 @@ use \Illuminate\Support\Collection;
 use \Spatie\Permission\Models\Role;
 use \Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Storage;
+use App\User;
+use App\Musteri;
+use App\Arac;
+use App\AracModel;
+use App\Marka;
+use App\userAyar;
 class AdminController extends Controller
 {
     public function __construct()

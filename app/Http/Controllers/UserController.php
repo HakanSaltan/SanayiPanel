@@ -3,7 +3,6 @@
 
 namespace App\Http\Controllers;
 
-
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
@@ -124,7 +123,8 @@ class UserController extends Controller
         if(!empty($input['password'])){ 
             $input['password'] = Hash::make($input['password']);
         }else{
-            $input = array_except($input,array('password'));    
+            
+            $input = Arr::except($input,['password']);    
         }
 
 
@@ -137,7 +137,7 @@ class UserController extends Controller
 
 
         return redirect()->route('users.index')
-                        ->with('success','User updated successfully');
+                        ->with('Başarılı','Kullanıcı Güncellendi');
     }
 
 
