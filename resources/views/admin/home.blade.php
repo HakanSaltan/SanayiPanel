@@ -5,7 +5,10 @@
 @endsection
 
 @section('content')
-<?php $Musteri = \App\Musteri::where('user_id',Auth::user()->id)->get();?>
+<?php
+$Musteriler = \App\Musteri::where('user_id',Auth::user()->id)->get();
+$araclar = \App\Arac::where('musteri_id',"0")->get();
+?>
 <div id="card-stats" class="row">
     <div class="col s12 m6 xl3">
         <div class="card">
@@ -64,9 +67,33 @@
     </div>
 
 </div>
+<div class="row card">
+        <div class="card-content">
+                <h4 class="card-title">Müşteriye Araç Ata</h4>
+        <div class="input-field col m4 s12">
+            <select name="mid" id="mid">
+                <option value="" disabled selected>Lütfen Müşteri Seçiniz
+                </option>
+                @foreach ($Musteriler as $musteri)
+                <option value="{{$musteri->id}}">{{$musteri->isimSoyisim}}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="input-field col m4 s12">
+            <select name="arac_id" id="arac_id">
+                <option value="" disabled selected>Lütfen Araç Seçiniz</option>
+                @foreach ($araclar as $arac)
+                <option value="{{$arac->id}}">{{$arac->plaka}}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="input-field large col m4 s12">
+        <button onclick="musteriArac()" class="btn modal-close waves-effect waves-light mr-2">Kaydet</button>
+        </div>
+    </div>
+</div>
 
 <div class="row">
-
     <div id="chartjs-bar-chart" class="card">
         <div class="card-content">
             <h4 class="card-title">Gelir - Gider Tablosu</h4>
@@ -91,7 +118,29 @@
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" integrity="sha256-Uv9BNBucvCPipKQ2NS9wYpJmi8DTOEfTA/nH2aoJALw=" crossorigin="anonymous"></script> -->
 <!-- <script src="{{ asset('app-assets/vendors/chartjs/chart.js') }}"></script> -->
 <!-- <script src="{{ asset('app-assets/js/scripts/card-advanced.js') }}" type="text/javascript"></script> -->
-
+<script>
+        function musteriArac() {
+            let token = '{{csrf_token()}}';
+           
+            let mid = document.querySelector("#mid").value;
+            let arac_id = document.querySelector("#arac_id").value;
+            
+            axios.post("/musteriArac", {
+                    token: token,
+                    mid: mid,
+                    arac_id: arac_id
+                })
+                .then(res => {
+                    console.log("başarılı " + res);
+                    M.toast({html: 'İşlem başarılı!', classes: "green"});
+                   
+                })
+                .catch(er => {
+                    M.toast({html: 'İşlem sırasında bir hata oluştu!', classes: "red"});
+                    console.log("başarısız " + er);
+                });
+        }
+    </script>
 <script>
     var chartVerileri = "";
     $(window).on("load", function () {
@@ -188,4 +237,5 @@
     });
 
 </script>
+
 @endsection

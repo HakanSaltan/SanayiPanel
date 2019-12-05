@@ -28,7 +28,9 @@
 </head>
 
 <body style="background-color:#25a3ff">
-
+        <div class="col s6 right-align">
+            <a href="{{asset('/home')}}" class="mb-6 btn waves-effect waves-light red accent-2 modal-trigger ">Çık</a>
+        </div>
     <div id="intro">
         <div class="row">
             <div class="col s12">

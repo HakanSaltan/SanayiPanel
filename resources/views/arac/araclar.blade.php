@@ -4,12 +4,88 @@
 
 @endsection
 @section('content')
+<div style="bottom: 50px; right: 90px;" class="fixed-action-btn direction-top">
+        <a class="btn-floating btn-large primary-text gradient-shadow modal-trigger" href="#modal0">
+            <i class="material-icons">add_circle_outline</i>
+        </a>
+    </div>
+    
+    <div id="modal0" class="modal border-radius-6">
+        <div class="modal-content">
+            <h5 class="mt-0">Yeni Araç Ekle</h5>
+            <hr>
+            <div class="row">
+                <form class="col s12">
+                    <div class="row">
+                        <div class="input-field col m6 s12">
+                            <i class="material-icons prefix"> perm_identity </i>
+                            <input id="plaka" type="text" class="validate">
+                            <label for="plaka">Plaka</label>
+                        </div>
+                        <div class="input-field col m6 s12">
+                            <i class="material-icons prefix"> business </i>
+                            <input id="km" type="text" class="validate">
+                            <label for="km">Km</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                            <div class="input-field col m12 s12">
+                                <i class="material-icons prefix"> business </i>
+                                <input id="sase" type="text" class="validate">
+                                <label for="sase">sase</label>
+                            </div>
+                            <div class="input-field col m12 s12">
+                                <select name="marka" id="marka">
+                                    <option value="" disabled selected>Lütfen Marka Seçiniz
+                                    </option>
+                                    @foreach ($markalar as $marka)
+                                    <option value="{{$marka->name}}">{{$marka->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="input-field col m12 s12">
+                                <select name="aracModel" id="aracModel">
+                                    <option value="" disabled selected>Lütfen Model Seçiniz</option>
+                                    @foreach ($marka->AracModel as $model)
+                                    <option value="{{$model->name}}">{{$model->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+    
+                </form>
+            </div>
+        </div>
+        <div class="modal-footer">
+                <button onclick="aracEkle()" class="btn modal-close waves-effect waves-light mr-2">Müşteri Ekle</button>
+        </div>
+    </div>
 <div class="row mt-2">
 
     @foreach ($kullanici as $kul_key => $kul)
     @foreach ($kul->arac as $arac_key => $arac)
-
-    <div class="col s12 m6 l4 card-width">
+    <div id="modal0{{$arac->id}}" class="modal border-radius-6">
+            <div class="modal-content">
+                
+                <hr>
+                <div class="row">
+                   
+                        
+                            <div class="input-field col m6 s12">
+                                <h4 class="validate">{{$arac->plaka}} Plakalı Aracı Silmek İstediğinden Emin Misin ?</h4>
+                                
+                            </div>
+                            
+                      
+                      
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn modal-close waves-effect waves-light mr-1">İptal</button>
+                <button onclick="aracSil({{$arac->id}})" class="btn modal-close waves-effect waves-light mr-2">Arac Sil</button>
+            </div>
+    </div>
+    <div id="ar{{$arac->Musteri->id}}" class="col s12 m6 l4 card-width">
         <div class="card-panel border-radius-6 mt-10 card-animation-1">
             <div class="center">
                 <img class="responsive-img border-radius-8 z-depth-4 image-n-margin" width="225px" height="225px"
@@ -23,14 +99,14 @@
             </div>
             <div class="center">
                 <a data-target="modal1{{$arac->id}}"
-                    class="waves-effect waves-light btn gradient-45deg-light-blue-cyan mt-7 z-depth-4 animated rubberBand faster modal-trigger ">Detay</a>
+                    class="waves-effect waves-light btn gradient-45deg-light-blue-cyan mt-7 z-depth-4  modal-trigger ">Detay</a>
 
 
                 <a data-target="modal2{{$arac->id}}"
-                    class="waves-effect waves-light btn gradient-45deg-green-teal mt-7 z-depth-4 animated rubberBand faster modal-trigger ">Güncelle</a>
+                    class="waves-effect waves-light btn gradient-45deg-green-teal mt-7 z-depth-4  modal-trigger ">Güncelle</a>
 
                 <a onclick="hizmetEkle({{ $arac->id }})"
-                    class="waves-effect waves-light btn blue darken-4 mt-7 z-depth-4 animated rubberBand faster ">
+                    class="waves-effect waves-light btn blue darken-4 mt-7 z-depth-4  ">
                     <span>Hizmet Ekle</span>
                 </a>
             </div>
@@ -44,6 +120,8 @@
                     <h4>{{$arac->Musteri->isimSoyisim}}</h4>
                 </div>
                 <div class="col s6 right-align">
+                        <a data-target="modal0{{$arac->id}}"
+                                class="mb-6 btn waves-effect waves-light red accent-2 modal-trigger ">Sil</a>
                     <a href="{{asset('/aracDetay/'.$arac->id)}}"
                         class="mb-6 btn waves-effect waves-light gradient-45deg-light-blue-cyan">Tüm Detaylar</a>
                 </div>
@@ -93,7 +171,7 @@
 
         </div>
     </div>
-
+    
     <div id="modal2{{$arac->id}}" class="modal">
         <div class="modal-content">
             {{ csrf_field() }}
@@ -133,7 +211,7 @@
                 <div class="row">
                     <div class="col m4 s12 mb-1">
                         <button onclick="aracGuncelle({{ $kul_key }}, {{$arac_key}})"
-                            class="waves-effect waves-light btn gradient-45deg-green-teal mt-7 z-depth-4 animated rubberBand faster">Güncelle</button>
+                            class="waves-effect waves-light btn gradient-45deg-green-teal mt-7 z-depth-4 ">Güncelle</button>
                     </div>
                 </div>
             </div>
@@ -153,9 +231,9 @@
     let a = <?= json_encode($kullanici) ?> ;
 
     function aracGuncelle(kid, arac_id) {
-        console.log(a);
-        console.log(a[kid].id);
-        console.log(a[kid].arac[arac_id].id);
+        console.log(kid);
+        console.log(arac_id);
+        
         let plaka = document.querySelector("#modal2" + a[kid].arac[arac_id].id + " #plaka");
         let km = document.querySelector("#modal2" + a[kid].arac[arac_id].id + " #km");
         let marka = document.querySelector("#modal2" + a[kid].arac[arac_id].id + " #marka");
@@ -176,7 +254,50 @@
                 console.log(error);
             });
     }
+    function aracEkle() {
+        let token = '{{csrf_token()}}';
+       
+        let plaka = document.querySelector("#modal0 #plaka").value;
+        let km = document.querySelector("#modal0 #km").value;
+        let sase = document.querySelector("#modal0 #sase").value;
+        let marka = document.querySelector("#modal0 #marka").value;
+        let aracModel = document.querySelector("#modal0 #aracModel").value;
 
+        axios.post("/aracEkle", {
+                token: token,
+                plaka: plaka,
+                km: km,
+                sase: sase,
+                marka: marka,
+                aracModel: aracModel
+            })
+            .then(res => {
+                console.log("başarılı " + res);
+                $('.modal0').modal('close', ".modal0");
+                M.toast({html: 'İşlem başarılı!', classes: "green"});
+            })
+            .catch(er => {
+                M.toast({html: 'İşlem sırasında bir hata oluştu!', classes: "red"});
+                console.log("başarısız " + er);
+            });
+    }
+    function aracSil(aid) {
+        let token = '{{csrf_token()}}';
+        axios.post("/aracSil", {
+                token: token,
+                aid: aid,
+            })
+            .then(res => {
+                console.log("başarılı " + res);
+                $('.modal').modal('close', ".modal");
+                M.toast({html: 'İşlem başarılı!', classes: "green"});
+                document.getElementById("ar"+aid).remove();
+            })
+            .catch(er => {
+                M.toast({html: 'İşlem sırasında bir hata oluştu!', classes: "red"});
+                console.log("başarısız " + er);
+            });
+    }
     function hizmetEkle(index) {
         location.href = "/hizmet/" + index;
         console.log(index);

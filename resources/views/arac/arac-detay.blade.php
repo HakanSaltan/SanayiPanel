@@ -84,16 +84,16 @@
                 </div>
             </div>
         </div>
-
         <div class="col s12 m6 l3 card-width">
             <div class="card border-radius-6">
                 <div class="card-content center-align">
-                    <i class="material-icons amber-text small-ico-bg mb-5">near_me</i>
-                    <h4 class="m-0"><b>{{$aracdetay->km}}</b></h4>
-                    <p> Araç Kilometresi</p>
+                    <i class="material-icons amber-text small-ico-bg mb-5">face</i>
+                    <h4 class="m-0"><b>{{$aracdetay->Musteri->isimSoyisim}}</b></h4>
+                    <p>Araç Sahibi</p>
                 </div>
             </div>
         </div>
+        
         <div class="col s12 m6 l3 card-width">
             <div class="card border-radius-6">
                 <div class="card-content center-align">
@@ -113,77 +113,56 @@
             </div>
         </div>
         <div class="col s12 m6 l3 card-width">
-            <div class="card border-radius-6">
-                <div class="card-content center-align">
-                    <i class="material-icons amber-text small-ico-bg mb-5">face</i>
-                    <h4 class="m-0"><b>{{$aracdetay->Musteri->isimSoyisim}}</b></h4>
-                    <p>Araç Sahibi</p>
-
+                <div class="card border-radius-6">
+                    <div class="card-content center-align">
+                        <i class="material-icons amber-text small-ico-bg mb-5">near_me</i>
+                        <h4 class="m-0"><b>{{$aracdetay->km}}</b></h4>
+                        <p> Araç Kilometresi</p>
+                    </div>
                 </div>
-            </div>
-        </div>
-
-    </div>
-
-    @foreach ($aracdetay->Fatura as $Fatura)
-    <div class="row">
-        <div class="col s12">
-            <div id="responsive-table" class="card card card-default scrollspy">
-                <div class="card-content">
-                    <h2 class="card-title stripe">Fatura No : {{$Fatura->fkod}}</h2>
-                    <table class="responsive-table">
-                        <thead>
-
-                            <tr>
-                                <th>Plaka</th>
-                                <th>Sahibi</th>
-                                <th>Kilometresi</th>
-                                <th>Markası</th>
-                                <th>Modeli</th>
-                                <th>Şase Numarası</th>
-                                <th>Servis Giriş Tarihi</th>
-                                <th>Servis Çıkış Tarihi</th>
-                                <th>Yapılan İşlemler</th>
-                                <th>Adet</th>
-                                <th>Alınan Ücret</th>
-                                @auth
-                                    @role('admin')
-                                        <th><a class="btn-flat mb-1 waves-effect" href="{{asset('/fatura/'.$Fatura->fkod)}}"> <i class="material-icons right">print</i></a></th>
-                                    @endrole
-                                @endauth
-                        </thead>
-                        <tbody>
-
-                            @foreach ($Fatura->IslemHizmetleri as $Islem)
-                            <tr>
-                                <td class="uppercase">{{str_replace("_", " ", $aracdetay->plaka)}}</td>
-                                <td>{{$aracdetay->Musteri->isimSoyisim}}</td>
-                                <td>{{$aracdetay->km}}</td>
-                                <td>{{$aracdetay->marka}}</td>
-                                <td>{{$aracdetay->model}}</td>
-                                <td>584213215151</td>
-                                <td>{{$Islem->Hizmet->created_at}}</td>
-                                <td>{{$Islem->Hizmet->created_at}}</td>
-                                <td>{{$Islem->Hizmet->ad}} </td>
-                                <td>{{$Islem->Hizmet->adet}}</td>
-                                <td>{{$Islem->hizmet_fiyat}}</td>
-                                @auth
-                                    @role('admin')
-                                        <th></th>
-                                    @endrole
-                                @endauth
-                            </tr>
-
-                            @endforeach
-                        </tbody>
-                    </table>
-                    <br>
-                </div>
-            </div>
         </div>
     </div>
-    @endforeach
-
+    <ul class="collapsible popout">
+        @foreach ($aracdetay->Fatura as $Fatura)
+        <li>
+            <div class="collapsible-header"><i class="material-icons">assignment_turned_in</i>Fatura No : {{$Fatura->fkod}}</div>
+                            
+                <div class="collapsible-body">
+                    <div id="responsive-table" class="scrollspy">
+                        <div class="card-content">
+                            <table class="responsive-table">
+                                <thead>
+                                    <tr>
+                                        <th>Yapılan İşlemler</th>
+                                        <th>Adet</th>
+                                        <th>Alınan Ücret</th>
+                                        @auth
+                                            @role('admin')
+                                                <th><a class="btn-flat mb-1 waves-effect" href="{{asset('/fatura/'.$Fatura->fkod)}}" target="_blank"> <i class="material-icons right">print</i></a></th>
+                                            @endrole
+                                        @endauth
+                                        <!-- <th>Servis Giriş Tarihi = {/{$Fatura->IslemHizmetleri[0]->Hizmet->created_at}}</th> -->
+                                </thead>
+                                <tbody>
+                                    @foreach ($Fatura->IslemHizmetleri as $Islem)
+                                    <tr>
+                                        <td>{{$Islem->Hizmet->ad}} </td>
+                                        <td>{{$Islem->adet}}</td>
+                                        <td>{{$Islem->hizmet_fiyat}}</td>
+                                        @auth
+                                            @role('admin')
+                                                <th></th>
+                                            @endrole
+                                        @endauth
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div> 
+                    </div>
+                </div>
+        @endforeach
+    </ul>
 
     <script src="{{asset('app-assets/js/vendors.min.js')}}" type="text/javascript"></script>
     <script src="{{asset('app-assets/js/plugins.js')}}" type="text/javascript"></script>

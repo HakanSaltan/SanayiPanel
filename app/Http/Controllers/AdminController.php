@@ -26,8 +26,8 @@ class AdminController extends Controller
     }
     public function firmaKayit()
 	{
-       
-
+        DB::beginTransaction();
+        $ayar = userAyar::where('user_id', '=',Auth::user()->id)->get();
         $post = $_POST;
         $dosyalar = $_FILES;
         
@@ -46,23 +46,35 @@ class AdminController extends Controller
         }
 
         $post = json_encode($post);
-            
-        if($post){
-            $ayar = new userAyar();
-            $ayar->user_id = Auth::user()->id;
-            $ayar->ayarJSON = $post;
+        if(!$ayar){
+            if($post){
+                $ayar = new userAyar();
+                $ayar->user_id = Auth::user()->id;
+                $ayar->ayarJSON = $post;
 
-            if(!$ayar->save())
-            {
+                if(!$ayar->save())
+                {
+                    $sonuc = $this->sonuc(false);
+                }
+
+                $sonuc = $this->sonuc(true);
+            }
+        }else if($post){
+                $ayar = userAyar::where("user_id",Auth::user()->id)->delete();
+                $ayar = new userAyar();
+                $ayar->user_id = Auth::user()->id;
+                $ayar->ayarJSON = $post;
+
+                if(!$ayar->save())
+                {
+                    $sonuc = $this->sonuc(false);
+                }
+                $sonuc = $this->sonuc(true);
+            }else{
                 $sonuc = $this->sonuc(false);
             }
-
-            $sonuc = $this->sonuc(true);
-        }else{
-            $sonuc = $this->sonuc(false);
-        }
-        
-        return $sonuc;
+            DB::commit();
+            return $sonuc;
     }
     
     public function firmaGuncelle(Request $request, $id, Factory $cache)
@@ -106,12 +118,60 @@ class AdminController extends Controller
         DB::commit();
         return $sonuc;
     }
-    public function aracSil($id)
-    {
-        Arac::find($id)->delete();
-        return Redirect::back()->with('success', ['Araç Başarıyla Silinmiştir']);;
+    public function aracEkle(Request $request)
+	{
+        DB::beginTransaction();
+        $req = file_get_contents("php://input");
+        $req = json_decode($req, true);
+
+        if(!isset($req["plaka"]) || !$req["plaka"])
+            return $this->sonuc(false);
+
+        $plaka= $this->plakaSifrele($req['plaka']);
+        $km =  trim($req['km']);
+        $sase =  trim($req['sase']);
+        $marka =  trim($req['marka']);
+        $aracModel =  trim($req['aracModel']);
+        $qrCode = "https://chart.googleapis.com/chart?cht=qr&chs=512x512&chl=" . $plaka;
+
+        if($plaka){
+                
+                $arac = new Arac();
+                $arac->musteri_id ="0";
+                $arac->plaka = $plaka;
+                $arac->marka = $marka;
+                $arac->sase = $sase;
+                $arac->km = $km;
+                $arac->model = $aracModel;
+                $arac->qrCode = $qrCode;
+                $arac->save();
+
+            $sonuc = $this->sonuc(true);
+                        
+        }else{
+            $sonuc = $this->sonuc(false);
+        }
+        DB::commit();
+        return $sonuc;
     }
-    public function musteriGuncelle($id,Request $request)
+    public function aracSil(Request $request)
+    {
+        $req = file_get_contents("php://input");
+        $req = json_decode($req, true);
+
+        if(isset($req["aid"])){
+            
+            $id =  trim($req['aid']);
+            Arac::find($id)->delete();
+            $sonuc = $this->sonuc(true);
+
+        }else{
+
+            return $this->sonuc(false);
+
+        }
+    }
+    public function musteriGuncelle(Request $request)
 	{
         DB::beginTransaction();
         $req = file_get_contents("php://input");
@@ -119,7 +179,8 @@ class AdminController extends Controller
 
         if(!isset($req["telefon"]) || !$req["telefon"])
             return $this->sonuc(false);
-        
+
+        $id =  trim($req['kid']);
         $telefon =  trim($req['telefon']);
         $isimSoyisim =  trim($req['isimSoyisim']);
         $tc =  trim($req['tc']);
@@ -143,11 +204,54 @@ class AdminController extends Controller
         DB::commit();
         return $sonuc;
     }
-    public function musteriSil($id)
-    {
-        Musteri::find($id)->delete();
+    public function musteriEkle(Request $request)
+	{
+        DB::beginTransaction();
+        $req = file_get_contents("php://input");
+        $req = json_decode($req, true);
 
-        return Redirect::back()->with('success', ['Müşteri Başarıyla Silinmiştir']);;
+        if(!isset($req["telefon"]) || !$req["telefon"])
+            return $this->sonuc(false);
+
+        $telefon =  trim($req['telefon']);
+        $isimSoyisim =  trim($req['isimSoyisim']);
+        $tc =  trim($req['tc']);
+        $adres =  trim($req['adres']);
+
+        if($telefon){
+                
+                $musteri = new Musteri();
+                $musteri->user_id = Auth::user()->id;
+                $musteri->telefon = $telefon;
+                $musteri->tc = $tc;
+                $musteri->isimSoyisim = $isimSoyisim;
+                $musteri->adres = $adres;
+                $musteri->save();
+
+            $sonuc = $this->sonuc(true);
+                        
+        }else{
+            $sonuc = $this->sonuc(false);
+        }
+        DB::commit();
+        return $sonuc;
+    }
+    public function musteriSil(Request $request)
+    {
+        $req = file_get_contents("php://input");
+        $req = json_decode($req, true);
+
+        if(isset($req["kid"])){
+            
+            $id =  trim($req['kid']);
+            Musteri::find($id)->delete();
+            $sonuc = $this->sonuc(true);
+
+        }else{
+
+            return $this->sonuc(false);
+
+        }
     }
 
     public function musteriKayit(Request $request)
@@ -177,7 +281,7 @@ class AdminController extends Controller
                 $musteri->adres = $adres;
                 $musteri->save();
 
-                $musteriSonId = $musteri->id;
+                $musteriSonId = Musteri::latest()->first();
 
                 $araba = new Arac();
                 $araba->plaka = $plaka;
@@ -185,15 +289,6 @@ class AdminController extends Controller
                 $araba->qrCode = $qrCode;
                 $araba->save();
 
-
-/*              Musteri::find($musteriSonId)->first()->assignRole('musteri');
-                $kullanici = Auth::user();
-                DB::insert('insert into musteri_user (user_id, musteri_id) values (?, ?)', [
-                    $kullanici->id,
-                    $musteriSonId
-                ]);
-
-*/
             $sonuc = $this->sonuc(true, [
                 "location" => "/araclarim"
             ]);
@@ -205,7 +300,30 @@ class AdminController extends Controller
         return $sonuc;
     }
     
+    public function musteriArac(Request $request)
+	{
+        DB::beginTransaction();
+        $req = file_get_contents("php://input");
+        $req = json_decode($req, true);
 
+        $mid =  trim($req['mid']);
+        $arac_id =  trim($req['arac_id']);
+        
+
+        if($mid){
+                
+                $arac = Arac::find($arac_id);
+                $arac->musteri_id = $mid;
+                $arac->save();
+
+            $sonuc = $this->sonuc(true);
+                        
+        }else{
+            $sonuc = $this->sonuc(false);
+        }
+        DB::commit();
+        return $sonuc;
+    }
 
     
     

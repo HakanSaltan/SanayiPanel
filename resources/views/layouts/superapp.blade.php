@@ -192,7 +192,7 @@
                     <!-- END RIGHT SIDEBAR NAV -->
                     <div style="bottom: 50px; right: 19px;" class="fixed-action-btn direction-top"><a
                             class="btn-floating btn-large gradient-45deg-light-blue-cyan gradient-shadow"><i
-                                class="material-icons">add</i></a>
+                                class="material-icons">blur_on</i></a>
                         <ul>
                             <li><a href="{{asset('/')}}" class="btn-floating green"><i
                                         class="material-icons">home</i></a></li>

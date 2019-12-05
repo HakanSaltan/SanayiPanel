@@ -8,12 +8,12 @@
 @section('content')
 
 <div style="bottom: 50px; right: 90px;" class="fixed-action-btn direction-top">
-    <a class="btn-floating btn-large primary-text gradient-shadow modal-trigger" href="#modal">
+    <a class="btn-floating btn-large primary-text gradient-shadow modal-trigger" href="#modal0">
         <i class="material-icons">person_add</i>
     </a>
 </div>
 
-<div id="modal" class="modal border-radius-6">
+<div id="modal0" class="modal border-radius-6">
     <div class="modal-content">
         <h5 class="mt-0">Yeni Müşteri Ekle</h5>
         <hr>
@@ -22,26 +22,26 @@
                 <div class="row">
                     <div class="input-field col m6 s12">
                         <i class="material-icons prefix"> perm_identity </i>
-                        <input id="first_name" type="text" class="validate">
-                        <label for="first_name">Ad Soyad</label>
+                        <input id="isimSoyisim" type="text" class="validate">
+                        <label for="isimSoyisim">Ad Soyad</label>
                     </div>
                     <div class="input-field col m6 s12">
                         <i class="material-icons prefix"> business </i>
-                        <input id="company" type="text" class="validate">
-                        <label for="company">Tc</label>
+                        <input id="tc" type="text" class="validate">
+                        <label for="tc">Tc</label>
                     </div>
                 </div>
                 <div class="row">
 
                     <div class="input-field col s12">
                         <i class="material-icons prefix"> call </i>
-                        <input id="phone" type="number" class="validate">
-                        <label for="phone">Telefon</label>
+                        <input id="telefon" type="number" class="validate">
+                        <label for="telefon">Telefon</label>
                     </div>
                     <div class="input-field col s12">
                         <i class="material-icons prefix"> note </i>
-                        <input id="notes" type="text" class="validate">
-                        <label for="notes">Adres</label>
+                        <input id="adres" type="text" class="validate">
+                        <label for="adres">Adres</label>
                     </div>
                 </div>
 
@@ -49,7 +49,7 @@
         </div>
     </div>
     <div class="modal-footer">
-        <a class="btn modal-close waves-effect waves-light mr-2">Müşteri Ekle</a>
+            <button onclick="musteriEkle()" class="btn modal-close waves-effect waves-light mr-2">Müşteri Ekle</button>
     </div>
 </div>
 
@@ -113,7 +113,7 @@
                     </thead>
                     <tbody>
                         @foreach ($kullanicilar as $kullanici)
-                        <tr>
+                        <tr id="tr{{$kullanici->id}}">
                             <td class="center-align">
                                 <label>
                                     <input type="checkbox" name="foo" />
@@ -125,11 +125,11 @@
                             <td>{{$kullanici->tc}}</td>
                             <td>{{$kullanici->adres}}</td>
                             <td><a data-target="modal1{{$kullanici->id}}"
-                                    class="waves-effect waves-light btn gradient-45deg-light-blue-cyan mt-7 z-depth-4 animated rubberBand faster modal-trigger ">Güncelle</a></td>
+                                    class="waves-effect waves-light btn gradient-45deg-light-blue-cyan mt-7 z-depth-4  modal-trigger ">Güncelle</a></td>
                             
                             
                             
-                            <td><a data-target="" class="btn waves-effect waves-light gradient-45deg-red-pink mt-7 z-depth-4 animated rubberBand faster modal-trigger ">Sil</a>
+                            <td><a data-target="modal2{{$kullanici->id}}" class="btn waves-effect waves-light red accent-2 modal-trigger ">Sil</a>
 
                         </tr>
                         <div id="modal1{{$kullanici->id}}" class="modal border-radius-6">
@@ -143,13 +143,13 @@
                                                 <i class="material-icons prefix"> perm_identity </i>
                                                 <input id="isimSoyisim" type="text" value="{{$kullanici->isimSoyisim}}"
                                                     class="validate">
-                                                <label for="first_name">Ad Soyad</label>
+                                                <label for="isimSoyisim">Ad Soyad</label>
                                             </div>
                                             <div class="input-field col m6 s12">
                                                 <i class="material-icons prefix"> business </i>
-                                                <input id="company" type="text" value="{{$kullanici->tc}}"
+                                                <input id="tc" type="text" value="{{$kullanici->tc}}"
                                                     class="validate">
-                                                <label for="company">Tc</label>
+                                                <label for="tc">Tc</label>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -158,13 +158,13 @@
                                                 <i class="material-icons prefix"> call </i>
                                                 <input id="telefon" type="number" value="{{$kullanici->telefon}}"
                                                     class="validate">
-                                                <label for="phone">Telefon</label>
+                                                <label for="telefon">Telefon</label>
                                             </div>
                                             <div class="input-field col s12">
                                                 <i class="material-icons prefix"> note </i>
                                                 <input id="adres" type="text" value="{{$kullanici->adres}}"
                                                     class="validate">
-                                                <label for="notes">Adres</label>
+                                                <label for="adres">Adres</label>
                                             </div>
                                         </div>
 
@@ -172,7 +172,28 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <a class="btn modal-close waves-effect waves-light mr-2">Müşteri Güncelle</a>
+                                <button onclick="musteriGuncelle({{$kullanici->id}})" class="btn modal-close waves-effect waves-light mr-2">Müşteri Güncelle</button>
+                            </div>
+                        </div>
+                        <div id="modal2{{$kullanici->id}}" class="modal border-radius-6">
+                            <div class="modal-content">
+                                
+                                <hr>
+                                <div class="row">
+                                   
+                                        
+                                            <div class="input-field col m6 s12">
+                                                <h4 class="validate">{{$kullanici->isimSoyisim}} Adlı Kullanıcıyı Silmek İstediğinden Emin Misin ?</h4>
+                                                
+                                            </div>
+                                            
+                                      
+                                      
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn modal-close waves-effect waves-light mr-1">İptal</button>
+                                <button onclick="musteriSil({{$kullanici->id}})" class="btn modal-close waves-effect waves-light red accent-2">Müşteri Sil</button>
                             </div>
                         </div>
                         @endforeach
@@ -190,15 +211,40 @@
 @section('js')
 <script src="{{ asset('app-assets/js/scripts/app-contacts.js')}}" type="text/javascript"></script>
 <script>
-    function musteriGuncelle() {
+    function musteriGuncelle(kid) {
         let token = '{{csrf_token()}}';
-        let telefon = document.getElementById("telefon");
-        let isimSoyisim = document.getElementById("isimSoyisim");
-        let tc = document.getElementById("tc");
-        let adres = document.getElementById("adres");
-
-
-        axios.post("/musteriGuncelle/" + kullanici - > id, {
+       
+        let telefon = document.querySelector("#modal1" + kid + " #telefon").value;
+        let isimSoyisim = document.querySelector("#modal1" + kid + " #isimSoyisim").value;
+        let tc = document.querySelector("#modal1" + kid + " #tc").value;
+        let adres = document.querySelector("#modal1" + kid + " #adres").value;
+        axios.post("/musteriGuncelle", {
+                token: token,
+                kid: kid,
+                telefon: telefon,
+                isimSoyisim: isimSoyisim,
+                tc: tc,
+                adres: adres
+            })
+            .then(res => {
+                console.log("başarılı " + res);
+                $('.modal').modal('close', ".modal");
+                M.toast({html: 'İşlem başarılı!', classes: "green"});
+                location.reload();
+            })
+            .catch(er => {
+                M.toast({html: 'İşlem sırasında bir hata oluştu!', classes: "red"});
+                console.log("başarısız " + er);
+            });
+    }
+    function musteriEkle() {
+        let token = '{{csrf_token()}}';
+       
+        let telefon = document.querySelector("#modal0 #telefon").value;
+        let isimSoyisim = document.querySelector("#modal0 #isimSoyisim").value;
+        let tc = document.querySelector("#modal0 #tc").value;
+        let adres = document.querySelector("#modal0 #adres").value;
+        axios.post("/musteriEkle", {
                 token: token,
                 telefon: telefon,
                 isimSoyisim: isimSoyisim,
@@ -207,8 +253,29 @@
             })
             .then(res => {
                 console.log("başarılı " + res);
+                $('.modal').modal('close', ".modal");
+                M.toast({html: 'İşlem başarılı!', classes: "green"});
+                location.reload();
             })
             .catch(er => {
+                M.toast({html: 'İşlem sırasında bir hata oluştu!', classes: "red"});
+                console.log("başarısız " + er);
+            });
+    }
+    function musteriSil(kid) {
+        let token = '{{csrf_token()}}';
+        axios.post("/musteriSil", {
+                token: token,
+                kid: kid,
+            })
+            .then(res => {
+                console.log("başarılı " + res);
+                $('.modal').modal('close', ".modal");
+                M.toast({html: 'İşlem başarılı!', classes: "green"});
+                document.getElementById("tr"+kid).remove();
+            })
+            .catch(er => {
+                M.toast({html: 'İşlem sırasında bir hata oluştu!', classes: "red"});
                 console.log("başarısız " + er);
             });
     }
