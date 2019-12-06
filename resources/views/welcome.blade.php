@@ -128,7 +128,7 @@
                     <i id="progressButton" class="ion-android-arrow-forward next"></i>
         
                     <div id="inputContainer">
-                        <input id="inputField" required autofocus />
+                        <input id="inputField" onkeyup="plakaTest()" required autofocus />
                         <label id="inputLabel"></label>
                         <div id="inputProgress"></div>
                     </div>
@@ -146,6 +146,11 @@
 
 
 <script>
+    function plakaTest() {
+        var x = document.getElementById("inputField");
+        x.value = x.value.replace(/[^a-zA-Z0-9]/g, "").toUpperCase().trim();
+    }
+
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
