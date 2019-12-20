@@ -43,28 +43,25 @@ class HomeController extends Controller
             $kullanici = User::where('id', '=', $user_id)->get();
             $toplamMusteri = Musteri::where('user_id', $user_id)->count();
             $toplamKayitliArac = DB::table('arac')
-            ->join('musteri', 'arac.musteri_id', '=', 'musteri.id')
-            ->leftJoin("users", "users.id", "=", "musteri.user_id")
-            ->where("users.id", "=", $user_id)
-            ->count();
+                ->join('musteri', 'arac.musteri_id', '=', 'musteri.id')
+                ->leftJoin("users", "users.id", "=", "musteri.user_id")
+                ->where("users.id", "=", $user_id)
+                ->count();
             $toplamYapilanHizmet = DB::table('islemler')
-            ->join('musteri', 'islemler.musteri_id', '=', 'musteri.id')
-            ->leftJoin("users", "users.id", "=", "musteri.user_id")
-            ->where("users.id", "=", $user_id)
-            ->count();
-            $toplamCiro = DB::table('fatura')
-            ->join('islemler', 'islemler.id', '=', 'fatura.islem_id')
-            ->join('musteri', 'musteri.id', '=', 'islemler.musteri_id')
-            ->leftJoin("users", "users.id", "=", "musteri.user_id")
-            ->where("users.id", "=", $user_id)
-            ->sum("fatura.toplamUcret");
+                ->join('musteri', 'islemler.musteri_id', '=', 'musteri.id')
+                ->leftJoin("users", "users.id", "=", "musteri.user_id")
+                ->where("users.id", "=", $user_id)
+                ->count();
+            $toplamCiro = DB::table('islemler')
+                ->where("user_id", "=", $user_id)
+                ->sum("kar_miktari");
             $chartVerileri = DB::table("fatura")
-            ->select('fkod', 'fatura.created_at as tarih', 'toplamUcret')
-            ->join('islemler', 'islemler.id', '=', 'fatura.islem_id')
-            ->join('musteri', 'musteri.id', '=', 'islemler.musteri_id')
-            ->leftJoin("users", "users.id", "=", "musteri.user_id")
-            ->where("users.id", "=", $user_id)
-            ->get();
+                ->select('fkod', 'fatura.created_at as tarih', 'toplamUcret')
+                ->join('islemler', 'islemler.id', '=', 'fatura.islem_id')
+                ->join('musteri', 'musteri.id', '=', 'islemler.musteri_id')
+                ->leftJoin("users", "users.id", "=", "musteri.user_id")
+                ->where("users.id", "=", $user_id)
+                ->get();
             
             $aylar = [];
             foreach($chartVerileri as $veri)
@@ -101,22 +98,30 @@ class HomeController extends Controller
 
         return view('admin/musteriler')->with('kullanicilar', $kullanicilar);
     }
-    public function araclarim($plaka=0)
+    public function araclarim()
     {
         
-        $kullanici = Musteri::where('user_id', '=',Auth::user()->id)->get();
+        $kullanici = Musteri::where('user_id', '=', Auth::user()->id)->get();
         $markalar = Marka::all();
 
         $donecek_dizi = [];
         if($_GET){
             $plaka = $_GET['plakaAra'];
-        foreach($kullanici as $key => $kul)
-        {
-            $kul->Arac;
-            // if($kul->Arac->plaka == $plaka)
-            $donecek_dizi[$key] = $kul;
-            // $donecek_dizi[$key]["araclar"] = $kul->Arac;
-        }
+
+            $kullanici->arac = Arac::where("plaka", "=", $plaka)->get();
+
+            $donecek_dizi[] = $kullanici;
+            // foreach($kullanici as $key => $kul)
+            // {
+            //     // $kul->Arac;
+            //     $arac = $kul->Arac;
+            //     echo "<pre>";
+            //     print_r($kul);
+            //     echo "</pre>";
+            //     if($arac->plaka == $plaka)
+            //         $donecek_dizi[$key] = $kul;
+            //     // $donecek_dizi[$key]["araclar"] = $kul->Arac;
+            // }
         }else{
             foreach($kullanici as $key => $kul)
             {

@@ -32,7 +32,14 @@
                         <div class="col s12 m7">
                             <div class="input-field">
                                 <i class="material-icons prefix">build</i>
-                                <input class="validate autocompleter" placeholder="Yapılan Hizmet Adı" autocomplete="off" v-model="yapilanHizmetBilgileri.islemAdi" type="text" id="autocomplete-input">
+                                <input
+                                    class="validate autocompleter"
+                                    placeholder="Yapılan Hizmet Adı"
+                                    autocomplete="off"
+                                    v-model="yapilanHizmetBilgileri.islemAdi"
+                                    type="text"
+                                    id="autocomplete-input"
+                                />
                             </div>
                         </div>
                         <div class="col s12 m3">
@@ -45,7 +52,7 @@
                                     placeholder="Fiyat"
                                     class="validate"
                                     type="number"
-                                >
+                                />
                             </div>
                         </div>
                         <div class="col s12 m2 center-align">
@@ -70,7 +77,7 @@
                             </thead>
 
                             <tbody>
-                                <tr v-for="(hizmet, i) in yapilan_hizmetler" :key="hizmet.ad">
+                                <tr v-for="(hizmet, i) in yapilan_hizmetler" :key="hizmet.ad" :style="hizmet.yeniHizmet ? 'border-left: 8px solid green' : ''">
                                     <td>
                                         <div class="input-field">
                                             <input class="validate" placeholder="Yapılan Hizmet Adı" autocomplete="off" v-model="hizmet.model" type="text" :class="'autocomplete' + i">
@@ -197,15 +204,20 @@
                 if(!vm.yapilanHizmetBilgileri.islemAdi)
                     return M.toast({html: 'Lütfen işlem adı giriniz!', classes: 'rounded'});
 
+                let yeniHizmet = !vm.autocompleteDegerBul(vm.yapilanHizmetBilgileri.islemAdi);
+
                 vm.yapilan_hizmetler.push({
                     model: vm._j(vm.yapilanHizmetBilgileri.islemAdi),
-                    ...vm.yapilanHizmetBilgileri
+                    fiyat: vm.yapilanHizmetBilgileri.fiyat,
+                    yeniHizmet,
+                    ...(yeniHizmet ? null : vm.yapilanHizmetBilgileri)
                 });
 
                 vm.yapilanHizmetBilgileri = {
                     islemAdi: "",
                     fiyat: 0
                 };
+
                 document.querySelector(".autocompleter").focus();
             },
             kaydet() {
