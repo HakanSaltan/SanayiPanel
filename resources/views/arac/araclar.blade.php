@@ -122,7 +122,7 @@
                 <div class="col s6 right-align">
                         <a data-target="modal0{{$arac->id}}"
                                 class="mb-6 btn waves-effect waves-light red accent-2 modal-trigger ">Sil</a>
-                    <a href="{{asset('/aracDetay/'.$arac->id)}}"
+                    <a href="{{asset('/aracDetay/'.$arac->plaka)}}"
                         class="mb-6 btn waves-effect waves-light gradient-45deg-light-blue-cyan">Tüm Detaylar</a>
                 </div>
 
@@ -231,8 +231,6 @@
     let a = <?= json_encode($kullanici) ?> ;
 
     function aracGuncelle(kid, arac_id) {
-        console.log(kid);
-        console.log(arac_id);
         
         let plaka = document.querySelector("#modal2" + a[kid].arac[arac_id].id + " #plaka");
         let km = document.querySelector("#modal2" + a[kid].arac[arac_id].id + " #km");
@@ -247,11 +245,13 @@
                 arac_id: a[kid].arac[arac_id].id
             })
             .then(donen => {
-                console.log(donen);
+               
                 $('.modal').modal('close', ".modal");
+                M.toast({html: 'İşlem başarılı!', classes: "green"});
             })
             .catch(error => {
                 console.log(error);
+                M.toast({html: 'İşlem sırasında bir hata oluştu!', classes: "red"});
             });
     }
     function aracEkle() {
@@ -272,13 +272,13 @@
                 aracModel: aracModel
             })
             .then(res => {
-                console.log("başarılı " + res);
+                
                 $('.modal0').modal('close', ".modal0");
                 M.toast({html: 'İşlem başarılı!', classes: "green"});
             })
             .catch(er => {
                 M.toast({html: 'İşlem sırasında bir hata oluştu!', classes: "red"});
-                console.log("başarısız " + er);
+                
             });
     }
     function aracSil(aid) {
@@ -288,14 +288,14 @@
                 aid: aid,
             })
             .then(res => {
-                console.log("başarılı " + res);
+                
                 $('.modal').modal('close', ".modal");
                 M.toast({html: 'İşlem başarılı!', classes: "green"});
                 document.getElementById("ar"+aid).remove();
             })
             .catch(er => {
                 M.toast({html: 'İşlem sırasında bir hata oluştu!', classes: "red"});
-                console.log("başarısız " + er);
+                
             });
     }
     function hizmetEkle(index) {

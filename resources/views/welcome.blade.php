@@ -248,17 +248,32 @@
                 console.log(er);
             });
         }
+        
+        function aracDetay() {
+         let token = '{{csrf_token()}}';
+         let plaka = questions[0].value;
+         axios.post("/plakaKontrol", {
+                token: token,
+                plaka: plaka,
+            })
+            .then(res => {
+                location.href = "/aracDetay/"+plaka;   
+            })
+            .catch(er => {
+                console.log(er);
+              
+            });
+        
+          
+        }
 
         function done() {
             
             register.className = 'close'
             @auth
-
             musteriKayit();
-            
             @else
-
-
+            aracDetay();
             @endauth
 
 

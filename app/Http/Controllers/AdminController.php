@@ -93,7 +93,7 @@ class AdminController extends Controller
         if(!isset($req["plaka"]) || !$req["plaka"])
             return $this->sonuc(false);
         
-        $plaka =  $this->plakaSifrele($req['plaka']);
+        $plaka =  $req['plaka'];
         $km =  trim($req['km']);
         $marka =  trim($req['marka']);
         $aracModel =  trim($req['aracModel']);
@@ -127,7 +127,7 @@ class AdminController extends Controller
         if(!isset($req["plaka"]) || !$req["plaka"])
             return $this->sonuc(false);
 
-        $plaka= $this->plakaSifrele($req['plaka']);
+        $plaka= $req['plaka'];
         $km =  trim($req['km']);
         $sase =  trim($req['sase']);
         $marka =  trim($req['marka']);
@@ -264,7 +264,7 @@ class AdminController extends Controller
             return $this->sonuc(false);
 
         
-        $plaka= $this->plakaSifrele($req['plaka']);
+        $plaka= $req['plaka'];
         $telefon =  trim($req['telefon']);
         $isimSoyisim =  trim($req['isimSoyisim']);
         $tc =  trim($req['tc']);

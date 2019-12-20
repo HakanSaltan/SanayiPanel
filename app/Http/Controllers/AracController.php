@@ -48,11 +48,30 @@ class AracController extends Controller
        
     }
     
-    public function aracDetay($id=0)
+    public function aracDetay($plaka=0)
     {
-        $aracdetay = Arac::find($id);
+        $aracdetay = Arac::where('plaka', '=',$plaka)->first();
         return view('arac/arac-detay')->with('aracdetay', $aracdetay);
     }
+    public function plakaKontrol(Request $request)
+    { 
         
+        $req = file_get_contents("php://input");
+        $req = json_decode($req, true);
+        
+        $plaka =  $req['plaka'];
+        $aracSayi = Arac::where('plaka', '=',$plaka)->count();
+        var_dump($aracSayi);
+        if($aracSayi > 0){
+            $sonuc = $this->sonuc(true);
+
+        }else{
+
+            return $this->sonuc(false);
+
+        }
+        return $sonuc;
+    }
+    
 
 }

@@ -22,7 +22,9 @@ Route::get('/detay/{plaka?}', 'AracController@detay')->name('detay');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/aracDetay/{id?}', 'AracController@aracDetay')->name('aracDetay');
+Route::post('/plakaKontrol', 'AracController@plakaKontrol')->name('plakaKontrol');
+Route::get('/aracDetay/{plaka?}', 'AracController@aracDetay')->name('aracDetay');
+
 
 
 Route::group(['middleware' => ['role:super-admin']], function () {

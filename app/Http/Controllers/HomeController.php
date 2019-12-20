@@ -101,17 +101,29 @@ class HomeController extends Controller
 
         return view('admin/musteriler')->with('kullanicilar', $kullanicilar);
     }
-    public function araclarim()
+    public function araclarim($plaka=0)
     {
+        
         $kullanici = Musteri::where('user_id', '=',Auth::user()->id)->get();
         $markalar = Marka::all();
 
         $donecek_dizi = [];
+        if($_GET){
+            $plaka = $_GET['plakaAra'];
         foreach($kullanici as $key => $kul)
         {
             $kul->Arac;
+            // if($kul->Arac->plaka == $plaka)
             $donecek_dizi[$key] = $kul;
             // $donecek_dizi[$key]["araclar"] = $kul->Arac;
+        }
+        }else{
+            foreach($kullanici as $key => $kul)
+            {
+                $kul->Arac;
+                $donecek_dizi[$key] = $kul;
+                // $donecek_dizi[$key]["araclar"] = $kul->Arac;
+            }
         }
         // echo "<pre>";
         // print_r(json_encode($donecek_dizi));

@@ -43,6 +43,10 @@
     $ayar = $ayarlar[0]->ayarJSON;
     $ayar = json_decode($ayar);
  ?>
+ <?php
+ $Musteriler = \App\Musteri::where('user_id',Auth::user()->id)->get();
+ $araclar = \App\Arac::where('musteri_id',"0")->where('user_id',Auth::user()->id)->get();
+ ?>
 <body class="vertical-layout page-header-light vertical-menu-collapsible vertical-dark-menu 2-columns  "
     data-open="click" data-menu="vertical-dark-menu" data-col="2-columns">
 
@@ -51,10 +55,12 @@
         <div class="navbar navbar-fixed">
             <nav class="navbar-main navbar-color nav-collapsible sideNav-lock navbar-light">
                 <div class="nav-wrapper">
-                    <div class="header-search-wrapper hide-on-med-and-down"><i class="material-icons">search</i>
-                        <input class="header-search-input z-depth-2" type="text" name="Search"
-                            placeholder="Plaka Giriniz">
-                    </div>
+                <form action="{{asset('/araclarim')}}">
+                        <div class="header-search-wrapper hide-on-med-and-down"><i class="material-icons">search</i>
+                            <input class="header-search-input z-depth-2" type="text" name="plakaAra"
+                                placeholder="Plaka Giriniz">
+                        </div>
+                    
                     <ul class="navbar-list right">
                         <li class="hide-on-large-only"><a class="waves-effect waves-block waves-light search-button"
                                 href="javascript:void(0);"><i class="material-icons">search</i></a></li>
@@ -70,6 +76,7 @@
                                 data-target="slide-out-right"><i class="material-icons">format_indent_increase</i></a>
                         </li>
                     </ul>
+                </form>
                     <!-- translation-button-->
 
                     <!-- notifications-dropdown-->
@@ -103,18 +110,7 @@
 
                     </ul>
                 </div>
-                <nav class="display-none search-sm">
-                    <div class="nav-wrapper">
-                        <form>
-                            <div class="input-field">
-                                <input class="search-box-sm" type="search" required="">
-                                <label class="label-icon" for="search"><i
-                                        class="material-icons search-sm-icon">search</i></label><i
-                                    class="material-icons search-sm-close">close</i>
-                            </div>
-                        </form>
-                    </div>
-                </nav>
+               
             </nav>
         </div>
     </header>
@@ -227,18 +223,38 @@
                                 </div>
                             </div>
                         </div>
-                        <!--
+                        
                         <div id="modal3" class="modal modal-fixed-footer">
                             <div class="modal-content">
-                                <h4>Modal Header</h4>
-                                <p>A bunch of text</p>
+                                
+                                    <div class="card-content">
+                                                <h4 class="card-title">Müşteriye Araç Ata</h4>
+                                        <div class="input-field col m6 s12">
+                                            <select name="mid" id="mid">
+                                                <option value="" disabled selected>Lütfen Müşteri Seçiniz
+                                                </option>
+                                                @foreach ($Musteriler as $musteri)
+                                                <option value="{{$musteri->id}}">{{$musteri->isimSoyisim}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="input-field col m6 s12">
+                                            <select name="arac_id" id="arac_id">
+                                                <option value="" disabled selected>Lütfen Araç Seçiniz</option>
+                                                @foreach ($araclar as $arac)
+                                                <option value="{{$arac->id}}">{{$arac->plaka}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    
+                                    </div>
+                              
                             </div>
                             <div class="modal-footer">
-                                <a href="#!"
-                                    class="modal-action modal-close waves-effect waves-green btn-flat ">Agree</a>
+                                <button onclick="musteriArac()" class="btn modal-close waves-effect waves-light mr-2">Kaydet</button>
                             </div>
                         </div>
--->
+
 
                     </aside>
                     <!-- END RIGHT SIDEBAR NAV -->
