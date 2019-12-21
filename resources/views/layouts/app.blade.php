@@ -284,8 +284,14 @@
 
     <footer class="page-footer footer footer-static footer-light navbar-border navbar-shadow">
         <div class="footer-copyright">
-            <div class="container"><span>&copy; 2019 <a href="http://kodgaraj.com" target="_blank">KODGARAJ</a> Tüm
-                    Hakları Saklıdır.</span></div>
+            <div class="col s1"></div>
+                <div class="col s6">
+                    &copy; 2019 <a href="http://kodgaraj.com" target="_blank">KODGARAJ</a> Tüm Hakları Saklıdır. 
+                </div>
+                <div class="col s6">
+                    Tarih : {{date('d-m-Y')}}
+                </div>   
+            <div class="col s1">  </div>
         </div>
     </footer>
     

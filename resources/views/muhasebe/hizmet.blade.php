@@ -4,23 +4,12 @@
 
 @endsection
 @section('content')
-<div class="row">
-    <div  class="card">
-        <div class="card-content">
-                <div class="col s12">
-                <h4 class="uppercase center-align">{{str_replace("_", " ", $arac->plaka)}}</h4>
-                </div>   
-            <div class="col s6">
-                    <p class=" uppercase caption mb-0"> <br> {{$arac->marka}} - {{$arac->model}}</p>
-            </div>
-            <div class="col s6">
-                    <p class="caption mb-0 right-align"> <br> Tarih : {{date('d-m-Y')}}</p>
-                </div>
-            </div>
-            
-        </div>
-    </div>
+<div class="card">
+<div class="card-content">
+ <p class="center-align">{{$arac->plaka}} | {{$arac->marka}} {{$arac->model}}</p>
 </div>
+</div>
+
 
            
 <div id="app">
@@ -67,11 +56,11 @@
                 </div>
                 <div class="row center-align scale-transition" v-if="yapilan_hizmetler.length">
                     <form autocomplete="off">
-                        <table class="highlight">
+                        <table class="responsive-table">
                             <thead>
                                 <tr>
-                                    <th><i class="material-icons tiny padding-1">build</i>Hizmet Adı</th>
-                                    <th><i class="prefix tiny padding-1">₺</i>Hizmet Ücreti</th>
+                                    <th><i class="material-icons tiny ">build</i>Hizmet Adı</th>
+                                    <th><i class="prefix tiny ">₺</i>Hizmet Ücreti</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -79,18 +68,14 @@
                             <tbody>
                                 <tr v-for="(hizmet, i) in yapilan_hizmetler" :key="hizmet.ad" :style="hizmet.yeniHizmet ? 'border-left: 8px solid green' : ''">
                                     <td>
-                                        <div class="input-field">
                                             <input class="validate" placeholder="Yapılan Hizmet Adı" autocomplete="off" v-model="hizmet.model" type="text" :class="'autocomplete' + i">
-                                        </div>
                                     </td>
                                     <td>
-                                        <div class="input-field">
                                             <input autocomplete="off" @change="yapilan_hizmetler = _j(yapilan_hizmetler)" @input="yapilan_hizmetler = _j(yapilan_hizmetler)" v-model="hizmet.fiyat" placeholder="Fiyat" class="validate" type="number">
-                                        </div>
                                     </td>
                                     <td>
                                         <div class="col s12 center-align">
-                                            <a @click="sil(i)" class=" btn-floating waves-effect waves-light red">
+                                            <a @click="sil(i)" class=" btn-floating  red">
                                                 <i class="material-icons">remove</i>
                                             </a>
                                         </div>
