@@ -22,7 +22,11 @@
         }
     </style>
 </head>
-
+<?php 
+    $ayarlar =\App\userAyar::where('user_id','=', Auth::user()->id)->get();
+    $ayar = $ayarlar[0]->ayarJSON;
+    $ayar = json_decode($ayar);
+ ?>
 <body>
     <div class="row">
         <div id="breadcrumbs-wrapper" data-image="{{asset('/app-assets/images/gallery/breadcrumb-bg.jpg')}}"
@@ -48,17 +52,18 @@
                     <div class="row section">
 
                         <div class="col s6 m6 l6">
-                            <img class="mb-2 width-40" src="../../../app-assets/images/logo/materialize-logo-big.png"
+                            <img class="mb-2 width-40" src="{{asset($ayar->firma_logo->yol)}}"
                                 alt="company logo">
-                            <p>Semerciler Mahallesi Sait Faik Sokak No : 10 Daire 2 </p>
-                            <p>0850 303 85 54</p>
+                            <h6>{{$ayar->firma_adi}} </h6>
+                            <p>Adres :{{$ayar->firma_adresi}} </p>
+                            <p>Telefon No :{{$ayar->firma_telefon}}</p>
                         </div>
                         <div class="col s6 m6 l6 right-align">
                             <h6 class="text-uppercase strong mb-2 mt-3">ALICI</h6>
                             <p class="text-uppercase">{{$kullanici->isimSoyisim}}</p>
                             <p>{{$kullanici->adres}}</p>
                             <p>Tc Numarası : {{$kullanici->tc}}</p>
-                            <p>Telefon No: {{$kullanici->telefon}}</p>
+                            <p>Telefon No : {{$kullanici->telefon}}</p>
                         </div>
 
                     </div>
