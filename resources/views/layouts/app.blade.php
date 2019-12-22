@@ -77,7 +77,10 @@
                         </li>
                     </ul>
                 </form>
-                    <!-- translation-button-->
+                
+              
+                   
+                
 
                     <!-- notifications-dropdown-->
                     <ul class="dropdown-content" id="notifications-dropdown">
@@ -92,6 +95,7 @@
                         </li>
 
                     </ul>
+                   
                     <!-- profile-dropdown-->
                     <ul class="dropdown-content" id="profile-dropdown">
                         <li><a class="grey-text text-darken-1" href="{{ route('profile') }}"><i
@@ -164,6 +168,9 @@
                     </ul>
                 </div>
             </li>
+         
+                
+            
             
             @endrole
         </ul>
@@ -298,7 +305,7 @@
                 <div class="col s6">
                     Tarih : {{date('d-m-Y')}}
                 </div>
-                <canvas id="canvas" width="50" height="50"></canvas>
+                
             <div class="col s1">  </div>
         </div>
     </footer>

@@ -42,6 +42,6 @@ class User extends Authenticatable
     
 
     public function Musteri(){
-        return $this->hasMany('App\Musteri','user_id',"id");
+        return $this->hasMany('App\Musteri','user_id',"id")->orderBy('created_at', 'DESC');
     }
 }

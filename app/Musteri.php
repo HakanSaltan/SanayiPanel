@@ -12,10 +12,10 @@ class Musteri extends Model
     protected $table = 'musteri';
 
     public function Arac(){
-        return $this->hasMany('App\Arac');
+        return $this->hasMany('App\Arac')->orderBy('created_at', 'DESC');
     }
     public function Fatura(){
-        return $this->hasMany('App\Fatura','musteri_id','musteri_id');
+        return $this->hasMany('App\Fatura','musteri_id','musteri_id')->orderBy('created_at', 'DESC');
     }
     
 }
