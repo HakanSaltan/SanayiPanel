@@ -5,13 +5,10 @@
 @endsection
 
 @section('content')
-<!--
-<img class="responsive-img" alt="" src="{{asset('app-assets/images/gallery/profile-bg.png')}}">
--->
-<div class="card card-default scrollspy">
 
+<div class="card card-default scrollspy">
     <div class="card-content">
-        <div class="section" <div class="row">
+        <div class="section">
 
             <div class="col s12 m4 l3 user-section-negative-margin">
                 <div class="row">
@@ -32,7 +29,7 @@
                     </div>
                     <div class="col s6">
                         <h6>Servisteki Araç Sayısı</h6>
-                        <h5 class="m-0"><a href="#">2</a></h5>
+                    <h5 class="m-0"><a href="#"></a></h5>
                     </div>
                 </div>
 

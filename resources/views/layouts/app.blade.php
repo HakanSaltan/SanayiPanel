@@ -120,7 +120,14 @@
     <aside class="sidenav-main nav-expanded nav-lock nav-collapsible sidenav-dark sidenav-active-rounded">
         <div class="brand-sidebar">
             <h1 class="logo-wrapper"><a class="brand-logo darken-1" href="{{asset('/')}}"><span
-                        class="logo-text hide-on-med-and-down">{{ config('app.name', 'Otogaraj') }}</span></a><a
+                        class="logo-text hide-on-med-and-down">
+                        @if (isset($ayar->firma_adi))
+                            {{$ayar->firma_adi}}
+                        @else
+                        {{ config('app.name', 'Otogaraj') }}
+                        @endif
+                        
+                    </span></a><a
                     class="navbar-toggler" href="#"><i class="material-icons">radio_button_checked</i></a></h1>
             
         </div>
