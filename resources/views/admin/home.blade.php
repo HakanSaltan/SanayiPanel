@@ -52,9 +52,9 @@
     <div class="col s12 m6 xl3">
         <div class="card">
             <div class="card-content orange lighten-1 white-text">
-                <p class="card-stats-title"><i class="material-icons">trending_up</i> Toplam Ciro</p>
+                <p class="card-stats-title"><i class="material-icons">trending_up</i> Toplam Ciro | Toplam Kâr</p>
                 <h4 class="card-stats-number white-text">
-                    <?= is_numeric($toplamCiro) && floatval($toplamCiro) > 0 ? $toplamCiro : 0 ?> ₺
+                    <?= is_numeric($toplamCiro) && floatval($toplamCiro) > 0 ? $toplamCiro : 0 ?> ₺ | <?= is_numeric($toplamKar) && floatval($toplamKar) > 0 ? $toplamKar : 0 ?> ₺
                 </h4>
             </div>
             <div class="card-action orange">

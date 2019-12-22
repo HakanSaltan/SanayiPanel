@@ -86,7 +86,7 @@ class MuhasebeController extends Controller
         $islemModel->arac_id = $post["arac_id"];
         $islemModel->musteri_id = $post["musteri_id"];
         $islemModel->toplam_fiyat = $post["hizmet_fiyat"];
-        $islemModel->kdv = $post["hizmet_kdv"];
+        $islemModel->kdv = $post["kdvEkleDurum"] ? $post["hizmet_kdv"] : 0;
 
         $islemModel->kar_miktari = 0;
 

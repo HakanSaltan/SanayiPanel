@@ -7,7 +7,15 @@
 @section('content')
     <div id="app">
         <div  class="card card-default scrollspy">
-            <h4 class="center-align">{{$arac->plaka}} | {{$arac->marka}} {{$arac->model}}</h4>
+            <div class="row fill-width padding-1">
+                <div class="col s12 m6">
+                    <h5>{{$arac->plaka}} | {{$arac->marka}} {{$arac->model}}</h5>
+                </div>
+                <div class="col s12 m6 right-align" style="display:flex; flex-direction:column;">
+                    <span class="uppercase">Toplam Fiyat: | toplamFiyatlar.toplamFiyat |₺</span>
+                    <span class="uppercase">Toplam KDV: | toplamFiyatlar.toplamKDVFiyat |₺</span>
+                </div>
+            </div>
             <div class="row center-align">
                 <div class="col s12 blue" style="padding: 1px;"></div>
             </div>
@@ -15,7 +23,7 @@
                 <div class="container">
                     <div class="row center-align">
                         <form autocomplete="off">
-                            <div class="col s12 m6">
+                            <div class="col s12 m5">
                                 <div class="input-field">
                                     <i class="material-icons prefix">build</i>
                                     <input
@@ -26,12 +34,14 @@
                                         type="text"
                                         id="autocomplete-input"
                                     />
+                                    <label for="autocomplete-input">Hizmet</label>
                                 </div>
                             </div>
-                            <div class="col s9 m3">
+                            <div class="col s8 m3">
                                 <div class="input-field">
                                     <i class="prefix">₺</i>
                                     <input
+                                        id="fiyat"
                                         autocomplete="off"
                                         @input="yapilan_hizmetler = _j(yapilan_hizmetler)"
                                         v-model="yapilanHizmetBilgileri.fiyat"
@@ -39,20 +49,39 @@
                                         class="validate"
                                         type="number"
                                     />
+                                    <label for="fiyat">Fiyat</label>
                                 </div>
                             </div>
-                            <div class="col s3 m1">
-                                <p>
-                                    <label>
-                                        <input class="filled-in" type="checkbox" v-model="yapilanHizmetBilgileri.kar" />
-                                        <span>Kâr</span>
-                                    </label>
-                                </p>
+                            <div class="col s2 m1">
+                                <div class="input-field">
+                                    <input
+                                        id="adet"
+                                        autocomplete="off"
+                                        @input="yapilan_hizmetler = _j(yapilan_hizmetler)"
+                                        v-model="yapilanHizmetBilgileri.adet"
+                                        placeholder="Adet"
+                                        class="validate"
+                                        type="number"
+                                    />
+                                    <label for="adet">Adet</label>
+                                </div>
+                            </div>
+                            <div class="col s2 m1 center-align">
+                                <div class="input-field center-align">
+                                    <p>
+                                        <label>
+                                            <input class="filled-in" type="checkbox" v-model="yapilanHizmetBilgileri.kar" />
+                                            <span>Kâr</span>
+                                        </label>
+                                    </p>
+                                </div>
                             </div>
                             <div class="col s12 m2 center-align">
-                                <a @click="ekle()" class="btn-floating waves-effect waves-light green pulse">
-                                    <i class="material-icons">add</i>
-                                </a>
+                                <div class="input-field center-align">
+                                    <a @click="ekle()" class="btn-floating waves-effect waves-light green pulse">
+                                        <i class="material-icons">add</i>
+                                    </a>
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -66,6 +95,7 @@
                                     <tr>
                                         <th><i class="material-icons tiny ">build</i>Hizmet Adı</th>
                                         <th><i class="prefix tiny ">₺</i>Hizmet Ücreti</th>
+                                        <th>Adet</th>
                                         <th>Kâr</th>
                                         <th></th>
                                     </tr>
@@ -78,6 +108,9 @@
                                         </td>
                                         <td>
                                             <input autocomplete="off" @change="yapilan_hizmetler = _j(yapilan_hizmetler)" @input="yapilan_hizmetler = _j(yapilan_hizmetler)" v-model="hizmet.fiyat" placeholder="Fiyat" class="validate" type="number">
+                                        </td>
+                                        <td style="max-width: 125px">
+                                            <input autocomplete="off" @change="yapilan_hizmetler = _j(yapilan_hizmetler)" @input="yapilan_hizmetler = _j(yapilan_hizmetler)" v-model="hizmet.adet" placeholder="Adet" class="validate" type="number">
                                         </td>
                                         <td>
                                             <p>
@@ -98,14 +131,17 @@
                                 </tbody>
                             </table>
                         </form>
-                        <div class="col s12 m4 justify-content-end">
-                            <h5 class="uppercase">Toplam Fiyat: | toplamFiyatlar.toplamFiyat |₺</h5>
-                        </div>
-                        <div class="col s12 m4 justify-content-end">
-                            <h5 class="uppercase">Toplam KDV: | toplamFiyatlar.toplamKDVFiyat |₺</h5>
+                        
+                        <div class="col s12 m4 center-align">
+                            <p>
+                                <label>
+                                    <input type="checkbox" v-model="kdvEkle" />
+                                    <span>KDV Ekle</span>
+                                </label>
+                            </p>
                         </div>
                         
-                        <div class="col s12 m2 center-align">
+                        <div class="col s12 m4 center-align">
                             <p>
                                 <label>
                                     <input type="checkbox" v-model="fatura" />
@@ -113,7 +149,7 @@
                                 </label>
                             </p>
                         </div>
-                        <div class="col s12 m2 justify-content-end">
+                        <div class="col s12 m4 right-align">
                             <a @click="kaydet()" class="btn waves-effect waves-light green">
                                 <i class="material-icons">done</i>
                             </a>
@@ -143,10 +179,12 @@
                 islemAdi: "",
                 fiyat: 0,
                 kar: true,
+                adet: 1,
             },
             ins: null,
             yapilan_hizmetler: [],
             kdvOrani: 18,
+            kdvEkle: true,
             fatura: true
         },
         mounted() {
@@ -176,11 +214,16 @@
                     toplamKDVFiyat: 0,
                 };
 
+                let kdvEkleDurum = this.kdvEkle;
+
                 this.yapilan_hizmetler.forEach(v => {
-                    let fiyat = parseFloat(v.fiyat);
+                    let fiyat = parseFloat(v.fiyat) * parseFloat(v.adet);
                     if(!isNaN(fiyat) && fiyat > 0) {
                         veriler.toplamFiyat += fiyat;
                         veriler.toplamKDVFiyat += fiyat * this.kdvOrani / 100;
+
+                        if(kdvEkleDurum)
+                            veriler.toplamFiyat += veriler.toplamKDVFiyat;
                     }
                 });
 
@@ -214,7 +257,8 @@
                 vm.yapilanHizmetBilgileri = {
                     islemAdi: "",
                     fiyat: 0,
-                    kar: vm.yapilanHizmetBilgileri.kar
+                    kar: vm.yapilanHizmetBilgileri.kar,
+                    adet: 1,
                 };
 
                 document.querySelector(".autocompleter").focus();
@@ -226,6 +270,7 @@
                     hizmet_fiyat: vm.toplamFiyatlar.toplamFiyat,
                     hizmet_kdv: vm.kdvOrani,
                     fatura: vm.fatura,
+                    kdvEkleDurum: vm.kdvEkle,
                     yapilan_hizmetler: vm.yapilan_hizmetler
                 })
                 .then(donen => {

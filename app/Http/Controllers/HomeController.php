@@ -52,11 +52,14 @@ class HomeController extends Controller
                 ->leftJoin("users", "users.id", "=", "musteri.user_id")
                 ->where("users.id", "=", $user_id)
                 ->count();
-            $toplamCiro = DB::table('islemler')
+            $toplamKar = DB::table('islemler')
                 ->where("user_id", "=", $user_id)
                 ->sum("kar_miktari");
+            $toplamCiro = DB::table('islemler')
+                ->where("user_id", "=", $user_id)
+                ->sum("toplam_fiyat");
             $chartVerileri = DB::table("fatura")
-                ->select('fkod', 'fatura.created_at as tarih', 'toplamUcret')
+                ->select('fkod', 'fatura.created_at as tarih', 'toplamUcret', 'kar_miktari')
                 ->join('islemler', 'islemler.id', '=', 'fatura.islem_id')
                 ->join('musteri', 'musteri.id', '=', 'islemler.musteri_id')
                 ->leftJoin("users", "users.id", "=", "musteri.user_id")
@@ -72,7 +75,7 @@ class HomeController extends Controller
                 if(!isset($aylar[$ay]))
                 $aylar[$ay] = 0;
                 
-                $aylar[$ay] += floatval($veri->toplamUcret);
+                $aylar[$ay] += floatval($veri->kar_miktari);
             }
             
             return view('admin/home')->with([
@@ -80,6 +83,7 @@ class HomeController extends Controller
                 "toplamMusteri" => $toplamMusteri,
                 "toplamKayitliArac" => $toplamKayitliArac,
                 "toplamYapilanHizmet" => $toplamYapilanHizmet,
+                "toplamKar" => $toplamKar,
                 "toplamCiro" => $toplamCiro,
                 "chartVerileri" => json_encode($aylar, JSON_FORCE_OBJECT)
             ]);
