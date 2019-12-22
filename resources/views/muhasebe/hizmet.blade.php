@@ -1,123 +1,134 @@
 @extends('layouts.app')
 
 @section('css')
-
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 @endsection
+
 @section('content')
-<div class="card">
-<div class="card-content">
- <p class="center-align">{{$arac->plaka}} | {{$arac->marka}} {{$arac->model}}</p>
-</div>
-</div>
-
-
-           
-<div id="app">
-    <div  class="card card-default scrollspy">
-        <div class="card-content">
-            <div class="container">
-                <div class="row center-align">
-                    <form autocomplete="off">
-                        <div class="col s12 m7">
-                            <div class="input-field">
-                                <i class="material-icons prefix">build</i>
-                                <input
-                                    class="validate autocompleter"
-                                    placeholder="Yapılan Hizmet Adı"
-                                    autocomplete="off"
-                                    v-model="yapilanHizmetBilgileri.islemAdi"
-                                    type="text"
-                                    id="autocomplete-input"
-                                />
+    <div id="app">
+        <div  class="card card-default scrollspy">
+            <h4 class="center-align">{{$arac->plaka}} | {{$arac->marka}} {{$arac->model}}</h4>
+            <div class="row center-align">
+                <div class="col s12 blue" style="padding: 1px;"></div>
+            </div>
+            <div class="card-content">
+                <div class="container">
+                    <div class="row center-align">
+                        <form autocomplete="off">
+                            <div class="col s12 m6">
+                                <div class="input-field">
+                                    <i class="material-icons prefix">build</i>
+                                    <input
+                                        class="validate autocompleter"
+                                        placeholder="Yapılan Hizmet Adı"
+                                        autocomplete="off"
+                                        v-model="yapilanHizmetBilgileri.islemAdi"
+                                        type="text"
+                                        id="autocomplete-input"
+                                    />
+                                </div>
                             </div>
-                        </div>
-                        <div class="col s12 m3">
-                            <div class="input-field">
-                                <i class="prefix">₺</i>
-                                <input
-                                    autocomplete="off"
-                                    @input="yapilan_hizmetler = _j(yapilan_hizmetler)"
-                                    v-model="yapilanHizmetBilgileri.fiyat"
-                                    placeholder="Fiyat"
-                                    class="validate"
-                                    type="number"
-                                />
+                            <div class="col s9 m3">
+                                <div class="input-field">
+                                    <i class="prefix">₺</i>
+                                    <input
+                                        autocomplete="off"
+                                        @input="yapilan_hizmetler = _j(yapilan_hizmetler)"
+                                        v-model="yapilanHizmetBilgileri.fiyat"
+                                        placeholder="Fiyat"
+                                        class="validate"
+                                        type="number"
+                                    />
+                                </div>
                             </div>
+                            <div class="col s3 m1">
+                                <p>
+                                    <label>
+                                        <input class="filled-in" type="checkbox" v-model="yapilanHizmetBilgileri.kar" />
+                                        <span>Kâr</span>
+                                    </label>
+                                </p>
+                            </div>
+                            <div class="col s12 m2 center-align">
+                                <a @click="ekle()" class="btn-floating waves-effect waves-light green pulse">
+                                    <i class="material-icons">add</i>
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="row center-align">
+                        <div class="col s12 green" style="padding: 2px; margin-top: 24px; margin-bottom: 24px"></div>
+                    </div>
+                    <div class="row center-align scale-transition" v-if="yapilan_hizmetler.length">
+                        <form autocomplete="off">
+                            <table class="responsive-table">
+                                <thead>
+                                    <tr>
+                                        <th><i class="material-icons tiny ">build</i>Hizmet Adı</th>
+                                        <th><i class="prefix tiny ">₺</i>Hizmet Ücreti</th>
+                                        <th>Kâr</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr v-for="(hizmet, i) in yapilan_hizmetler" :key="hizmet.ad" :style="hizmet.yeniHizmet ? 'border-left: 8px solid green' : ''">
+                                        <td>
+                                            <input class="validate" placeholder="Yapılan Hizmet Adı" autocomplete="off" v-model="hizmet.model" type="text" :class="'autocomplete' + i">
+                                        </td>
+                                        <td>
+                                            <input autocomplete="off" @change="yapilan_hizmetler = _j(yapilan_hizmetler)" @input="yapilan_hizmetler = _j(yapilan_hizmetler)" v-model="hizmet.fiyat" placeholder="Fiyat" class="validate" type="number">
+                                        </td>
+                                        <td>
+                                            <p>
+                                                <label>
+                                                    <input class="filled-in" type="checkbox" v-model="hizmet.kar" />
+                                                    <span></span>
+                                                </label>
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <div class="col s12 center-align">
+                                                <a @click="sil(i)" class=" btn-floating  red">
+                                                    <i class="material-icons">remove</i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </form>
+                        <div class="col s12 m4 justify-content-end">
+                            <h5 class="uppercase">Toplam Fiyat: | toplamFiyatlar.toplamFiyat |₺</h5>
                         </div>
+                        <div class="col s12 m4 justify-content-end">
+                            <h5 class="uppercase">Toplam KDV: | toplamFiyatlar.toplamKDVFiyat |₺</h5>
+                        </div>
+                        
                         <div class="col s12 m2 center-align">
-                            <a @click="ekle()" class="btn-floating waves-effect waves-light green pulse">
-                                <i class="material-icons">add</i>
+                            <p>
+                                <label>
+                                    <input type="checkbox" v-model="fatura" />
+                                    <span>Fatura oluştur</span>
+                                </label>
+                            </p>
+                        </div>
+                        <div class="col s12 m2 justify-content-end">
+                            <a @click="kaydet()" class="btn waves-effect waves-light green">
+                                <i class="material-icons">done</i>
                             </a>
                         </div>
-                    </form>
-                </div>
-                <div class="row center-align">
-                    <div class="col s12 green" style="padding: 2px; margin-top: 24px; margin-bottom: 24px"></div>
-                </div>
-                <div class="row center-align scale-transition" v-if="yapilan_hizmetler.length">
-                    <form autocomplete="off">
-                        <table class="responsive-table">
-                            <thead>
-                                <tr>
-                                    <th><i class="material-icons tiny ">build</i>Hizmet Adı</th>
-                                    <th><i class="prefix tiny ">₺</i>Hizmet Ücreti</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                <tr v-for="(hizmet, i) in yapilan_hizmetler" :key="hizmet.ad" :style="hizmet.yeniHizmet ? 'border-left: 8px solid green' : ''">
-                                    <td>
-                                            <input class="validate" placeholder="Yapılan Hizmet Adı" autocomplete="off" v-model="hizmet.model" type="text" :class="'autocomplete' + i">
-                                    </td>
-                                    <td>
-                                            <input autocomplete="off" @change="yapilan_hizmetler = _j(yapilan_hizmetler)" @input="yapilan_hizmetler = _j(yapilan_hizmetler)" v-model="hizmet.fiyat" placeholder="Fiyat" class="validate" type="number">
-                                    </td>
-                                    <td>
-                                        <div class="col s12 center-align">
-                                            <a @click="sil(i)" class=" btn-floating  red">
-                                                <i class="material-icons">remove</i>
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </form>
-                    <div class="col s12 m4 justify-content-end">
-                        <h5 class="uppercase">Toplam Fiyat: | toplamFiyatlar.toplamFiyat |₺</h5>
                     </div>
-                    <div class="col s12 m4 justify-content-end">
-                        <h5 class="uppercase">Toplam KDV: | toplamFiyatlar.toplamKDVFiyat |₺</h5>
+                    <div class="row center-align scale-transition padding-3" v-else>
+                        <h5>Lütfen hizmet ekleyiniz...</h5>
                     </div>
-                    
-                    <div class="col s12 m2 center-align">
-                        <p>
-                            <label>
-                                <input type="checkbox" v-model="fatura" />
-                                <span>Fatura oluştur</span>
-                            </label>
-                        </p>
-                    </div>
-                    <div class="col s12 m2 justify-content-end">
-                        <a @click="kaydet()" class="btn waves-effect waves-light green">
-                            <i class="material-icons">done</i>
-                        </a>
-                    </div>
-                </div>
-                <div class="row center-align scale-transition padding-3" v-else>
-                    <h5>Lütfen hizmet ekleyiniz...</h5>
                 </div>
             </div>
         </div>
     </div>
-</div>
-
-
 @endsection
 
 @section('js')
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
 <script>
     Vue.options.delimiters = ['|', '|'];
@@ -130,7 +141,8 @@
             hizmetler: <?= $hizmetler ?>,
             yapilanHizmetBilgileri: {
                 islemAdi: "",
-                fiyat: 0
+                fiyat: 0,
+                kar: true,
             },
             ins: null,
             yapilan_hizmetler: [],
@@ -195,12 +207,14 @@
                     model: vm._j(vm.yapilanHizmetBilgileri.islemAdi),
                     fiyat: vm.yapilanHizmetBilgileri.fiyat,
                     yeniHizmet,
+                    kar: vm.yapilanHizmetBilgileri.kar,
                     ...(yeniHizmet ? null : vm.yapilanHizmetBilgileri)
                 });
 
                 vm.yapilanHizmetBilgileri = {
                     islemAdi: "",
-                    fiyat: 0
+                    fiyat: 0,
+                    kar: vm.yapilanHizmetBilgileri.kar
                 };
 
                 document.querySelector(".autocompleter").focus();
@@ -221,7 +235,10 @@
                     M.toast({html: 'İşlem başarılı!', classes: "green"});
                     vm.yapilan_hizmetler = [];
                 })
-                .catch(console.log)
+                .catch(e => {
+                    console.log(e);
+                    return M.toast({html: 'İşlem sırasında bir hata oluştu!', classes: "red"});
+                });
             },
             hizmetGetir() {
                 /*axios.post("/");*/

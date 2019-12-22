@@ -14,6 +14,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
 
 class MuhasebeController extends Controller
 {
@@ -75,13 +76,27 @@ class MuhasebeController extends Controller
 
         if(count($post["yapilan_hizmetler"]) < 1) return [false];
 
-        DB::beginTransaction();
-        $islemModel = new Islemler;
+        $faturaOlusturulsun = $post["fatura"];
 
+        DB::beginTransaction();
+
+        $islemModel = new Islemler;
+        
+        $islemModel->user_id = Auth::user()->id;
         $islemModel->arac_id = $post["arac_id"];
         $islemModel->musteri_id = $post["musteri_id"];
+        $islemModel->toplam_fiyat = $post["hizmet_fiyat"];
+        $islemModel->kdv = $post["hizmet_kdv"];
 
-        $faturaOlusturulsun = $post["fatura"];
+        $islemModel->kar_miktari = 0;
+
+        foreach($post["yapilan_hizmetler"] as $hizmet)
+        {
+            if(!$hizmet["kar"])
+                continue;
+
+            $islemModel->kar_miktari += floatval($hizmet["fiyat"]);
+        }
 
         if(!$islemModel->save())
         {
@@ -94,13 +109,57 @@ class MuhasebeController extends Controller
 
         foreach($post["yapilan_hizmetler"] as $hizmet)
         {
+            if($hizmet["yeniHizmet"])
+            {
+                $hizmetModel = new Hizmetler;
+
+                $hizmetModel->ad = $hizmet["model"];
+                $hizmetModel->fiyat = $hizmet["fiyat"];
+
+                $t = ["ç", "Ç", "ö", "Ö", "ğ", "Ğ", "ü", "Ü", "ş", "Ş", "İ", "ı"];
+                $e = ["c", "C", "o", "O", "g", "G", "u", "U", "s", "S", "I", "i"];
+
+                $hizmetModel->hkod = str_replace($t, $e, mb_strtoupper(str_replace(" ", "_", $hizmetModel->ad), "UTF-8"));
+
+                /** KOD KONTROL */
+                    do
+                    {
+                        $durum = true;
+                        $hizmetKontrol = DB::table("hizmetler")->where("hkod", "=", $hizmetModel->hkod)->first();
+
+                        if(isset($hizmetKontrol->hkod) && $hizmetKontrol->hkod)
+                        {
+                            $durum = false;
+
+                            $hizmetModel->hkod = $hizmetModel->hkod . "_" . mb_strtoupper(uniqid(), "UTF-8");
+                        }
+                    }
+                    while(!$durum);
+                /** # KOD KONTROL # */
+
+                if(!$hizmetModel->save())
+                {
+                    DB::rollBack();
+                    return json_encode([
+                        "sonuc" => false,
+                        "hataKodu" => "he-3"
+                    ]);
+                }
+
+                $hizmetId = $hizmetModel->id;
+            }
+            else
+            {
+                $hizmetId = $hizmet["id"];
+            }
+
             $islemHizmetleriModel = new islemHizmetleri;
 
             $islemHizmetleriModel->islem_id = $islemModel->id;
-            $islemHizmetleriModel->hizmet_kdv = $post["hizmet_kdv"];
-            $islemHizmetleriModel->adet = 1;
+            $islemHizmetleriModel->kar = $hizmet["kar"];
+            $islemHizmetleriModel->adet = $hizmet["adet"] ?? 1;
             $islemHizmetleriModel->hizmet_fiyat = $hizmet["fiyat"];
-            $islemHizmetleriModel->hizmet_id = $hizmet["id"];
+            $islemHizmetleriModel->hizmet_id = $hizmetId;
 
             if(!$islemHizmetleriModel->save())
             {
