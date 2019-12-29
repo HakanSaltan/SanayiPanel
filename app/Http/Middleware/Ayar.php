@@ -20,7 +20,7 @@ class Ayar
         $ayar=userAyar::where('user_id', '=', $request->user()->id)->first();
         if(!$ayar) {
             $path = $request->path();
-            if($path != "ayar" && $path != "firmaKayit" && $path != "login" && $path != "register") {
+            if($path != "ayar" && $path != "firmaKayit" && $path != "login" && $path != "logout" && $path != "register") {
                 return redirect('/ayar');
             }
         }

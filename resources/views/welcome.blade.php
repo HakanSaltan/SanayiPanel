@@ -103,13 +103,15 @@
     <div class="top-left links login">
         <a id="geri-buton" href="javascript:_geri()"><- GERİ</a>
     </div>
+    <div class="top-center links login">
+        <a id="toast" style="margin-top: 8px; position: absolute; top:20px; left: 50%; z-index: 1; transform:translate(-50%);">Plaka bulunamadı</a>
+    </div>
 
     @if (Route::has('login'))
     <div class="top-right links login">
         @auth
         <a href="{{ url('/home') }}">{{Auth::user()->name}}</a>
-        <a href="{{URL::to('logout') }}" onclick="event.preventDefault();
-                                                      document.getElementById('logout-form').submit();">Çıkış Yap</a>
+        <a href="{{URL::to('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Çıkış Yap</a>
         <form id="logout-form" action="{{ URL::route('logout') }}" method="post">
             {{ csrf_field() }}
         </form>
@@ -132,7 +134,7 @@
                         <label id="inputLabel"></label>
                         <div id="inputProgress"></div>
                     </div>
-        
+                    
                 </div>
             </div>
             <div id="mesaj"></div>
@@ -146,6 +148,11 @@
 
 
 <script>
+    $("#toast").hide();
+
+    if(location.search.replace("?", "").replace("s=", "") == "1") {
+    }
+
     function plakaTest() {
         var x = document.getElementById("inputField");
         x.value = x.value.replace(/[^a-zA-Z0-9]/g, "").toUpperCase().trim();
@@ -257,7 +264,13 @@
                 plaka: plaka,
             })
             .then(res => {
+                if(res.data.sonuc)
                 location.href = "/aracDetay/"+plaka;   
+                else {
+                    $("#toast").show(1000);
+                    _geri();
+                    setTimeout(() => $("#toast").hide(1000), 8000);
+                }
             })
             .catch(er => {
                 console.log(er);

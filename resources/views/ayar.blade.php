@@ -29,7 +29,11 @@
 
 <body style="background-color:#25a3ff">
         <div class="col s6 right-align">
-            <a href="{{asset('/home')}}" class="mb-6 btn waves-effect waves-light red accent-2 modal-trigger ">Çık</a>
+            <a href="{{URL::to('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="mb-6 btn waves-effect waves-light red accent-2 modal-trigger ">Çıkış Yap</a>
+        <form id="logout-form" action="{{ URL::route('logout') }}" method="post">
+            {{ csrf_field() }}
+        </form>
+           
         </div>
     <div id="intro">
         <div class="row">
