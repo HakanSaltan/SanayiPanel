@@ -57,7 +57,7 @@
             </div>
         </div>
         <div class="modal-footer">
-                <button onclick="aracEkle()" class="btn modal-close waves-effect waves-light mr-2">Müşteri Ekle</button>
+                <button onclick="aracEkle()" class="btn modal-close waves-effect waves-light mr-2">Araç Ekle</button>
         </div>
     </div>
 <div class="row mt-2">

@@ -15,8 +15,12 @@ class CreateIslemlerTable extends Migration
     {
         Schema::create('islemler', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('user_id');
             $table->integer('arac_id');
             $table->integer('musteri_id');
+            $table->integer('toplam_fiyat');
+            $table->integer('kar_miktari');
+            $table->integer('kdv');
             $table->timestamps();
             $table->softDeletes();
         });

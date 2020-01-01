@@ -36,7 +36,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col s6 m6 l6">
-                        <h5 class="breadcrumbs-title text-uppercase strong mb-5">Faura No: {{$fatura->fkod}} </h5>
+                        <h5 class="breadcrumbs-title text-uppercase strong mb-5">Fatura No: {{$fatura->fkod}} </h5>
                     </div>
                     <div class="col s6 m6 l6">
                         <div class="invoce-no right-align">
@@ -77,17 +77,17 @@
                                         <th data-field="no">No</th>
                                         <th data-field="item">Hizmet</th>
                                         <th data-field="uprice">Birim Fiyat</th>
-                                        <th data-field="price">Birim</th>
+                                        <th data-field="price">Adet</th>
                                         <th data-field="price">Toplam</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($fatura->IslemHizmetleri as $IslemHizmetleri)
-                                    @foreach ($IslemHizmetleri->HizmetMany as $hizmet)
+                                    @foreach ($IslemHizmetleri->HizmetMany as $key => $hizmet)
                                     <tr>
-                                        <td>{{$hizmet->hkod}}</td>
+                                        <td>{{$key->iteration}}</td>
                                         <td>{{$hizmet->ad}}</td>
-                                        <td>{{$hizmet->fiyat}}</td>
+                                        <td>{{$IslemHizmetleri->hizmet_fiyat}}</td>
                                         <td>{{$IslemHizmetleri->adet}}</td>
                                         <td>{{$IslemHizmetleri->hizmet_fiyat * $IslemHizmetleri->adet}}</td>
                                     </tr>
@@ -95,23 +95,8 @@
                                     @endforeach
                                     <tr class="border-none">
                                         <td colspan="3"></td>
-                                        <td>Ara Toplam:</td>
-                                        <td>50.00 ₺</td>
-                                    </tr>
-                                    <tr class="border-none">
-                                        <td colspan="3"></td>
-                                        <td>Hizmet Bedeli:</td>
-                                        <td>100.00 ₺</td>
-                                    </tr>
-                                    <tr class="border-none">
-                                        <td colspan="3"></td>
-                                        <td>KDV %</td>
-                                        <td>18</td>
-                                    </tr>
-                                    <tr class="border-none">
-                                        <td colspan="3"></td>
                                         <td class="strong">Genel Toplam</td>
-                                        <td class="strong">159.00 ₺</td>
+                                        <td class="strong">{{$fatura->toplamUcret}} ₺</td>
                                     </tr>
                                 </tbody>
                             </table>

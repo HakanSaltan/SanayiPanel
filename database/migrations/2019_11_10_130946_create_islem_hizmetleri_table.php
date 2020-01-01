@@ -18,7 +18,7 @@ class CreateIslemHizmetleriTable extends Migration
             $table->integer('hizmet_id');
             $table->integer('adet');
             $table->integer('hizmet_fiyat');
-            $table->integer('hizmet_kdv');
+            $table->tinyInteger('kar',1);
         });
     }
 

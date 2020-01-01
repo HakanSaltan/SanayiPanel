@@ -1,7 +1,5 @@
 <?php
 
-use App\Http\Middleware\Ayar;
-use App\User;
 
 //Aşağıdaki adresten route ları kontrol edebilirsiniz
 //https://docs.spatie.be/laravel-permission/v3/basic-usage/middleware/

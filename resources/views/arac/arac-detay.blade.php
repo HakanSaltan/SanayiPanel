@@ -148,7 +148,7 @@
                                     <tr>
                                         <td>{{$Islem->Hizmet->ad}} </td>
                                         <td>{{$Islem->adet}}</td>
-                                        <td>{{$Islem->hizmet_fiyat}}</td>
+                                        <td>{{$Islem->hizmet_fiyat * $Islem->adet}}</td>
                                         @auth
                                             @role('admin')
                                                 <th></th>

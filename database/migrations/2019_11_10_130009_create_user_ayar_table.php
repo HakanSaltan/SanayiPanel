@@ -15,7 +15,7 @@ class CreateUserAyarTable extends Migration
     {
         Schema::create('user_ayar', function (Blueprint $table) {
             $table->integer('user_id');
-            $table->json('ayarJSON');
+            $table->longText('ayarJSON');
             $table->softDeletes();
         });
     }

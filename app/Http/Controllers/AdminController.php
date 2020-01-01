@@ -138,7 +138,7 @@ class AdminController extends Controller
                 
                 $arac = new Arac();
                 $arac->musteri_id ="0";
-                $arac->plaka = $plaka;
+                $arac->user_id = Auth::user()->id;
                 $arac->marka = $marka;
                 $arac->sase = $sase;
                 $arac->km = $km;
@@ -285,7 +285,8 @@ class AdminController extends Controller
 
                 $araba = new Arac();
                 $araba->plaka = $plaka;
-                $araba->musteri_id = $musteriSonId;
+                $araba->musteri_id = $musteriSonId->id;
+                $araba->user_id = Auth::user()->id;
                 $araba->qrCode = $qrCode;
                 $araba->save();
 

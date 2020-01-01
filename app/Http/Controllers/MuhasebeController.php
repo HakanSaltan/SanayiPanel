@@ -179,7 +179,7 @@ class MuhasebeController extends Controller
                                 ->get();
 
             if(isset($sonFaturaKodu[0]->fkod))
-                $fkod = $sonFaturaKodu[0]->fkod;
+                $fkod = $sonFaturaKodu[0]->fkod + 1;
             else
                 $fkod = 1;
 

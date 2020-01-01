@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Middleware;
-use Illuminate\Support\Facades\Auth;
 use Closure;
 use App\userAyar;
 class Ayar
@@ -17,14 +16,14 @@ class Ayar
     public function handle($request, Closure $next)
     { $response = $next($request);
         if($request->user()){
-        $ayar=userAyar::where('user_id', '=', $request->user()->id)->first();
-        if(!$ayar) {
-            $path = $request->path();
-            if($path != "ayar" && $path != "firmaKayit" && $path != "login" && $path != "logout" && $path != "register") {
-                return redirect('/ayar');
+            $ayar=userAyar::where('user_id', '=', $request->user()->id)->first();
+            if(!$ayar) {
+                $path = $request->path();
+                if($path != "ayar" && $path != "firmaKayit" && $path != "login" && $path != "logout" && $path != "register") {
+                    return redirect('/ayar');
+                }
             }
         }
-    }
         return $response;
     }
     
