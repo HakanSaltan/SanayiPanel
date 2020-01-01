@@ -85,7 +85,7 @@
                                     @foreach ($fatura->IslemHizmetleri as $IslemHizmetleri)
                                     @foreach ($IslemHizmetleri->HizmetMany as $key => $hizmet)
                                     <tr>
-                                        <td>{{$key->iteration}}</td>
+                                        <td>{{++$key}}</td>
                                         <td>{{$hizmet->ad}}</td>
                                         <td>{{$IslemHizmetleri->hizmet_fiyat}}</td>
                                         <td>{{$IslemHizmetleri->adet}}</td>

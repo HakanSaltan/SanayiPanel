@@ -64,10 +64,7 @@
                     <ul class="navbar-list right">
                         <li class="hide-on-large-only"><a class="waves-effect waves-block waves-light search-button"
                                 href="javascript:void(0);"><i class="material-icons">search</i></a></li>
-                        <li><a class="waves-effect waves-block waves-light notification-button"
-                                href="javascript:void(0);" data-target="notifications-dropdown"><i
-                                    class="material-icons">notifications_none<small
-                                        class="notification-badge">5</small></i></a></li>
+                        
                         <li><a class="waves-effect waves-block waves-light profile-button" href="javascript:void(0);"
                                 data-target="profile-dropdown"><span class="avatar-status avatar-online"><img
                                         src="{{ asset('app-assets/images/avatar/avatar-7.png') }}"
@@ -77,25 +74,6 @@
                         </li>
                     </ul>
                 </form>
-                
-              
-                   
-                
-
-                    <!-- notifications-dropdown-->
-                    <ul class="dropdown-content" id="notifications-dropdown">
-                        <li>
-                            <h6>Bildirim<span class="new badge">5</span></h6>
-                        </li>
-                        <li class="divider"></li>
-                        <li><a class="grey-text text-darken-2" href="#!"><span
-                                    class="material-icons icon-bg-circle cyan small">add_shopping_cart</span> A new
-                                order has been placed!</a>
-                            <time class="media-meta" datetime="2015-06-12T20:50:48+08:00">2 saat önce</time>
-                        </li>
-
-                    </ul>
-                   
                     <!-- profile-dropdown-->
                     <ul class="dropdown-content" id="profile-dropdown">
                         <li><a class="grey-text text-darken-1" href="{{ route('profile') }}"><i

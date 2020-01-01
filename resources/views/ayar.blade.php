@@ -102,15 +102,11 @@
                                         </div>
                                         <div class="col s6">
                                             <div class="input-field">
-                                                <select name="firma_turu">
-                                                    <option value="" disabled selected>Firma Türü Seçiniz</option>
-                                                    <option value="1980">Kaportacı</option>
-                                                    <option value="1990">Boyacı</option>
-                                                    <option value="2000">Motorcu</option>
-                                                    <option value="2010">Egzozcu</option>
-                                                    <option value="2020">Tekerci</option>
-                                                </select>
-                                                <label>Firma Türü</label>
+                                                <div class="input-field">
+                                                    <label for="firma_turu">Firma Türü</label>
+                                                    <input placeholder="Firma Türü Giriniz" id="firma_turu" type="text"
+                                                        class="validate">
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col s12">

@@ -3,6 +3,7 @@
 @section('css')
 
 @endsection
+
 @section('content')
 <div style="bottom: 50px; right: 90px;" class="fixed-action-btn direction-top">
         <a class="btn-floating btn-large primary-text gradient-shadow modal-trigger" href="#modal0">
@@ -18,41 +19,33 @@
                 <form class="col s12">
                     <div class="row">
                         <div class="input-field col m6 s12">
-                            <i class="material-icons prefix"> perm_identity </i>
+                            <i class="material-icons prefix"> settings_input_svideo </i>
                             <input id="plaka" type="text" class="validate">
                             <label for="plaka">Plaka</label>
                         </div>
                         <div class="input-field col m6 s12">
-                            <i class="material-icons prefix"> business </i>
+                            <i class="material-icons prefix"> settings_input_svideo </i>
                             <input id="km" type="text" class="validate">
                             <label for="km">Km</label>
                         </div>
                     </div>
                     <div class="row">
                             <div class="input-field col m12 s12">
-                                <i class="material-icons prefix"> business </i>
+                                <i class="material-icons prefix"> settings_input_svideo </i>
                                 <input id="sase" type="text" class="validate">
                                 <label for="sase">sase</label>
                             </div>
-                            <div class="input-field col m12 s12">
-                                <select name="marka" id="marka">
-                                    <option value="" disabled selected>Lütfen Marka Seçiniz
-                                    </option>
-                                    @foreach ($markalar as $marka)
-                                    <option value="{{$marka->name}}">{{$marka->name}}</option>
-                                    @endforeach
-                                </select>
+                            <div class="input-field col m6 s12">
+                                <i class="material-icons prefix"> settings_input_svideo </i>
+                                <input  name="marka" id="marka" type="text" class="validate">
+                                <label for="marka">Marka</label>
                             </div>
-                            <div class="input-field col m12 s12">
-                                <select name="aracModel" id="aracModel">
-                                    <option value="" disabled selected>Lütfen Model Seçiniz</option>
-                                    @foreach ($marka->AracModel as $model)
-                                    <option value="{{$model->name}}">{{$model->name}}</option>
-                                    @endforeach
-                                </select>
+                            <div class="input-field col m6 s12">
+                                <i class="material-icons prefix"> settings_input_svideo </i>
+                                <input  name="aracModel" id="aracModel" type="text" class="validate">
+                                <label for="aracModel">Model</label>
                             </div>
                         </div>
-    
                 </form>
             </div>
         </div>
@@ -95,7 +88,7 @@
                 <h6><a href="{{asset('/musterilerim')}}" class="mt-5">{{$arac->Musteri->isimSoyisim}}</a> </h6>
             </div>
             <div class="col s8 right-align">
-                <h6><a href="#" class="uppercase">{{str_replace("_", " ", $arac->plaka)}}</a> | {{$arac->marka}} {{$arac->model}} </h6>
+                <h6><a href="#" class="uppercase">{{$arac->plaka}}</a> | {{$arac->marka}} {{$arac->model}} </h6>
             </div>
             <div class="center">
                 <a data-target="modal1{{$arac->id}}"
@@ -190,21 +183,14 @@
 
                 <div class="row">
                     <div class="input-field col m12 s12">
-                        <select name="marka" id="marka">
-                            <option value="{{$arac->marka}}" disabled selected>{{$arac->marka}}
-                            </option>
-                            @foreach ($markalar as $marka)
-                            <option value="{{$marka->name}}">{{$marka->name}}</option>
-                            @endforeach
-                        </select>
+                        
+                        <input  name="marka" value="{{$arac->marka}}" id="marka" type="text" class="validate">
+                        <label for="marka">Marka</label>
                     </div>
                     <div class="input-field col m12 s12">
-                        <select name="aracModel" id="aracModel">
-                            <option value="{{$arac->model}}" disabled selected>{{$arac->model}}</option>
-                            @foreach ($marka->AracModel as $model)
-                            <option value="{{$model->name}}">{{$model->name}}</option>
-                            @endforeach
-                        </select>
+                        
+                        <input  name="aracModel" value="{{$arac->model}}" id="aracModel" type="text" class="validate">
+                        <label for="aracModel">Model</label>
                     </div>
                 </div>
 
