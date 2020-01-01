@@ -79,15 +79,26 @@
       </div>
       <div class="row">
         <div class="input-field col s6 m6 l6">
-          <p class="margin medium-small"><a href="{{ route('register') }}">Kayıt Ol!</a></p>
+          
         </div>
         <div class="input-field col s6 m6 l6">
-          <p class="margin right-align medium-small"><a href="{{ route('password.request') }}">Şifreni mi Unuttun ?</a></p>
+          
+        </div>
+        <div class="input-field col s12 m12 l12">
+          <a data-target="modalvideo"
+            class="btn waves-effect waves-light border-round gradient-45deg-purple-deep-yellow col s12 modal-trigger ">Tanıtım Videosunu İzleyiniz</a>
         </div>
       </div>
     </form>
   </div>
 </div>
+  <div id="modalvideo" class="modal modal-fixed-footer">
+      <div class="modal-content">
+        <video width="100%" height="100%" controls>
+          <source src="uploads/otogarajtanitim.mp4" type="video/mp4">
+        </video>
+    </div>
+  </div>
         </div>
       </div>
     </div>
@@ -103,5 +114,18 @@
     <!-- END THEME  JS-->
     <!-- BEGIN PAGE LEVEL JS-->
     <!-- END PAGE LEVEL JS-->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.modal');
+    var instances = M.Modal.init(elems, options);
+  });
+
+  // Or with jQuery
+
+  $(document).ready(function(){
+    $('.modal').modal();
+  });
+      
+    </script>
   </body>
 </html>

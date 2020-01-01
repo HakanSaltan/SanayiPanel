@@ -139,6 +139,7 @@ class AdminController extends Controller
                 $arac = new Arac();
                 $arac->musteri_id ="0";
                 $arac->user_id = Auth::user()->id;
+                $arac->plaka = $plaka;
                 $arac->marka = $marka;
                 $arac->sase = $sase;
                 $arac->km = $km;

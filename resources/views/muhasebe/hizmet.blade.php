@@ -279,7 +279,7 @@
 
                     M.toast({html: 'İşlem başarılı!', classes: "green"});
                     vm.yapilan_hizmetler = [];
-                    location.href = "/aracDetay/";
+                    location.href = "/araclarim";
                 })
                 .catch(e => {
                     console.log(e);
