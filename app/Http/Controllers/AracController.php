@@ -61,7 +61,6 @@ class AracController extends Controller
         
         $plaka =  $req['plaka'];
         $aracSayi = Arac::where('plaka', '=',$plaka)->count();
-        var_dump($aracSayi);
         if($aracSayi > 0){
             $sonuc = $this->sonuc(true);
 

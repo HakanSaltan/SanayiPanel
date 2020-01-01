@@ -264,6 +264,7 @@
                 plaka: plaka,
             })
             .then(res => {
+                console.log(res);
                 if(res.data.sonuc)
                 location.href = "/aracDetay/"+plaka;   
                 else {
